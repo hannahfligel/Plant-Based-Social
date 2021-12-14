@@ -6,20 +6,18 @@
 
 - [x] Get username from user table 
 - [x] Get recipe types from recipe_type table 
-- [] Get all recipes from recipe table and likes from liked_recipes table 
-- [] Get all recipes where the recipe type was selected 
+- [x] Get all recipes from recipe table and likes from liked_recipes table 
+- [x] Get all recipes where the recipe type was selected 
 
 ### View recipe page 
- - [] Get all from recipes table
- - [] Get all from ingredients table (where it matches the recipe id)
- - [] Get all from instructions table (where it matches the recipe id)
- - [] Get all from liked_recipes table 
- - [] Post to liked recipes table
- - [] Post to saved_recipes table 
+ - [x] Get all from recipes table
+ - [x] Get all from ingredients table (where it matches the recipe id)
+ - [x] Get all from instructions table (where it matches the recipe id)
+ - [x] Post to liked recipes table
+ - [x] Post to saved_recipes table 
  
  ### Saved recipes page 
-- [] Get recipe types from saved_recipes table (where the user id = the user_id)
-- [] Get all recipes from recipe table and likes from liked_recipes table 
+- [x] Get recipe types from saved_recipes table (where the user.id = the user_id)
 
 
 ### admin nav bar add recipe button 

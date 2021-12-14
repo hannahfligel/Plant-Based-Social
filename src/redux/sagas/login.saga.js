@@ -58,6 +58,7 @@ function* logoutUser(action) {
   }
 }
 
+//sagawatcher
 function* loginSaga() {
   yield takeLatest('LOGIN', loginUser);
   yield takeLatest('LOGOUT', logoutUser);
