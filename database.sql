@@ -204,7 +204,7 @@ GROUP BY
 ;
 
 
--- Get all recipes accoring to recipe type (3 will be replaces with a dynamic number)
+-- Get all recipes accoring to recipe type (3 will be replaces with a dynamic number) for the homepage filtering 
 SELECT 
     *
 FROM 
@@ -231,7 +231,7 @@ WHERE
 
 
 
--- Get all from ingredients for a specific recipe  (1 will be replaces with a dynamic number or whatever id the recipe is)
+-- Get all from instructions for a specific recipe  (1 will be replaces with a dynamic number or whatever id the recipe is)
 SELECT 
     *
  FROM
@@ -276,6 +276,33 @@ ON
     liked_recipes.recipes_id = recipes.id
 WHERE 
     saved_recipes.user_id=1
+GROUP BY 
+    recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
+;
+
+
+
+-- Get recipe type for a specific recipe 
+SELECT
+*
+FROM
+recipe_types
+WHERE 
+recipe_types.id = 1;
+
+
+
+-- Get all information for recipe page 
+SELECT
+    recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+FROM 
+    recipes 
+JOIN 
+    liked_recipes 
+ON
+    liked_recipes.recipes_id=recipes.id
+WHERE
+	recipes.id=1
 GROUP BY 
     recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
 ;

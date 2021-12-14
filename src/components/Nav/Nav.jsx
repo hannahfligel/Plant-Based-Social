@@ -22,6 +22,7 @@ function Nav() {
         }
 
         {/* If a user is logged in, show these links */}
+        {/* {this will be changed to user.admin} */}
         {user.id && (
           <>
             <Link className="navLink" to="/user">

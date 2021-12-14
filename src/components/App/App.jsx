@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import RecipePage from '../RecipePage/RecipePage';
 
 import './App.css';
 
@@ -108,6 +109,14 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
+          </Route>
+
+          {/* route to allow both visitors & users to access recipe page */}
+          <Route
+            exact
+            path="/recipe-page"
+          >
+            <RecipePage />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
