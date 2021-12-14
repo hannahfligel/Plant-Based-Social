@@ -60,6 +60,16 @@ const specificRecipeTypeReducer = (state = {}, action) => {
 
 
 
+const savedRecipesReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_SAVED_RECIPES':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+
   
   // user will be on the redux state at:
   // state.user
@@ -71,5 +81,6 @@ const specificRecipeTypeReducer = (state = {}, action) => {
     recipeInstructionsReducer,
     recipeTypesReducer,
     specificRecipeTypeReducer,
+    savedRecipesReducer,
   });
   

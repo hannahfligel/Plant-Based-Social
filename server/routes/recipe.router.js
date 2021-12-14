@@ -29,7 +29,7 @@ router.get("/recipeCardInfo", (req, res) => {
 });
 
 
-//GET route
+//GET route to get general information for recipes (will go into recipe cards)
 router.get("/recipePageInfo", (req, res) => {
   const query = `
     SELECT
@@ -55,6 +55,46 @@ router.get("/recipePageInfo", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+
+//GET route to get general information for recipes (will go into recipe cards) for the saved recipes of a specific user 
+router.get("/saved-recipes", (req, res) => {
+  const query = `
+    SELECT 
+      recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+    FROM 
+      saved_recipes 
+    JOIN 
+      recipes 
+    ON 
+      recipes.id = saved_recipes.recipes_id
+    JOIN 
+      "user"
+    ON
+      "user".id = saved_recipes.user_id
+    JOIN 
+      liked_recipes
+    ON
+      liked_recipes.recipes_id = recipes.id
+    WHERE 
+      saved_recipes.user_id=1
+    GROUP BY 
+      recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
+    ;`
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all recipe card info", err);
+      res.sendStatus(500);
+    });
+});
+
+
+
 
 
 router.get("/ingredients", (req, res) => {

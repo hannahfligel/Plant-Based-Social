@@ -8,6 +8,7 @@ function* recipeSaga() {
   yield takeLatest('FETCH_RECIPE_INSTRUCTIONS', getRecipeInstructions);
   yield takeLatest('FETCH_RECIPE_TYPES', getRecipeTypes);
   yield takeLatest('FETCH_SPECIFIC_RECIPE_TYPE', getSpecificRecipeType);
+  yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes)
 }
 
 
@@ -103,6 +104,22 @@ function *getSpecificRecipeType(action){
     alert( 'no' );
     console.log( err );
   }
+}
+
+
+function *getSavedRecipes(action){
+    console.log('----->in getSavedRecipes', action)
+    try{
+      const response = yield axios.get (`/api/recipes/saved-recipes`)
+      console.log('back from getSavedRecipes get:', response.data);
+      yield put({ 
+          type: 'SET_SAVED_RECIPES',
+          payload: response.data
+      })
+  } catch( err ){
+      alert( 'no' );
+      console.log( err );
+    }
 }
 
 export default recipeSaga;

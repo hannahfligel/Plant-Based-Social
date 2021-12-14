@@ -20,6 +20,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RecipePage from '../RecipePage/RecipePage';
+import SavedRecipes from '../SavedRecipes/SavedRecipes';
+
 
 import './App.css';
 
@@ -67,6 +69,14 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/saved-recipes"
+          >
+            <SavedRecipes />
           </ProtectedRoute>
 
           <Route
@@ -118,6 +128,8 @@ function App() {
           >
             <RecipePage />
           </Route>
+
+
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
