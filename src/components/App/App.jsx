@@ -21,7 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RecipePage from '../RecipePage/RecipePage';
 import SavedRecipes from '../SavedRecipes/SavedRecipes';
-
+import SharedRecipes from '../SharedRecipes/SharedRecipes';
 
 import './App.css';
 
@@ -40,7 +40,7 @@ function App() {
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          <Redirect exact from="/" to="/landing-page" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
@@ -107,7 +107,7 @@ function App() {
             }
           </Route>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/home"
           >
@@ -119,14 +119,30 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
-          </Route>
+          </ProtectedRoute>
 
-          {/* route to allow both visitors & users to access recipe page */}
-          <Route
+          <ProtectedRoute
+            exact
+            path="/shared-recipes"
+          >
+            <SharedRecipes />
+          </ProtectedRoute>
+          
+
+          <ProtectedRoute
             exact
             path="/recipe-page"
           >
             <RecipePage />
+          </ProtectedRoute>
+
+
+          <Route
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/landing-page"
+          >
+            <LandingPage />
           </Route>
 
 
