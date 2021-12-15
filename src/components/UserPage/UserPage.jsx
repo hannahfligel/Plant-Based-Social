@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RecipeTypeButtons from '../RecipeTypeButtons/RecipeTypeButtons';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import RecipeCard from '../RecipeCard/RecipeCard';
 
 
 function UserPage() {
@@ -11,7 +12,7 @@ function UserPage() {
 
   const recipeReducer = useSelector((store) => store.recipeReducer);
   const recipeTypes = useSelector((store) => store.recipeReducer.recipeTypesReducer);
-
+  const recipeCardInfo = useSelector((store) => store.recipeReducer.recipeCardReducer);
 
   useEffect(() => {
     dispatch({ type: "FETCH_RECIPE_CARD_INFO" });
@@ -40,7 +41,12 @@ function UserPage() {
       </div>
       <div>
         <h2>Recipes</h2>
-        {/* map though userpageitam to display the recipe cards?? */}
+        {/* {JSON.stringify(recipeCardInfo)} */}
+        {recipeCardInfo.map((recipeCard) => {
+          return(
+          <RecipeCard key={recipeCard.id} recipe={recipeCard} />
+          );
+        })}
 
       </div>
     </div>
