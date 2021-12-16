@@ -44,7 +44,7 @@ function UserPage() {
         {/* {JSON.stringify(recipeCardInfo)} */}
         {recipeCardInfo.map((recipeCard) => {
           return(
-          <RecipeCard key={recipeCard.id} recipe={recipeCard} />
+          <RecipeCard  key={recipeCard.id} recipe={recipeCard} />
           );
         })}
 
