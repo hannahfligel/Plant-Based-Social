@@ -7,7 +7,7 @@ router.get("/recipeCardInfo", (req, res) => {
   // GET route code here
   const query = `
         SELECT
-            recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+            recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
         FROM 
             recipes 
         JOIN 
@@ -15,7 +15,7 @@ router.get("/recipeCardInfo", (req, res) => {
         ON
             liked_recipes.recipes_id=recipes.id
         GROUP BY 
-            recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
+            recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
         ;`;
   pool
     .query(query)
