@@ -1,3 +1,4 @@
+const { query } = require("express");
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
@@ -30,10 +31,11 @@ router.get("/recipeCardInfo", (req, res) => {
 
 
 //GET route to get general information for recipes (will go into recipe cards)
-router.get("/recipePageInfo", (req, res) => {
+router.get("/recipePageInfo/:id", (req, res) => {
+  console.log("REQ.PARAMS----->",req.params);
   const query = `
     SELECT
-      recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+      recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
     FROM 
       recipes 
     JOIN 
@@ -41,9 +43,9 @@ router.get("/recipePageInfo", (req, res) => {
     ON
       liked_recipes.recipes_id=recipes.id
     WHERE
-      recipes.id=1
+      recipes.id=${req.params.id}
     GROUP BY 
-      recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
+      recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
     ;`
   pool
     .query(query)
@@ -97,7 +99,7 @@ router.get("/saved-recipes", (req, res) => {
 
 
 
-router.get("/ingredients", (req, res) => {
+router.get("/ingredients/:id", (req, res) => {
   // GET route code here
   const query = `
     SELECT 
@@ -105,7 +107,7 @@ router.get("/ingredients", (req, res) => {
     FROM 
       ingredients
     WHERE
-      ingredients.recipe_id=1
+      ingredients.recipe_id=${req.params.id}
     ;`
   pool
     .query(query)
@@ -120,7 +122,7 @@ router.get("/ingredients", (req, res) => {
 
 
 
-router.get("/instructions", (req, res) => {
+router.get("/instructions/:id", (req, res) => {
   // GET route code here
   const query = `
     SELECT 
@@ -128,7 +130,7 @@ router.get("/instructions", (req, res) => {
     FROM
       instructions
     WHERE 
-      instructions.recipe_id=1
+      instructions.recipe_id=${req.params.id}
     ;`
   pool
     .query(query)
@@ -184,8 +186,17 @@ router.get("/specific-recipe-type", (req, res) => {
 /**
  * POST route template
  */
-router.post("/", (req, res) => {
+router.post("/add-like", (req, res) => {
   // POST route code here
+  console.log("req.body----------------------->", req.body.recipeId)
+  const queryString = `INSERT INTO "liked_recipes" (user_id, recipes_id) VALUES ($1, $2);`;
+  value = [req.body.userId, req.body.recipeId];
+  pool.query( queryString, value ).then( (results)=>{
+    res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
 });
 
 module.exports = router;

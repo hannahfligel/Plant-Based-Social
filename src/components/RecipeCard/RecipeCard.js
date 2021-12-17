@@ -14,25 +14,19 @@ function RecipeCard(props) {
 
   const history = useHistory();
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_RECIPE_PAGE_INFO" });
-  }, []);
 
   const recipe_type = useSelector((store) => store.recipeReducer.specificRecipeTypeReducer);
 
   const recipePage = (recipe) => {
-
     dispatch({ type: "FETCH_RECIPE_PAGE_INFO", payload: recipe.id });
     dispatch({ type: "FETCH_RECIPE_INGREDIENTS", payload: recipe.id });
     dispatch({ type: "FETCH_RECIPE_INSTRUCTIONS", payload: recipe.id });
     dispatch({ type: "FETCH_SPECIFIC_RECIPE_TYPE", payload: recipe.id });
     // navigate to /details page
     history.push("/recipe-page");
-
   };
 
   return (
-    <div>
       <Card onClick={() => recipePage(props.recipe)}>
         {/* {JSON.stringify(props)} */}
         <img src={props.recipe.image_url}/>
@@ -41,7 +35,6 @@ function RecipeCard(props) {
         <p>{props.recipe.prep_hours} hours {props.recipe.prep_minutes} minutes</p>
         <p>{props.recipe.likes} likes</p>
       </Card>
-    </div>
   );
 }
 

@@ -9,11 +9,27 @@ function* recipeSaga() {
   yield takeLatest('FETCH_RECIPE_TYPES', getRecipeTypes);
   yield takeLatest('FETCH_SPECIFIC_RECIPE_TYPE', getSpecificRecipeType);
   yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes)
+  yield takeLatest('ADD_NEW_LIKE', addLike)
+}
+
+
+function *addLike(action){
+ console.log('in addLike---->', action.payload)
+ try{
+ const response = yield axios.post('/api/recipes/add-like', action.payload);
+//  addLike();
+//  yield put ({
+//      type:'SET_NEW_LIKE',
+//      payload: response.data
+//  });
+} catch (error){
+    console.log('Widget get request failed', error);
+}
 }
 
 
 function *getRecipeCardInfo(action){
-    console.log('----->in getRecipeCardInfo', action)
+    console.log('----->in getRecipeCardInfo', action.payload)
     try{
         const response = yield axios.get (`/api/recipes/recipeCardInfo`)
         console.log('back from recipeCardInfo get:', response.data);
@@ -28,9 +44,9 @@ function *getRecipeCardInfo(action){
 }
 
 function *getRecipePageInfo(action){
-  console.log('----->in getRecipePageInfo', action)
+  console.log('----->in getRecipePageInfo', action.payload)
   try{
-      const response = yield axios.get (`/api/recipes/recipePageInfo`)
+      const response = yield axios.get (`/api/recipes/recipePageInfo/${action.payload}`)
       console.log('back from getRecipePageInfo get:', response.data);
       yield put({ 
           type: 'SET_RECIPE_PAGE_INFO',
@@ -46,7 +62,7 @@ function *getRecipePageInfo(action){
 function *getRecipeIngredients(action){
   console.log('----->in getRecipeIngredients', action)
   try{
-      const response = yield axios.get (`/api/recipes/ingredients`)
+      const response = yield axios.get (`/api/recipes/ingredients/${action.payload}`)
       console.log('back from getRecipeIngredients get:', response.data);
       yield put({ 
           type: 'SET_RECIPE_INGREDIENTS',
@@ -62,7 +78,7 @@ function *getRecipeIngredients(action){
 function *getRecipeInstructions(action){
   console.log('----->in getRecipeInstructions', action)
   try{
-      const response = yield axios.get (`/api/recipes/instructions`)
+      const response = yield axios.get (`/api/recipes/instructions/${action.payload}`)
       console.log('back from getRecipeInstructions get:', response.data);
       yield put({ 
           type: 'SET_RECIPE_INSTRUCTIONS',
