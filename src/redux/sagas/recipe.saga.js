@@ -21,7 +21,8 @@ function *getRecipesByType(action){
         //perform an axios get req to send the id (action.payload) of the recipe type to only receive the recipes that fall under that recipe type 
         const response = yield axios.get (`/api/recipes/recipeCardInfo/${action.payload}`)
         console.log('back from recipeCardInfo get:', response.data);
-        yield put({ 
+        //dispatch SET_RECIPE_CARD_INFO' with the payload of what was sent back from the db 
+        yield put({
             type: 'SET_RECIPE_CARD_INFO',
             payload: response.data
         })

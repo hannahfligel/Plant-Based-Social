@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-
+//on page load, recipeCardReducer hold all the recipes. 
+//on the click of a filter button, it gets replaced with the specific recipes depending on the type selected 
 const recipeCardReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_RECIPE_CARD_INFO':

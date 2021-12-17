@@ -33,8 +33,7 @@ function UserPage() {
         {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}
         {recipeTypes.map((recipeType) => {
                 return (
-                  //onClick, run the details function and passing it the individual movie info that was clicked on
-                  //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name"
+                  //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name" and the id as "id"
                   <RecipeTypeButtons key={recipeType.id} name={recipeType.recipe_type} id={recipeType.id}/>
                 );
               })}

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name RecipeTypeButtons with the name for the new component.
+//props holds the recipe type as "name" and the id as "id"
 function RecipeTypeButtons(props) {
 
   const dispatch = useDispatch();
