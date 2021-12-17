@@ -35,7 +35,7 @@ function UserPage() {
                 return (
                   //onClick, run the details function and passing it the individual movie info that was clicked on
                   //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name"
-                  <RecipeTypeButtons key={recipeType.id} name={recipeType.recipe_type}/>
+                  <RecipeTypeButtons key={recipeType.id} name={recipeType.recipe_type} id={recipeType.id}/>
                 );
               })}
       </div>
@@ -44,7 +44,7 @@ function UserPage() {
         {/* {JSON.stringify(recipeCardInfo)} */}
         {recipeCardInfo.map((recipeCard) => {
           return(
-          <RecipeCard  key={recipeCard.id} recipe={recipeCard} />
+          <RecipeCard key={recipeCard.id} recipe={recipeCard} />
           );
         })}
 

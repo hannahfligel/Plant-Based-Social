@@ -8,10 +8,28 @@ function* recipeSaga() {
   yield takeLatest('FETCH_RECIPE_INSTRUCTIONS', getRecipeInstructions);
   yield takeLatest('FETCH_RECIPE_TYPES', getRecipeTypes);
   yield takeLatest('FETCH_SPECIFIC_RECIPE_TYPE', getSpecificRecipeType);
-  yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes)
-  yield takeLatest('ADD_NEW_LIKE', addLike)
+  yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes);
+  yield takeLatest('ADD_NEW_LIKE', addLike);
+  yield takeLatest('FETCH_RECIPES_BY_TYPE', getRecipesByType);
 }
 
+
+
+function *getRecipesByType(action){
+    console.log("in getRecipesByType", action.payload);
+    try{
+        //perform an axios get req to send the id (action.payload) of the recipe type to only receive the recipes that fall under that recipe type 
+        const response = yield axios.get (`/api/recipes/recipeCardInfo/${action.payload}`)
+        console.log('back from recipeCardInfo get:', response.data);
+        yield put({ 
+            type: 'SET_RECIPE_CARD_INFO',
+            payload: response.data
+        })
+    } catch( err ){
+        alert( 'no' );
+        console.log( err );
+      }
+}
 
 function *addLike(action){
  console.log('in addLike---->', action.payload)
@@ -23,7 +41,7 @@ function *addLike(action){
 //      payload: response.data
 //  });
 } catch (error){
-    console.log('Widget get request failed', error);
+    console.log('get request failed', error);
 }
 }
 

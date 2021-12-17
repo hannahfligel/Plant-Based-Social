@@ -34,7 +34,11 @@ function Nav() {
               Saved
             </Link>
 
-        
+            <Link className="navLink" to="/add-recipe">
+              Add
+            </Link>
+
+
             <Link className="navLink" to="/shared-recipes">
               Shared
             </Link>
@@ -42,6 +46,9 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
+
+
+
 
         {user.id ? 
            <>

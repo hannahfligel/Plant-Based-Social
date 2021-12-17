@@ -8,15 +8,32 @@ router.get("/recipeCardInfo", (req, res) => {
   // GET route code here
   const query = `
         SELECT
-            recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+            *
         FROM 
             recipes 
-        JOIN 
-            liked_recipes 
-        ON
-            liked_recipes.recipes_id=recipes.id
-        GROUP BY 
-            recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
+        ;`;
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all recipe card info", err);
+      res.sendStatus(500);
+    });
+});
+
+
+//GET route to get info the the specific recipe type selected 
+router.get("/recipeCardInfo/:id", (req, res) => {
+  // GET route code here
+  const query = `
+        SELECT
+            *
+        FROM 
+            recipes
+        WHERE
+          recipes.recipe_type_id = ${req.params.id}
         ;`;
   pool
     .query(query)
@@ -179,7 +196,6 @@ router.get("/specific-recipe-type", (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 
 

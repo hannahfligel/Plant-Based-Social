@@ -14,8 +14,8 @@ function RecipeCard(props) {
 
   const history = useHistory();
 
-
   const recipe_type = useSelector((store) => store.recipeReducer.specificRecipeTypeReducer);
+
 
   const recipePage = (recipe) => {
     dispatch({ type: "FETCH_RECIPE_PAGE_INFO", payload: recipe.id });
@@ -33,7 +33,6 @@ function RecipeCard(props) {
         <h3>{props.recipe.recipe_name}</h3>
         {/* will need to add conditional rendering for displaying hour & min info for prep time */}
         <p>{props.recipe.prep_hours} hours {props.recipe.prep_minutes} minutes</p>
-        <p>{props.recipe.likes} likes</p>
       </Card>
   );
 }

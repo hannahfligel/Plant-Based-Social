@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import RecipePage from '../RecipePage/RecipePage';
 import SavedRecipes from '../SavedRecipes/SavedRecipes';
 import SharedRecipes from '../SharedRecipes/SharedRecipes';
+import AddRecipe from '../AddRecipe/AddRecipe';
 
 
 import './App.css';
@@ -62,6 +63,14 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/add-recipe"
+          >
+            <AddRecipe />
           </ProtectedRoute>
 
           <ProtectedRoute
