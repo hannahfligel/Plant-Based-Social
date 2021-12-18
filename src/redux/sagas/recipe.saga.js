@@ -16,6 +16,7 @@ function* recipeSaga() {
 
 
 function *getRecipesByType(action){
+    // action.payload holds the recipe type's id 
     console.log("in getRecipesByType", action.payload);
     try{
         //perform an axios get req to send the id (action.payload) of the recipe type to only receive the recipes that fall under that recipe type 

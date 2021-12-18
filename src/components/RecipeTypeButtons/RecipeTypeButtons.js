@@ -20,7 +20,8 @@ function RecipeTypeButtons(props) {
 
   return (
     // onClick of a button, run the filter function 
-    <button onClick={filter}>{props.name}</button> //<---props.name is coming from UserPage
+    //props.name is coming from UserPage & holds the name of the recipe type
+    <button onClick={filter}>{props.name}</button> 
 
     
   );
