@@ -14,10 +14,18 @@ function UserPage() {
   const recipeTypes = useSelector((store) => store.recipeReducer.recipeTypesReducer);
   const recipeCardInfo = useSelector((store) => store.recipeReducer.recipeCardReducer);
 
+
   useEffect(() => {
+    //on pageLoad, FETCH_RECIPE_CARD_INFO gets all the recipe cards 
     dispatch({ type: "FETCH_RECIPE_CARD_INFO" });
+    //on pageLoad, FETCH_RECIPE_TYPES gets all the recipe types 
     dispatch({ type:"FETCH_RECIPE_TYPES"});
   }, []);
+
+  //allButton shows all recipes on the click of the all button 
+  const allButton = () => {
+    dispatch({ type: "FETCH_RECIPE_CARD_INFO" });
+  }
 
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
@@ -31,6 +39,7 @@ function UserPage() {
         <h2>Filter by meal</h2>
 
         {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}
+        <button onClick={allButton}>All</button>
         {recipeTypes.map((recipeType) => {
                 return (
                   //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name" and the id as "id"

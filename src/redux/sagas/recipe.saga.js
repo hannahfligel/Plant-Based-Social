@@ -23,6 +23,7 @@ function *getRecipesByType(action){
         const response = yield axios.get (`/api/recipes/recipeCardInfo/${action.payload}`)
         console.log('back from recipeCardInfo get:', response.data);
         //dispatch SET_RECIPE_CARD_INFO' with the payload of what was sent back from the db 
+        //this will replace whatever was in 
         yield put({
             type: 'SET_RECIPE_CARD_INFO',
             payload: response.data
@@ -37,11 +38,6 @@ function *addLike(action){
  console.log('in addLike---->', action.payload)
  try{
  const response = yield axios.post('/api/recipes/add-like', action.payload);
-//  addLike();
-//  yield put ({
-//      type:'SET_NEW_LIKE',
-//      payload: response.data
-//  });
 } catch (error){
     console.log('get request failed', error);
 }
