@@ -13,12 +13,23 @@ function AddRecipe(props) {
 
   const store = useSelector((store) => store);
 
+
   const recipeTypes = useSelector(
     (store) => store.recipeReducer.recipeTypesReducer
   );
 
   const [newRecipe, setNewRecipe] = useState({
-    recipe_type_id: 0, //<-- since genre will be placed into the movies_genres junction table, only the id is needed rather than the name
+    image_url: "",
+    recipe_name: "",
+    recipe_description: "",
+    difficulty: 0,
+    prep_hours: "",
+    prep_minutes: "",
+    servings:"",
+    ingredients:"",
+    ingredient_amount:"",
+    instruction:"",
+    recipe_type_id: 0
   });
 
   useEffect(() => {
@@ -29,14 +40,23 @@ function AddRecipe(props) {
     history.push("/user");
   };
 
+  const submit = () => {
+    console.log ("NEWRECIPE", newRecipe);
+  }
+
   return (
     <div>
-      {/* currently goes back to the userpage */}
-      <button onClick={back}>BACK</button>{/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
+      {/* currently goes back to the /userpage */}
+      <button onClick={back} >BACK</button>{/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
 
-      <input placeholder="Recipe image url" />
-      <input placeholder="Recipe name" />
-      <textarea placeholder="recipe description" />
+      {/* input for image_url */}
+      <input onChange={(event)=> setNewRecipe ({...newRecipe, image_url: event.target.value})} placeholder="Recipe image url" />
+      
+      {/* input for recipe_name */}
+      <input onChange={(event)=> setNewRecipe ({...newRecipe, recipe_name: event.target.value})}  placeholder="Recipe name" />
+
+      {/* input for recipe_description */}
+      <textarea onChange={(event)=> setNewRecipe ({...newRecipe, recipe_description: event.target.value})} placeholder="recipe description" />
 
       {/* recipe type dropdown */}
       <label htmlFor="recipeInput">
@@ -60,42 +80,46 @@ function AddRecipe(props) {
         </select>
       </label>
 
+      {/* difficulty dropdown */}
       <label htmlFor="recipeInput">
         difficulty
-        <select>
+        <select onChange={(event)=> setNewRecipe ({...newRecipe, difficulty: event.target.value})}>
           <option>Select</option>
-          <option>Easy</option>
-          <option>Intermediate</option>
-          <option>Difficult</option>
+          <option value="1">Easy</option>
+          <option value="2">Intermediate</option>
+          <option value="3">Difficult</option>
         </select>
       </label>
       
+      {/* prep time input (hours & minutes) */}
       <label>
         prep time:
-          <input placeholder="hours" type="number"/>
-          <input placeholder="minutes" type="number"/>
+          <input onChange={(event)=> setNewRecipe ({...newRecipe, prep_minutes: event.target.value})} placeholder="hours" type="number"/>
+          <input onChange={(event)=> setNewRecipe ({...newRecipe, prep_hours: event.target.value})} placeholder="minutes" type="number"/>
       </label>
 
+      {/* servings input */}
       <label>
         Servings:
-          <input placeholder="servings" type="number"/>
+          <input onChange={(event)=> setNewRecipe ({...newRecipe, servings: event.target.value})} placeholder="servings" type="number"/>
       </label>
 
       <h3>Ingredients</h3>
       <label>
-          <input placeholder="ingredient"/>
-          <input placeholder="amount"/>
+          <input onChange={(event)=> setNewRecipe ({...newRecipe, ingredients: event.target.value})}  placeholder="ingredient"/>
+          <input onChange={(event)=> setNewRecipe ({...newRecipe, ingredient_amount: event.target.value})} placeholder="amount"/>
       </label>
       <button>Add ingredient</button>
 
       <h3>Instructions</h3>
       <label>
-          <input placeholder="instruction"/>
+          <input onChange={(event)=> setNewRecipe ({...newRecipe, instruction: event.target.value})}  placeholder="instruction"/>
           <input placeholder="amount"/>
       </label>
       <button>Add instruction</button>
 
-      <button>Submit recipe</button>
+      <button onClick={submit}>Submit recipe</button>
+
 
     </div>
   );
