@@ -1,5 +1,9 @@
 import axios from 'axios';
+import { use } from 'passport';
 import { put, takeLatest } from 'redux-saga/effects';
+// import { useHistory } from "react-router";
+
+// const history = useHistory();
 
 function* recipeSaga() {
   yield takeLatest('FETCH_RECIPE_CARD_INFO', getRecipeCardInfo);
@@ -48,6 +52,15 @@ function *addRecipe(action){
     console.log('in addRecipe------>', action.payload);
     try{
         const response = yield axios.post('/api/recipes/add-recipe', action.payload);
+        //run the getRecipePageInfo recipe function to get the new recipe's information and save it in the store
+        //send response.data.id that holds the id of the new created recipe
+        const newRecipeId = response.data.id;
+        console.log("New Recipe ID ------->", newRecipeId);
+        console.log("BACK FROM SERVER------>",response.data)
+        yield put({
+            type:'SET_RECIPE_PAGE_INFO',
+            payload: response.data
+        })
        } catch (error){
            console.log('get request failed', error);
        }

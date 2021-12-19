@@ -214,14 +214,29 @@ router.post("/add-like", (req, res) => {
 router.post("/add-recipe", (req, res) => {
   // POST route code here
   console.log("req.body----------------------->", req.body)
-  const queryString = `INSERT INTO "recipes" (recipe_name) VALUES ($1);`;
+  //queryString insets into the recipes table the new recipe_name and returns the id of that new recipe 
+  const queryString = `INSERT INTO "recipes" (recipe_name) VALUES ($1) RETURNING "id";`;
+  //value holds the recipe that was bought in the saga 
   value = [req.body.recipe_name];
-  pool.query( queryString, value ).then( (results)=>{
-    res.sendStatus( 200 );
+  pool.query( queryString, value )
+  .then( (result)=>{
+    console.log("new recipe id---->",result.rows[0].id);
+    //newRecipeId holds the returned id from the new recipe that was added
+    const newRecipeId = result.rows[0].id
+    //getRecipeQuery selects all from the recipes table where the id matches the new recipe id 
+    const getRecipeQuery = `SELECT * FROM recipes WHERE id=${newRecipeId};`
+    //run the getRecipeQuery
+    pool.query(getRecipeQuery)
+    //then, send the results back to the saga 
+    .then(result => {
+      console.log('newItemQuery Result:', result.rows);
+      res.send(result.rows);
+    })
   }).catch( (err)=>{
     console.log( err );
     res.sendStatus( 500 );
-  })
+  });
 });
+
 
 module.exports = router;

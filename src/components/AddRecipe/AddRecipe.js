@@ -18,6 +18,8 @@ function AddRecipe(props) {
     (store) => store.recipeReducer.recipeTypesReducer
   );
 
+  const recipeInfo = useSelector((store) => store.recipeReducer.recipePageReducer)
+
 
   //copy to AddButton component 
   const [newRecipe, setNewRecipe] = useState({
@@ -52,13 +54,17 @@ function AddRecipe(props) {
       <button onClick={back} >BACK</button>{/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
 
       {/* input for image_url */}
-      <input onChange={(event)=> setNewRecipe ({...newRecipe, image_url: event.target.value})} placeholder="Recipe image url" />
+      <input
+        onChange={(event)=> setNewRecipe({...newRecipe, image_url: event.target.value})} 
+        placeholder="Recipe image url" 
+        defaultValue={recipeInfo.image_url} 
+      />
       
       {/* input for recipe_name */}
-      <input onChange={(event)=> setNewRecipe ({...newRecipe, recipe_name: event.target.value})}  placeholder="Recipe name" />
+      <input onChange={(event)=> setNewRecipe({...newRecipe, recipe_name: event.target.value})} defaultValue={recipeInfo.recipe_name} placeholder="Recipe name" />
 
       {/* input for recipe_description */}
-      <textarea onChange={(event)=> setNewRecipe ({...newRecipe, recipe_description: event.target.value})} placeholder="recipe description" />
+      <textarea onChange={(event)=> setNewRecipe({...newRecipe, recipe_description: event.target.value})} placeholder="recipe description" />
 
       {/* recipe type dropdown */}
       <label htmlFor="recipeInput">
@@ -121,7 +127,7 @@ function AddRecipe(props) {
       <button>Add instruction</button>
 
       <button onClick={submit}>Submit recipe</button>
-
+    
 
     </div>
   );
