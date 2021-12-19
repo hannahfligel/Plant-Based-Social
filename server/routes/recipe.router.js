@@ -52,17 +52,11 @@ router.get("/recipePageInfo/:id", (req, res) => {
   console.log("REQ.PARAMS----->",req.params);
   const query = `
     SELECT
-      recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+      *
     FROM 
       recipes 
-    JOIN 
-      liked_recipes 
-    ON
-      liked_recipes.recipes_id=recipes.id
     WHERE
       recipes.id=${req.params.id}
-    GROUP BY 
-      recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
     ;`
   pool
     .query(query)
