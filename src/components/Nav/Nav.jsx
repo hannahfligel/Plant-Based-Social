@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import AddRecipeButton from '../AddRecipeButton/AddRecipeButton';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -34,17 +35,17 @@ function Nav() {
               Saved
             </Link>
 
-            <Link className="navLink" to="/add-recipe">
-              Add
-            </Link>
-
-
             <Link className="navLink" to="/shared-recipes">
               Shared
             </Link>
 
             <LogOutButton className="navLink" />
           </>
+        )}
+
+
+        {user.admin && (
+            <AddRecipeButton/>
         )}
 
 

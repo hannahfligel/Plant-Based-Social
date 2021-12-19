@@ -11,6 +11,7 @@ function* recipeSaga() {
   yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes);
   yield takeLatest('ADD_NEW_LIKE', addLike);
   yield takeLatest('FETCH_RECIPES_BY_TYPE', getRecipesByType);
+  yield takeLatest('ADD_RECIPE', addRecipe);
 }
 
 
@@ -35,14 +36,22 @@ function *getRecipesByType(action){
 }
 
 function *addLike(action){
- console.log('in addLike---->', action.payload)
- try{
- const response = yield axios.post('/api/recipes/add-like', action.payload);
-} catch (error){
-    console.log('get request failed', error);
-}
+    console.log('in addLike---->', action.payload)
+    try{
+        const response = yield axios.post('/api/recipes/add-like', action.payload);
+    } catch (error){
+        console.log('get request failed', error);
+    }
 }
 
+function *addRecipe(action){
+    console.log('in addRecipe------>', action.payload);
+    try{
+        const response = yield axios.post('/api/recipes/add-recipe', action.payload);
+       } catch (error){
+           console.log('get request failed', error);
+       }
+}
 
 function *getRecipeCardInfo(action){
     console.log('----->in getRecipeCardInfo', action.payload)

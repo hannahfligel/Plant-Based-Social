@@ -18,6 +18,8 @@ function AddRecipe(props) {
     (store) => store.recipeReducer.recipeTypesReducer
   );
 
+
+  //copy to AddButton component 
   const [newRecipe, setNewRecipe] = useState({
     image_url: "",
     recipe_name: "",

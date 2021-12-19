@@ -209,4 +209,19 @@ router.post("/add-like", (req, res) => {
   })
 });
 
+
+
+router.post("/add-recipe", (req, res) => {
+  // POST route code here
+  console.log("req.body----------------------->", req.body)
+  const queryString = `INSERT INTO "recipes" (recipe_name) VALUES ($1);`;
+  value = [req.body.recipe_name];
+  pool.query( queryString, value ).then( (results)=>{
+    res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
 module.exports = router;
