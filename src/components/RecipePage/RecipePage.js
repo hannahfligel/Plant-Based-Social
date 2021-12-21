@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Ingredient from "../Ingredient/Ingredient";
 import Instruction from '../Instruction/Instruction';
 import AddLikeButton from "../AddLikeButton/AddLikeButton";
-
+import EditRecipeButton from "../EditRecipeButton/EditRecipeButton";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -40,9 +40,9 @@ function RecipePage(props) {
 
   return (
     <div>
-
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id}/>
+      <EditRecipeButton/>
       {/* {JSON.stringify(recipeGeneralInfo.id)} */}
   
       <p>{recipeGeneralInfo.difficulty}</p>
