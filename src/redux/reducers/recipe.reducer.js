@@ -29,6 +29,8 @@ const recipePageReducer = (state = [], action) => {
 
 const recipeIngredientsReducer = (state = [], action) => {
   switch (action.type) {
+    case'RESET_RECIPE_INGREDIENTS':
+      return [];
     case 'SET_RECIPE_INGREDIENTS':
       return action.payload;
     default:
@@ -38,6 +40,8 @@ const recipeIngredientsReducer = (state = [], action) => {
 
 const recipeInstructionsReducer = (state = [], action) => {
   switch (action.type) {
+    case'RESET_RECIPE_INSTRUCTIONS':
+    return [];
     case 'SET_RECIPE_INSTRUCTIONS':
       return action.payload;
     default:

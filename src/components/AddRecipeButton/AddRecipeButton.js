@@ -22,6 +22,12 @@ function AddRecipeButton(props) {
     dispatch({
         type:"RESET_RECIPE_PAGE_INFO"
     })
+    dispatch({
+      type:"RESET_RECIPE_INSTRUCTIONS"
+    })
+    dispatch({
+      type: "RESET_RECIPE_INGREDIENTS"
+    })
     dispatch({ 
         type: "ADD_RECIPE", 
         payload: newRecipe

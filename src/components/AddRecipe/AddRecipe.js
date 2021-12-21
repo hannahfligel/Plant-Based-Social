@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useHistory } from "react-router-dom";
+import Ingredient from "../Ingredient/Ingredient";
+import Instruction from '../Instruction/Instruction';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -22,6 +24,14 @@ function AddRecipe(props) {
 
   const recipeTypes = useSelector(
     (store) => store.recipeReducer.recipeTypesReducer
+  );
+
+  const ingredients = useSelector(
+    (store) => store.recipeReducer.recipeIngredientsReducer
+  );
+
+  const instructions = useSelector(
+    (store) => store.recipeReducer.recipeInstructionsReducer
   );
 
   const recipeInfo = useSelector((store) => store.recipeReducer.recipePageReducer)
@@ -69,6 +79,10 @@ function AddRecipe(props) {
         id: recipeInfo.id
       }
     })
+      dispatch({
+        type:"FETCH_RECIPE_INGREDIENTS",
+        payload: recipeInfo.id
+      })
   }
 
 
@@ -80,6 +94,10 @@ function AddRecipe(props) {
         newInstruction: newInstruction,
         id: recipeInfo.id
       }
+    })
+    dispatch({
+      type:"FETCH_RECIPE_INSTRUCTIONS",
+      payload: recipeInfo.id
     })
   }
 
@@ -187,6 +205,18 @@ function AddRecipe(props) {
       </label>
       <button onClick={addIngredient}>Add Ingredient</button>
 
+      <ul>
+      {ingredients.map((ingredient) => {
+          return(
+          <Ingredient
+            key={ingredient.id}
+            ingredientName={ingredient.ingredient}
+            ingredientAmount={ingredient.ingredient_amount}
+            ingredientId={ingredient.id}/>
+          );
+        })}
+      </ul>
+
       <h3>Instructions</h3>
       <label>
           <input 
@@ -194,7 +224,20 @@ function AddRecipe(props) {
             placeholder="instruction"
           />
       </label>
+
       <button onClick={addInstruction}>Add instruction</button>
+
+      <ul>
+      {instructions.map((instruction) => {
+          return(
+          <Instruction
+            key={instruction.id}
+            ingredientName={instruction.instruction}
+            ingredientId={instruction.id}/>
+          );
+        })}
+      </ul>
+
 
       <button onClick={submit}>Submit recipe</button>
     
