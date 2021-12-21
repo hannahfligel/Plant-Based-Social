@@ -12,9 +12,11 @@ const recipeCardReducer = (state = [], action) => {
     }
   };
 
-
+//recipePageReducer stores the specific recipe's information 
 const recipePageReducer = (state = [], action) => {
   switch (action.type) {
+    case 'RESET_RECIPE_PAGE_INFO':
+      return [];
     case 'SET_RECIPE_PAGE_INFO':
       return action.payload[0];
     default:

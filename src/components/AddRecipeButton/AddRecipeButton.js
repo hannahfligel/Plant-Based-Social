@@ -15,10 +15,13 @@ function AddRecipeButton(props) {
 
 
   const [newRecipe, setNewRecipe] = useState({
-    recipe_name: "new recipe",
+    recipe_name: "",
   });
 
   const addRecipe = () =>{
+    dispatch({
+        type:"RESET_RECIPE_PAGE_INFO"
+    })
     dispatch({ 
         type: "ADD_RECIPE", 
         payload: newRecipe
@@ -29,11 +32,9 @@ function AddRecipeButton(props) {
 
 
   return (
-    <>
         <Link onClick={addRecipe} className="navLink" to="/add-recipe">
             Add
         </Link>
-    </>
   );
 }
 

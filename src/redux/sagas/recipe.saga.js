@@ -16,9 +16,18 @@ function* recipeSaga() {
   yield takeLatest('ADD_NEW_LIKE', addLike);
   yield takeLatest('FETCH_RECIPES_BY_TYPE', getRecipesByType);
   yield takeLatest('ADD_RECIPE', addRecipe);
+  yield takeLatest('UPDATE_RECIPE', updateRecipe);
 }
 
 
+function *updateRecipe(action){
+    console.log("UPDATED RECIPE--->", action.payload.id)
+    try{
+        const updatedRecipe = yield axios.put(`/api/recipes/update-recipe/${action.payload.id}`, action.payload);
+    } catch {
+        console.log('update recipe error');
+      }
+    }
 
 function *getRecipesByType(action){
     // action.payload holds the recipe type's id 
@@ -54,8 +63,6 @@ function *addRecipe(action){
         const response = yield axios.post('/api/recipes/add-recipe', action.payload);
         //run the getRecipePageInfo recipe function to get the new recipe's information and save it in the store
         //send response.data.id that holds the id of the new created recipe
-        const newRecipeId = response.data.id;
-        console.log("New Recipe ID ------->", newRecipeId);
         console.log("BACK FROM SERVER------>",response.data)
         yield put({
             type:'SET_RECIPE_PAGE_INFO',
@@ -84,6 +91,10 @@ function *getRecipeCardInfo(action){
 function *getRecipePageInfo(action){
   console.log('----->in getRecipePageInfo', action.payload)
   try{
+    //   yield put({
+    //       type: 'SET_RECIPE_PAGE_INFO',
+    //       payload: {}
+    //   })
       const response = yield axios.get (`/api/recipes/recipePageInfo/${action.payload}`)
       console.log('back from getRecipePageInfo get:', response.data);
       yield put({ 

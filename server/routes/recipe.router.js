@@ -239,4 +239,46 @@ router.post("/add-recipe", (req, res) => {
 });
 
 
+router.put('/update-recipe/:id', (req, res) => {
+  // console.log("UPDATE RECIPE -------->",req.body);
+  console.log("UPDATE RECIPE -------->",req.body.newRecipe.image_url);
+  const queryString = `
+    UPDATE
+      "recipes"
+    SET
+      "image_url"=$1,
+      "recipe_name"=$2,
+      "recipe_description"=$3,
+      "difficulty"=$4,
+      "prep_hours"=$5,
+      "prep_minutes"=$6,
+      "servings"=$7,
+      "recipe_type_id"=$8
+    WHERE
+      "id"=$9
+    ;`;
+  const values = [ 
+    req.body.newRecipe.image_url, 
+    req.body.newRecipe.recipe_name, 
+    req.body.newRecipe.recipe_description,
+    req.body.newRecipe.difficulty,
+    req.body.newRecipe.prep_hours,
+    req.body.newRecipe.prep_minutes,
+    req.body.newRecipe.servings,
+    req.body.newRecipe.recipe_type_id,
+    req.body.id 
+  ];
+  pool.query( queryString, values )
+  .then( (results)=>{
+    console.log('PUT RESULTS.ROWS', results.rows);
+    res.send(results.rows[0])
+    // res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
+
+
 module.exports = router;
