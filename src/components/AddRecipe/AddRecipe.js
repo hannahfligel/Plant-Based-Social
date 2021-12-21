@@ -36,11 +36,15 @@ function AddRecipe(props) {
     prep_hours: 0,
     prep_minutes: 0,
     servings: 0,
-    ingredients: "",
-    ingredient_amount: "",
-    instruction: "",
     recipe_type_id: 0,
   });
+
+  const [newIngredient, setNewIngredient] = useState ({
+    ingredient: "",
+    ingredient_amount: "",
+  })
+
+  const [newInstruction, setNewInstruction] = useState ("")
 
   const back = () => {
     history.push("/user");
@@ -54,6 +58,29 @@ function AddRecipe(props) {
         newRecipe: newRecipe, 
         id: recipeInfo.id}
     });
+  }
+
+  const addIngredient = () => {
+    console.log( "New Ingredient------>" ,newIngredient )
+    dispatch({
+      type:"ADD_INGREDIENT",
+      payload: {
+        newIngredient: newIngredient,
+        id: recipeInfo.id
+      }
+    })
+  }
+
+
+  const addInstruction= () => {
+    console.log( "New Instruction------>", newInstruction )
+    dispatch({
+      type:"ADD_INSTRUCTION",
+      payload:{
+        newInstruction: newInstruction,
+        id: recipeInfo.id
+      }
+    })
   }
 
   return (
@@ -150,24 +177,24 @@ function AddRecipe(props) {
       <h3>Ingredients</h3>
       <label>
           <input 
-            onChange={(event)=> setNewRecipe ({...newRecipe, ingredients: event.target.value})}  
+            onChange={(event)=> setNewIngredient ({...newIngredient, ingredient: event.target.value})}  
             placeholder="ingredient"
           />
           <input 
-            onChange={(event)=> setNewRecipe ({...newRecipe, ingredient_amount: event.target.value})} 
+            onChange={(event)=> setNewIngredient ({...newIngredient, ingredient_amount: event.target.value})} 
             placeholder="amount"
           />
       </label>
-      <button>Add ingredient</button>
+      <button onClick={addIngredient}>Add Ingredient</button>
 
       <h3>Instructions</h3>
       <label>
           <input 
-            onChange={(event)=> setNewRecipe ({...newRecipe, instruction: event.target.value})}  
+            onChange={(event)=> setNewInstruction (event.target.value)}  
             placeholder="instruction"
           />
       </label>
-      <button>Add instruction</button>
+      <button onClick={addInstruction}>Add instruction</button>
 
       <button onClick={submit}>Submit recipe</button>
     

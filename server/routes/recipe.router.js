@@ -213,7 +213,7 @@ router.post("/add-like", (req, res) => {
 
 router.post("/add-recipe", (req, res) => {
   // POST route code here
-  console.log("req.body----------------------->", req.body)
+  console.log("req.body----------->", req.body)
   //queryString insets into the recipes table the new recipe_name and returns the id of that new recipe 
   const queryString = `INSERT INTO "recipes" (recipe_name) VALUES ($1) RETURNING "id";`;
   //value holds the recipe that was bought in the saga 
@@ -237,6 +237,52 @@ router.post("/add-recipe", (req, res) => {
     res.sendStatus( 500 );
   });
 });
+
+
+
+router.post("/add-ingredient", (req, res)=>{
+  console.log("req.body=====>", req.body.newIngredient.ingredient_amount)
+  const queryString = ` INSERT INTO "ingredients" (ingredient, ingredient_amount, recipe_id)
+  VALUES ($1, $2, $3)`
+  value = [req.body.newIngredient.ingredient, req.body.newIngredient.ingredient_amount, req.body.id];
+  pool.query( queryString, value )
+  .then( (results)=>{
+    res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
+
+
+
+router.post("/add-instruction", (req, res)=>{
+  console.log("req.body=====>", req.body)
+  console.log("req.body.instruction=====>",req.body.newInstruction)
+  const queryString = `INSERT INTO "instructions" (instruction, recipe_id) VALUES ($1, $2)`
+  value = [req.body.newInstruction, req.body.id];
+  pool.query( queryString, value )
+  .then( (results)=>{
+    res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 router.put('/update-recipe/:id', (req, res) => {
