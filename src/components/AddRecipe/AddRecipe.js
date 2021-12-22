@@ -204,7 +204,7 @@ function AddRecipe(props) {
           />
       </label>
       <button onClick={addIngredient}>Add Ingredient</button>
-
+          <p>{JSON.stringify(ingredients)}</p>
       <ul>
       {ingredients.map((ingredient) => {
           return(

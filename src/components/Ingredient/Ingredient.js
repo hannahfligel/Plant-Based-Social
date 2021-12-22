@@ -14,13 +14,16 @@ function Ingredient(props) {
     //this dispatch deletes the specific ingredient from the db using the ingredientId
     dispatch({ 
       type: "DELETE_INGREDIENT",
-      payload: props.ingredientId //<--ingredientId is coming from AppRecipe via props and holds the specific ingredient id
+      payload: {
+        ingredientId: props.ingredientId,
+        recipeId: props.recipeId
+      } //<--ingredientId is coming from AppRecipe via props and holds the specific ingredient id
     });
     //this dispatch gets the recipe ingredients from from the db using the recipeId
-    dispatch({
-      type:"FETCH_RECIPE_INGREDIENTS",
-      payload: props.recipeId//<--recipeId is coming from AppRecipe via props and holds the specific recipe id 
-    })
+    // dispatch({
+    //   type:"FETCH_RECIPE_INGREDIENTS",
+    //   payload: props.recipeId//<--recipeId is coming from AppRecipe via props and holds the specific recipe id 
+    // })
   }
 
   return (

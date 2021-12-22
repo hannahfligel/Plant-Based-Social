@@ -111,6 +111,7 @@ router.get("/saved-recipes", (req, res) => {
 
 
 router.get("/ingredients/:id", (req, res) => {
+  console.log("ing req.params=========>",req.params)
   // GET route code here
   const query = `
     SELECT 
@@ -123,6 +124,7 @@ router.get("/ingredients/:id", (req, res) => {
   pool
     .query(query)
     .then((result) => {
+      console.log("ing result.row=====>",result.rows)
       res.send(result.rows);
     })
     .catch((err) => {
