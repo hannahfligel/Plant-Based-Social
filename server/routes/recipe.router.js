@@ -52,17 +52,11 @@ router.get("/recipePageInfo/:id", (req, res) => {
   console.log("REQ.PARAMS----->",req.params);
   const query = `
     SELECT
-      recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
+      *
     FROM 
       recipes 
-    JOIN 
-      liked_recipes 
-    ON
-      liked_recipes.recipes_id=recipes.id
     WHERE
       recipes.id=${req.params.id}
-    GROUP BY 
-      recipes.id, recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
     ;`
   pool
     .query(query)
@@ -214,5 +208,149 @@ router.post("/add-like", (req, res) => {
     res.sendStatus( 500 );
   })
 });
+
+
+
+router.post("/add-recipe", (req, res) => {
+  // POST route code here
+  console.log("req.body----------->", req.body)
+  //queryString insets into the recipes table the new recipe_name and returns the id of that new recipe 
+  const queryString = `INSERT INTO "recipes" (recipe_name) VALUES ($1) RETURNING "id";`;
+  //value holds the recipe that was bought in the saga 
+  value = [req.body.recipe_name];
+  pool.query( queryString, value )
+  .then( (result)=>{
+    console.log("new recipe id---->",result.rows[0].id);
+    //newRecipeId holds the returned id from the new recipe that was added
+    const newRecipeId = result.rows[0].id
+    //getRecipeQuery selects all from the recipes table where the id matches the new recipe id 
+    const getRecipeQuery = `SELECT * FROM recipes WHERE id=${newRecipeId};`
+    //run the getRecipeQuery
+    pool.query(getRecipeQuery)
+    //then, send the results back to the saga 
+    .then(result => {
+      console.log('newItemQuery Result:', result.rows);
+      res.send(result.rows);
+    })
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  });
+});
+
+
+
+router.post("/add-ingredient", (req, res)=>{
+  console.log("req.body=====>", req.body.newIngredient.ingredient_amount)
+  const queryString = ` INSERT INTO "ingredients" (ingredient, ingredient_amount, recipe_id)
+  VALUES ($1, $2, $3)`
+  value = [req.body.newIngredient.ingredient, req.body.newIngredient.ingredient_amount, req.body.id];
+  pool.query( queryString, value )
+  .then( (results)=>{
+    res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
+
+
+
+router.post("/add-instruction", (req, res)=>{
+  console.log("req.body=====>", req.body)
+  console.log("req.body.instruction=====>",req.body.newInstruction)
+  const queryString = `INSERT INTO "instructions" (instruction, recipe_id) VALUES ($1, $2)`
+  value = [req.body.newInstruction, req.body.id];
+  pool.query( queryString, value )
+  .then( (results)=>{
+    res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.put('/update-recipe/:id', (req, res) => {
+  // console.log("UPDATE RECIPE -------->",req.body);
+  console.log("UPDATE RECIPE -------->",req.body.newRecipe.image_url);
+  const queryString = `
+    UPDATE
+      "recipes"
+    SET
+      "image_url"=$1,
+      "recipe_name"=$2,
+      "recipe_description"=$3,
+      "difficulty"=$4,
+      "prep_hours"=$5,
+      "prep_minutes"=$6,
+      "servings"=$7,
+      "recipe_type_id"=$8
+    WHERE
+      "id"=$9
+    ;`;
+  const values = [ 
+    req.body.newRecipe.image_url, 
+    req.body.newRecipe.recipe_name, 
+    req.body.newRecipe.recipe_description,
+    req.body.newRecipe.difficulty,
+    req.body.newRecipe.prep_hours,
+    req.body.newRecipe.prep_minutes,
+    req.body.newRecipe.servings,
+    req.body.newRecipe.recipe_type_id,
+    req.body.id 
+  ];
+  pool.query( queryString, values )
+  .then( (results)=>{
+    console.log('PUT RESULTS.ROWS', results.rows);
+    res.send(results.rows[0])
+    // res.sendStatus( 200 );
+  }).catch( (err)=>{
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+});
+
+
+router.delete('/delete-instruction/:id', (req,res)=> {
+  console.log("IN DELETE INSTRUCTION =============>",req.params.id)
+  const queryString = `DELETE FROM "instructions" WHERE id=${req.params.id}`;
+  pool.query(queryString)
+    .then(()=>{
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log('DELETE failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+
+router.delete('/delete-ingredient/:id', (req,res)=> {
+  console.log("IN DELETE INGREDIENT =============>",req.params.id)
+  const queryString = `DELETE FROM "ingredients" WHERE id=${req.params.id}`;
+  pool.query(queryString)
+    .then(()=>{
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log('DELETE failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+
 
 module.exports = router;

@@ -12,9 +12,13 @@ const recipeCardReducer = (state = [], action) => {
     }
   };
 
-
+//recipePageReducer stores the specific recipe's information 
 const recipePageReducer = (state = [], action) => {
   switch (action.type) {
+    //case 1 empties out the reducer of the add recipe form 
+    case 'RESET_RECIPE_PAGE_INFO':
+      return [];
+    //case 2 sets the input fields to an empty array 
     case 'SET_RECIPE_PAGE_INFO':
       return action.payload[0];
     default:
@@ -25,6 +29,8 @@ const recipePageReducer = (state = [], action) => {
 
 const recipeIngredientsReducer = (state = [], action) => {
   switch (action.type) {
+    case'RESET_RECIPE_INGREDIENTS':
+      return [];
     case 'SET_RECIPE_INGREDIENTS':
       return action.payload;
     default:
@@ -34,6 +40,8 @@ const recipeIngredientsReducer = (state = [], action) => {
 
 const recipeInstructionsReducer = (state = [], action) => {
   switch (action.type) {
+    case'RESET_RECIPE_INSTRUCTIONS':
+    return [];
     case 'SET_RECIPE_INSTRUCTIONS':
       return action.payload;
     default:
@@ -70,6 +78,7 @@ const savedRecipesReducer = (state = [], action) => {
       return state;
   }
 };
+
 
 
   

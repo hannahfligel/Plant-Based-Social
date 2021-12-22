@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Ingredient from "../Ingredient/Ingredient";
 import Instruction from '../Instruction/Instruction';
 import AddLikeButton from "../AddLikeButton/AddLikeButton";
-
+import EditRecipeButton from "../EditRecipeButton/EditRecipeButton";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -24,9 +24,12 @@ function RecipePage(props) {
     (store) => store.recipeReducer.specificRecipeTypeReducer
   );
   const store = useSelector((store) => store);
+
+  //recipeGeneralInfo hold all everything on the form other than ingredients, instructions, and recipe types 
   const recipeGeneralInfo = useSelector(
     (store) => store.recipeReducer.recipePageReducer
   );
+
   const instructions = useSelector(
     (store) => store.recipeReducer.recipeInstructionsReducer
   );
@@ -40,9 +43,9 @@ function RecipePage(props) {
 
   return (
     <div>
-
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id}/>
+      <EditRecipeButton recipe_id={recipeGeneralInfo.id}/>
       {/* {JSON.stringify(recipeGeneralInfo.id)} */}
   
       <p>{recipeGeneralInfo.difficulty}</p>
@@ -64,7 +67,9 @@ function RecipePage(props) {
             key={ingredient.id}
             ingredientName={ingredient.ingredient}
             ingredientAmount={ingredient.ingredient_amount}
-            ingredientId={ingredient.id}/>
+            ingredientId={ingredient.id}
+            editMode={false}
+            />
           );
         })}
       </ul>
@@ -75,8 +80,10 @@ function RecipePage(props) {
           return(
           <Instruction
             key={instruction.id}
-            ingredientName={instruction.instruction}
-            ingredientId={instruction.id}/>
+            instructionName={instruction.instruction}
+            instructionId={instruction.id}
+            editMode={false}// <--- editMode determines whether or not the delete buttons show up 
+          />
           );
         })}
       </ul>

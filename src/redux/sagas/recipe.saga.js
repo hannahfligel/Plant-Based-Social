@@ -1,5 +1,9 @@
 import axios from 'axios';
+import { use } from 'passport';
 import { put, takeLatest } from 'redux-saga/effects';
+// import { useHistory } from "react-router";
+
+// const history = useHistory();
 
 function* recipeSaga() {
   yield takeLatest('FETCH_RECIPE_CARD_INFO', getRecipeCardInfo);
@@ -11,8 +15,89 @@ function* recipeSaga() {
   yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes);
   yield takeLatest('ADD_NEW_LIKE', addLike);
   yield takeLatest('FETCH_RECIPES_BY_TYPE', getRecipesByType);
+  yield takeLatest('ADD_RECIPE', addRecipe);
+  yield takeLatest('UPDATE_RECIPE', updateRecipe);
+  yield takeLatest('ADD_INSTRUCTION', addInstruction);
+  yield takeLatest('ADD_INGREDIENT', addIngredient);
+  yield takeLatest('DELETE_INSTRUCTION', deleteInstruction);
+  yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
+
+//   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
+
+function *deleteIngredient(action){
+    console.log('in deleteIngredient', action.payload)
+    try{
+        const response = yield axios.delete(`/api/recipes/delete-ingredient/${action.payload}`);
+    // yield put({
+    //     type:'FETCH_RECIPE_INGREDIENTS',
+    //     payload: response.data
+    // })
+    } catch (error){
+        console.log('get request failed', error);
+    }
+}
+
+function *deleteInstruction(action){
+    // console.log('in deleteInstruction', action.payload)
+    console.log('in deleteInstruction', action.payload)
+    try{
+        const response = yield axios.delete(`/api/recipes/delete-instruction/${action.payload}`);
+    // yield put({
+    //     type:'FETCH_RECIPE_INSTRUCTIONS',
+    //     payload: response.data
+    // })
+    } catch (error){
+        console.log('get request failed', error);
+    }
+}
+
+
+function *addLike(action){
+    console.log('in addLike---->', action.payload)
+    try{
+        const response = yield axios.post('/api/recipes/add-like', action.payload);
+    } catch (error){
+        console.log('get request failed', error);
+    }
+}
+
+function *addRecipe(action){
+    console.log('in addRecipe------>', action.payload);
+    try{
+        const response = yield axios.post('/api/recipes/add-recipe', action.payload);
+        //run the getRecipePageInfo recipe function to get the new recipe's information and save it in the store
+        //send response.data.id that holds the id of the new created recipe
+        console.log("BACK FROM SERVER------>",response.data)
+        yield put({
+            type:'SET_RECIPE_PAGE_INFO',
+            payload: response.data
+        })
+       } catch (error){
+           console.log('get request failed', error);
+       }
+}
+
+function *addInstruction(action){
+    console.log("in addInstruction=====>", action.payload);
+    try{
+        const response = yield axios.post('/api/recipes/add-instruction', action.payload);
+        console.log("BACK FROM SERVER------>",response.data)
+       } catch (error){
+           console.log('get request failed', error);
+       }
+}
+
+function *addIngredient(action){
+    console.log("in addIngredient=====>", action.payload)
+    try{
+        const response = yield axios.post('/api/recipes/add-ingredient', action.payload);
+        console.log("BACK FROM SERVER------>",response.data)
+    } catch (error){
+           console.log('get request failed', error);
+       }
+}
 
 
 function *getRecipesByType(action){
@@ -34,16 +119,6 @@ function *getRecipesByType(action){
       }
 }
 
-function *addLike(action){
- console.log('in addLike---->', action.payload)
- try{
- const response = yield axios.post('/api/recipes/add-like', action.payload);
-} catch (error){
-    console.log('get request failed', error);
-}
-}
-
-
 function *getRecipeCardInfo(action){
     console.log('----->in getRecipeCardInfo', action.payload)
     try{
@@ -62,6 +137,10 @@ function *getRecipeCardInfo(action){
 function *getRecipePageInfo(action){
   console.log('----->in getRecipePageInfo', action.payload)
   try{
+    //   yield put({
+    //       type: 'SET_RECIPE_PAGE_INFO',
+    //       payload: {}
+    //   })
       const response = yield axios.get (`/api/recipes/recipePageInfo/${action.payload}`)
       console.log('back from getRecipePageInfo get:', response.data);
       yield put({ 
@@ -153,5 +232,14 @@ function *getSavedRecipes(action){
       console.log( err );
     }
 }
+
+function *updateRecipe(action){
+    console.log("UPDATED RECIPE--->", action.payload.id)
+    try{
+        const updatedRecipe = yield axios.put(`/api/recipes/update-recipe/${action.payload.id}`, action.payload);
+    } catch {
+        console.log('update recipe error');
+      }
+    }
 
 export default recipeSaga;
