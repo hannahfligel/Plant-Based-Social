@@ -1,39 +1,39 @@
 import axios from 'axios';
 import { use } from 'passport';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 // import { useHistory } from "react-router";
 
 // const history = useHistory();
 
 function* recipeSaga() {
-  yield takeLatest('FETCH_RECIPE_CARD_INFO', getRecipeCardInfo);
-  yield takeLatest('FETCH_RECIPE_PAGE_INFO', getRecipePageInfo);
-  yield takeLatest('FETCH_RECIPE_INGREDIENTS', getRecipeIngredients);
-  yield takeLatest('FETCH_RECIPE_INSTRUCTIONS', getRecipeInstructions);
-  yield takeLatest('FETCH_RECIPE_TYPES', getRecipeTypes);
-  yield takeLatest('FETCH_SPECIFIC_RECIPE_TYPE', getSpecificRecipeType);
-  yield takeLatest('FETCH_SAVED_RECIPES', getSavedRecipes);
-  yield takeLatest('ADD_NEW_LIKE', addLike);
-  yield takeLatest('FETCH_RECIPES_BY_TYPE', getRecipesByType);
-  yield takeLatest('ADD_RECIPE', addRecipe);
-  yield takeLatest('UPDATE_RECIPE', updateRecipe);
-  yield takeLatest('ADD_INSTRUCTION', addInstruction);
-  yield takeLatest('ADD_INGREDIENT', addIngredient);
-  yield takeLatest('DELETE_INSTRUCTION', deleteInstruction);
-  yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
+  yield takeEvery('FETCH_RECIPE_CARD_INFO', getRecipeCardInfo);
+  yield takeEvery('FETCH_RECIPE_PAGE_INFO', getRecipePageInfo);
+  yield takeEvery('FETCH_RECIPE_INGREDIENTS', getRecipeIngredients);
+  yield takeEvery('FETCH_RECIPE_INSTRUCTIONS', getRecipeInstructions);
+  yield takeEvery('FETCH_RECIPE_TYPES', getRecipeTypes);
+  yield takeEvery('FETCH_SPECIFIC_RECIPE_TYPE', getSpecificRecipeType);
+  yield takeEvery('FETCH_SAVED_RECIPES', getSavedRecipes);
+  yield takeEvery('ADD_NEW_LIKE', addLike);
+  yield takeEvery('FETCH_RECIPES_BY_TYPE', getRecipesByType);
+  yield takeEvery('ADD_RECIPE', addRecipe);
+  yield takeEvery('UPDATE_RECIPE', updateRecipe);
+  yield takeEvery('ADD_INSTRUCTION', addInstruction);
+  yield takeEvery('ADD_INGREDIENT', addIngredient);
+  yield takeEvery('DELETE_INSTRUCTION', deleteInstruction);
+  yield takeEvery('DELETE_INGREDIENT', deleteIngredient);
 
-//   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
+//   yield takeEvery('DELETE_INGREDIENT', deleteIngredient);
 }
 
 
 function *deleteIngredient(action){
     console.log('in deleteIngredient', action.payload)
     try{
-        const response = yield axios.delete(`/api/recipes/delete-ingredient/${action.payload}`);
-    // yield put({
-    //     type:'FETCH_RECIPE_INGREDIENTS',
-    //     payload: response.data
-    // })
+        const response = yield axios.delete(`/api/recipes/delete-ingredient/${action.payload.ingredientId}`);
+    yield put({
+        type:'FETCH_RECIPE_INGREDIENTS',
+        payload: action.payload.recipeId
+    })
     } catch (error){
         console.log('get request failed', error);
     }
