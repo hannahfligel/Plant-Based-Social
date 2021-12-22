@@ -105,7 +105,7 @@ function AddRecipe(props) {
     <div>
       {JSON.stringify(recipeInfo.id)}
       {JSON.stringify(newRecipe.id)}
-      {/* currently goes back to the /userpage */}
+      {/* currently goes back to the /user page */}
       <button onClick={back} >BACK</button>{/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
 
       {/* input for image_url */}
@@ -212,7 +212,10 @@ function AddRecipe(props) {
             key={ingredient.id}
             ingredientName={ingredient.ingredient}
             ingredientAmount={ingredient.ingredient_amount}
-            ingredientId={ingredient.id}/>
+            ingredientId={ingredient.id}
+            editMode={true}// <--- editMode determines whether or not the delete buttons show up 
+            recipeId={recipeInfo.id}
+          />
           );
         })}
       </ul>
@@ -226,14 +229,16 @@ function AddRecipe(props) {
       </label>
 
       <button onClick={addInstruction}>Add instruction</button>
-
       <ul>
       {instructions.map((instruction) => {
           return(
           <Instruction
             key={instruction.id}
-            ingredientName={instruction.instruction}
-            ingredientId={instruction.id}/>
+            instructionName={instruction.instruction}
+            instructionId={instruction.id}
+            editMode={true}
+            recipeId={recipeInfo.id}
+          />
           );
         })}
       </ul>

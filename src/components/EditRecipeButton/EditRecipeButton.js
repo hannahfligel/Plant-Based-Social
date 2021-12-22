@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useNavigate, useHistory } from "react-router-dom";
+
 
 
 
@@ -12,22 +14,16 @@ function EditRecipeButton(props) {
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
+  const history = useHistory();
 
 
-  const [newRecipe, setNewRecipe] = useState({
-    recipe_name: "",
-  });
-
-  const addRecipe = () =>{
-    dispatch({ 
-        type: "ADD_RECIPE", 
-        payload: newRecipe
-    });
+  const editRecipe = () =>{
+    history.push(`/add-recipe/${props.recipe_id}`);
   }
 
 
   return (
-        <Link onClick={addRecipe} className="navLink" to="/add-recipe">
+        <Link onClick={editRecipe} className="navLink" to="/add-recipe">
             Edit
         </Link>
   );

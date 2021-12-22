@@ -19,10 +19,39 @@ function* recipeSaga() {
   yield takeLatest('UPDATE_RECIPE', updateRecipe);
   yield takeLatest('ADD_INSTRUCTION', addInstruction);
   yield takeLatest('ADD_INGREDIENT', addIngredient);
+  yield takeLatest('DELETE_INSTRUCTION', deleteInstruction);
+  yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
+
+//   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
 
+function *deleteIngredient(action){
+    console.log('in deleteIngredient', action.payload)
+    try{
+        const response = yield axios.delete(`/api/recipes/delete-ingredient/${action.payload}`);
+    // yield put({
+    //     type:'FETCH_RECIPE_INGREDIENTS',
+    //     payload: response.data
+    // })
+    } catch (error){
+        console.log('get request failed', error);
+    }
+}
 
+function *deleteInstruction(action){
+    // console.log('in deleteInstruction', action.payload)
+    console.log('in deleteInstruction', action.payload)
+    try{
+        const response = yield axios.delete(`/api/recipes/delete-instruction/${action.payload}`);
+    yield put({
+        type:'FETCH_RECIPE_INSTRUCTIONS',
+        payload: response.data
+    })
+    } catch (error){
+        console.log('get request failed', error);
+    }
+}
 
 
 function *addLike(action){

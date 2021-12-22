@@ -326,5 +326,31 @@ router.put('/update-recipe/:id', (req, res) => {
 });
 
 
+router.delete('/delete-instruction/:id', (req,res)=> {
+  console.log("IN DELETE INSTRUCTION =============>",req.params.id)
+  const queryString = `DELETE FROM "instructions" WHERE id=${req.params.id}`;
+  pool.query(queryString)
+    .then(()=>{
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log('DELETE failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+
+router.delete('/delete-ingredient/:id', (req,res)=> {
+  console.log("IN DELETE INGREDIENT =============>",req.params.id)
+  const queryString = `DELETE FROM "ingredients" WHERE id=${req.params.id}`;
+  pool.query(queryString)
+    .then(()=>{
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log('DELETE failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+
 
 module.exports = router;
