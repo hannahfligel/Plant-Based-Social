@@ -44,10 +44,10 @@ function *deleteInstruction(action){
     console.log('in deleteInstruction', action.payload)
     try{
         const response = yield axios.delete(`/api/recipes/delete-instruction/${action.payload}`);
-    yield put({
-        type:'FETCH_RECIPE_INSTRUCTIONS',
-        payload: response.data
-    })
+    // yield put({
+    //     type:'FETCH_RECIPE_INSTRUCTIONS',
+    //     payload: response.data
+    // })
     } catch (error){
         console.log('get request failed', error);
     }

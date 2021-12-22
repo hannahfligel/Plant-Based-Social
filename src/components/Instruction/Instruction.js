@@ -14,6 +14,10 @@ function Instruction(props) {
       type: "DELETE_INSTRUCTION",
       payload: props.instructionId,
     });
+    dispatch({
+      type:"FETCH_RECIPE_INSTRUCTIONS",
+      payload: props.recipeId//<--recipeId is coming from AppRecipe via props and holds the specific recipe id 
+    })
   }
 
   return (
