@@ -20,7 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RecipePage from '../RecipePage/RecipePage';
-import SavedRecipes from '../SavedRecipes/SavedRecipes';
+import LikedRecipes from '../LikedRecipes/LikedRecipes';
 import SharedRecipes from '../SharedRecipes/SharedRecipes';
 import AddRecipe from '../AddRecipe/AddRecipe';
 
@@ -86,7 +86,7 @@ function App() {
             exact
             path="/saved-recipes"
           >
-            <SavedRecipes />
+            <LikedRecipes />
           </ProtectedRoute>
 
           <Route

@@ -253,7 +253,7 @@ function* getSpecificRecipeType(action) {
 }
 
 function* getLikedRecipes(action) {
-  console.log("----->in getSavedRecipes", action);
+  console.log("----->in getLikedRecipes", action);
   try {
     const response = yield axios.get(`/api/recipes/liked-recipes/${action.payload}`);
     console.log("back from getLikedRecipes get:", response.data);

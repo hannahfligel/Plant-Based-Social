@@ -32,7 +32,7 @@ function Nav() {
           
 
             <Link className="navLink" to="/saved-recipes">
-              Saved
+              Favorites
             </Link>
 
             <Link className="navLink" to="/shared-recipes">
