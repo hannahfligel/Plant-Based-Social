@@ -61,15 +61,16 @@ function AddRecipe(props) {
     history.push("/user");
   };
 
-  const submit = () => {
+  const submit = async() => {
     console.log("Submit new recipe---->", newRecipe);
-    dispatch({
+    await dispatch({
       type: "UPDATE_RECIPE",
       payload: {
         newRecipe: newRecipe,
         id: recipeInfo.id,
       },
     });
+    await history.push('/home');
   };
 
   const addIngredient = () => {
@@ -81,6 +82,10 @@ function AddRecipe(props) {
         id: recipeInfo.id,
       },
     });
+    setNewIngredient({
+      ingredient: "",
+      ingredient_amount: ""
+    })
     dispatch({
       type: "FETCH_RECIPE_INGREDIENTS",
       payload: recipeInfo.id,
@@ -96,6 +101,9 @@ function AddRecipe(props) {
         id: recipeInfo.id,
       },
     });
+    setNewInstruction({
+      instruction: ""
+    })
     dispatch({
       type: "FETCH_RECIPE_INSTRUCTIONS",
       payload: recipeInfo.id,
@@ -219,6 +227,7 @@ function AddRecipe(props) {
               ingredient: event.target.value,
             })
           }
+          value={newIngredient.ingredient}
           placeholder="ingredient"
         />
         <input
@@ -228,6 +237,7 @@ function AddRecipe(props) {
               ingredient_amount: event.target.value,
             })
           }
+          value={newIngredient.ingredient_amount}
           placeholder="amount"
         />
       </label>
@@ -251,6 +261,7 @@ function AddRecipe(props) {
       <label>
         <input
           onChange={(event) => setNewInstruction(event.target.value)}
+          value={newInstruction.instruction}
           placeholder="instruction"
         />
       </label>

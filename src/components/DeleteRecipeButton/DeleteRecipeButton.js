@@ -17,9 +17,12 @@ function EditRecipeButton(props) {
 
 
 
-  const deleteRecipe = () => {
+  const deleteRecipe = async() => {
       console.log ("IN DELETE RECIPE=====>",props.recipeId)
-
+        await dispatch({ type: "DELETE_RECIPE",
+      payload: props.recipeId
+     });
+        await history.push('/home');
   }
 
   return (

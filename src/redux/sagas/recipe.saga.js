@@ -21,11 +21,24 @@ function* recipeSaga() {
   yield takeEvery("ADD_INGREDIENT", addIngredient);
   yield takeEvery("DELETE_INSTRUCTION", deleteInstruction);
   yield takeEvery("DELETE_INGREDIENT", deleteIngredient);
+  yield takeEvery("DELETE_RECIPE", deleteRecipe);
 
   //   yield takeEvery('DELETE_INGREDIENT', deleteIngredient);
 }
 
-function* deleteIngredient(action) {
+
+function *deleteRecipe(action){
+  console.log("in deleteRecipe", action.payload);
+  try {
+    const response = yield axios.delete(
+      `/api/recipes/delete-recipe/${action.payload}`
+    );
+  } catch (error) {
+    console.log("get request failed", error);
+  }
+}
+
+function *deleteIngredient(action) {
   console.log("in deleteIngredient", action.payload);
   try {
     const response = yield axios.delete(
