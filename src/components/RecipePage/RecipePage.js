@@ -31,6 +31,10 @@ function RecipePage(props) {
     (store) => store.recipeReducer.recipePageReducer
   );
 
+  const likedStatus = useSelector(
+    (store) => store.recipeReducer.likedStatusReducer
+  );
+
   const instructions = useSelector(
     (store) => store.recipeReducer.recipeInstructionsReducer
   );
@@ -44,6 +48,7 @@ function RecipePage(props) {
 
   return (
     <div>
+      {JSON.stringify(likedStatus)}
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id}/>
 

@@ -79,6 +79,15 @@ const likedRecipesReducer = (state = [], action) => {
   }
 };
 
+//likedStatusReducer starts the state of 0 
+const likedStatusReducer = (state=0, action) =>{
+  switch (action.type) {
+    case 'SET_RECIPES_LIKES_STATUS':
+      return action.payload.count;
+    default:
+      return state;
+  }
+};
 
 
   
@@ -93,5 +102,6 @@ const likedRecipesReducer = (state = [], action) => {
     recipeTypesReducer,
     specificRecipeTypeReducer,
     likedRecipesReducer,
+    likedStatusReducer
   });
   

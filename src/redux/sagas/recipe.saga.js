@@ -6,26 +6,43 @@ import { put, takeLatest, takeEvery } from "redux-saga/effects";
 // const history = useHistory();
 
 function* recipeSaga() {
-  yield takeEvery("FETCH_RECIPE_CARD_INFO", getRecipeCardInfo);
-  yield takeEvery("FETCH_RECIPE_PAGE_INFO", getRecipePageInfo);
-  yield takeEvery("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
-  yield takeEvery("FETCH_RECIPE_INSTRUCTIONS", getRecipeInstructions);
-  yield takeEvery("FETCH_RECIPE_TYPES", getRecipeTypes);
-  yield takeEvery("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
-  yield takeEvery("FETCH_LIKED_RECIPES", getLikedRecipes);
-  yield takeEvery("ADD_NEW_LIKE", addLike);
-  yield takeEvery("FETCH_RECIPES_BY_TYPE", getRecipesByType);
-  yield takeEvery("ADD_RECIPE", addRecipe);
-  yield takeEvery("UPDATE_RECIPE", updateRecipe);
-  yield takeEvery("ADD_INSTRUCTION", addInstruction);
-  yield takeEvery("ADD_INGREDIENT", addIngredient);
-  yield takeEvery("DELETE_INSTRUCTION", deleteInstruction);
-  yield takeEvery("DELETE_INGREDIENT", deleteIngredient);
-  yield takeEvery("DELETE_RECIPE", deleteRecipe);
+  yield takeLatest("FETCH_RECIPE_CARD_INFO", getRecipeCardInfo);
+  yield takeLatest("FETCH_RECIPE_PAGE_INFO", getRecipePageInfo);
+  yield takeLatest("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
+  yield takeLatest("FETCH_RECIPE_INSTRUCTIONS", getRecipeInstructions);
+  yield takeLatest("FETCH_RECIPE_TYPES", getRecipeTypes);
+  yield takeLatest("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
+  yield takeLatest("FETCH_LIKED_RECIPES", getLikedRecipes);
+  yield takeLatest("ADD_NEW_LIKE", addLike);
+  yield takeLatest("FETCH_RECIPES_BY_TYPE", getRecipesByType);
+  yield takeLatest("ADD_RECIPE", addRecipe);
+  yield takeLatest("UPDATE_RECIPE", updateRecipe);
+  yield takeLatest("ADD_INSTRUCTION", addInstruction);
+  yield takeLatest("ADD_INGREDIENT", addIngredient);
+  yield takeLatest("DELETE_INSTRUCTION", deleteInstruction);
+  yield takeLatest("DELETE_INGREDIENT", deleteIngredient);
+  yield takeLatest("DELETE_RECIPE", deleteRecipe);
+  yield takeLatest("FETCH_RECIPE_LIKES", getRecipeLikes);
 
-  //   yield takeEvery('DELETE_INGREDIENT', deleteIngredient);
+  //   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
+
+function *getRecipeLikes(action){
+  yield console.log("getRecipeLikes---->", action.payload)
+  try {
+    //the axios get url includes both the userId and recipeId so that they both are accessible in the router
+    const response = yield axios.get(`/api/recipes/liked-recipe-status/${action.payload.userId}/${action.payload.recipeId}`);
+    console.log("back from liked-recipe-status get:", response.data);
+    yield put({
+      type: "SET_RECIPES_LIKES_STATUS",
+      payload: response.data[0],
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
+}
 
 function *deleteRecipe(action){
   console.log("in deleteRecipe", action.payload);
@@ -73,6 +90,10 @@ function* addLike(action) {
   console.log("in addLike---->", action.payload);
   try {
     const response = yield axios.post("/api/recipes/add-like", action.payload);
+  yield put({
+      type: "FETCH_RECIPE_LIKES",
+      payload: action.payload
+    });
   } catch (error) {
     console.log("get request failed", error);
   }
