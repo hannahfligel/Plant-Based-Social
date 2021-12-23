@@ -70,9 +70,9 @@ const specificRecipeTypeReducer = (state = {}, action) => {
 
 
 
-const savedRecipesReducer = (state = [], action) => {
+const likedRecipesReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_SAVED_RECIPES':
+    case 'SET_LIKED_RECIPES':
       return action.payload;
     default:
       return state;
@@ -92,6 +92,6 @@ const savedRecipesReducer = (state = [], action) => {
     recipeInstructionsReducer,
     recipeTypesReducer,
     specificRecipeTypeReducer,
-    savedRecipesReducer,
+    likedRecipesReducer,
   });
   

@@ -12,6 +12,7 @@ function RecipePage(props) {
 
   const dispatch = useDispatch();
 
+  const user = useSelector((store) => store.user);
 
 
 
@@ -45,9 +46,12 @@ function RecipePage(props) {
     <div>
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id}/>
+
+      {/* conditionally render to only show the edit button if an admin is logged in */}
+      {user.admin && ( 
       <EditRecipeButton recipe_id={recipeGeneralInfo.id}/>
-      {/* {JSON.stringify(recipeGeneralInfo.id)} */}
-  
+      )}
+      
       <p>{recipeGeneralInfo.difficulty}</p>
       <p>{recipeGeneralInfo.prep_hours} hr</p>
       <p>{recipeGeneralInfo.prep_minutes} min</p>

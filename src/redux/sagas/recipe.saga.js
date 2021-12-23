@@ -12,7 +12,7 @@ function* recipeSaga() {
   yield takeEvery("FETCH_RECIPE_INSTRUCTIONS", getRecipeInstructions);
   yield takeEvery("FETCH_RECIPE_TYPES", getRecipeTypes);
   yield takeEvery("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
-  yield takeEvery("FETCH_SAVED_RECIPES", getSavedRecipes);
+  yield takeEvery("FETCH_LIKED_RECIPES", getLikedRecipes);
   yield takeEvery("ADD_NEW_LIKE", addLike);
   yield takeEvery("FETCH_RECIPES_BY_TYPE", getRecipesByType);
   yield takeEvery("ADD_RECIPE", addRecipe);
@@ -252,13 +252,13 @@ function* getSpecificRecipeType(action) {
   }
 }
 
-function* getSavedRecipes(action) {
+function* getLikedRecipes(action) {
   console.log("----->in getSavedRecipes", action);
   try {
-    const response = yield axios.get(`/api/recipes/saved-recipes`);
-    console.log("back from getSavedRecipes get:", response.data);
+    const response = yield axios.get(`/api/recipes/liked-recipes/${action.payload}`);
+    console.log("back from getLikedRecipes get:", response.data);
     yield put({
-      type: "SET_SAVED_RECIPES",
+      type: "SET_LIKED_RECIPES",
       payload: response.data,
     });
   } catch (err) {

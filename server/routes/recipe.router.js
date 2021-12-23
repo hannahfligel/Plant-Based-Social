@@ -72,28 +72,15 @@ router.get("/recipePageInfo/:id", (req, res) => {
 
 
 //GET route to get general information for recipes (will go into recipe cards) for the saved recipes of a specific user 
-router.get("/saved-recipes", (req, res) => {
+router.get("/liked-recipes/:id", (req, res) => {
   const query = `
-    SELECT 
-      recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id, COUNT(liked_recipes.user_id) AS likes
-    FROM 
-      saved_recipes 
-    JOIN 
-      recipes 
-    ON 
-      recipes.id = saved_recipes.recipes_id
-    JOIN 
-      "user"
-    ON
-      "user".id = saved_recipes.user_id
-    JOIN 
-      liked_recipes
-    ON
-      liked_recipes.recipes_id = recipes.id
-    WHERE 
-      saved_recipes.user_id=1
-    GROUP BY 
-      recipes.image_url, recipes.recipe_name, recipes.recipe_description, recipes.difficulty, recipes.prep_hours, recipes.prep_minutes, recipes.servings, recipes.recipe_type_id
+  SELECT recipes.id, recipes.image_url, recipes.recipe_name, recipes.prep_hours, recipes.prep_minutes FROM "liked_recipes"
+  JOIN 
+  "recipes"
+  ON
+  liked_recipes.recipes_id=recipes.id
+  WHERE
+  liked_recipes.user_id=${req.params.id};
     ;`
   pool
     .query(query)
