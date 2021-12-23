@@ -244,6 +244,7 @@ router.post("/add-recipe", (req, res) => {
 
 router.post("/add-ingredient", (req, res)=>{
   console.log("req.body=====>", req.body.newIngredient.ingredient_amount)
+  console.log("add-ingredient TEST======>",req.body)
   const queryString = ` INSERT INTO "ingredients" (ingredient, ingredient_amount, recipe_id)
   VALUES ($1, $2, $3)`
   value = [req.body.newIngredient.ingredient, req.body.newIngredient.ingredient_amount, req.body.id];

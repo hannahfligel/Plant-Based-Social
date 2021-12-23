@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useHistory } from "react-router-dom";
 import Ingredient from "../Ingredient/Ingredient";
-import Instruction from '../Instruction/Instruction';
+import Instruction from "../Instruction/Instruction";
+import DeleteRecipeButton from "../DeleteRecipeButton/DeleteRecipeButton";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -15,10 +16,9 @@ function AddRecipe(props) {
 
   const store = useSelector((store) => store);
 
-
   useEffect(() => {
-    dispatch({ 
-      type: "FETCH_RECIPE_TYPES"
+    dispatch({
+      type: "FETCH_RECIPE_TYPES",
     });
   }, []);
 
@@ -34,10 +34,11 @@ function AddRecipe(props) {
     (store) => store.recipeReducer.recipeInstructionsReducer
   );
 
-  const recipeInfo = useSelector((store) => store.recipeReducer.recipePageReducer)
+  const recipeInfo = useSelector(
+    (store) => store.recipeReducer.recipePageReducer
+  );
 
-
-  //useState stores values coming from the reducers in the store 
+  //useState stores values coming from the reducers in the store
   const [newRecipe, setNewRecipe] = useState({
     image_url: "",
     recipe_name: "",
@@ -49,85 +50,92 @@ function AddRecipe(props) {
     recipe_type_id: 0,
   });
 
-  const [newIngredient, setNewIngredient] = useState ({
+  const [newIngredient, setNewIngredient] = useState({
     ingredient: "",
     ingredient_amount: "",
-  })
+  });
 
-  const [newInstruction, setNewInstruction] = useState ("")
+  const [newInstruction, setNewInstruction] = useState("");
 
   const back = () => {
     history.push("/user");
   };
 
   const submit = () => {
-    console.log ("Submit new recipe---->", newRecipe);
+    console.log("Submit new recipe---->", newRecipe);
     dispatch({
       type: "UPDATE_RECIPE",
       payload: {
-        newRecipe: newRecipe, 
-        id: recipeInfo.id}
+        newRecipe: newRecipe,
+        id: recipeInfo.id,
+      },
     });
-  }
+  };
 
   const addIngredient = () => {
-    console.log( "New Ingredient------>" ,newIngredient )
+    console.log("New Ingredient------>", newIngredient);
     dispatch({
-      type:"ADD_INGREDIENT",
+      type: "ADD_INGREDIENT",
       payload: {
         newIngredient: newIngredient,
-        id: recipeInfo.id
-      }
-    })
-      dispatch({
-        type:"FETCH_RECIPE_INGREDIENTS",
-        payload: recipeInfo.id
-      })
-  }
-
-
-  const addInstruction= () => {
-    console.log( "New Instruction------>", newInstruction )
+        id: recipeInfo.id,
+      },
+    });
     dispatch({
-      type:"ADD_INSTRUCTION",
-      payload:{
+      type: "FETCH_RECIPE_INGREDIENTS",
+      payload: recipeInfo.id,
+    });
+  };
+
+  const addInstruction = () => {
+    console.log("New Instruction------>", newInstruction);
+    dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
         newInstruction: newInstruction,
-        id: recipeInfo.id
-      }
-    })
+        id: recipeInfo.id,
+      },
+    });
     dispatch({
-      type:"FETCH_RECIPE_INSTRUCTIONS",
-      payload: recipeInfo.id
-    })
-  }
+      type: "FETCH_RECIPE_INSTRUCTIONS",
+      payload: recipeInfo.id,
+    });
+  };
 
   return (
     <div>
       {JSON.stringify(recipeInfo.id)}
       {JSON.stringify(newRecipe.id)}
       {/* currently goes back to the /user page */}
-      <button onClick={back} >BACK</button>{/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
+      <button onClick={back}>BACK</button>
+      {/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
 
       {/* input for image_url */}
       {/* defaultValue holders the the value of the useState that came from the store  */}
       <input
-        onChange={(event)=> setNewRecipe({...newRecipe, image_url: event.target.value})} 
-        placeholder="Recipe image url" 
-        defaultValue={recipeInfo.image_url} 
+        onChange={(event) =>
+          setNewRecipe({ ...newRecipe, image_url: event.target.value })
+        }
+        placeholder="Recipe image url"
+        defaultValue={recipeInfo.image_url}
       />
-      
+
       {/* input for recipe_name */}
-      <input 
-        onChange={(event)=> setNewRecipe({...newRecipe, recipe_name: event.target.value})} 
-        placeholder="Recipe name" 
-        defaultValue={recipeInfo.recipe_name} 
+      <input
+        onChange={(event) =>
+          setNewRecipe({ ...newRecipe, recipe_name: event.target.value })
+        }
+        placeholder="Recipe name"
+        defaultValue={recipeInfo.recipe_name}
       />
 
       {/* input for recipe_description */}
-      <textarea 
-        onChange={(event)=> setNewRecipe({...newRecipe, recipe_description: event.target.value})} 
-        placeholder="recipe description" 
-        defaultValue={recipeInfo.recipe_description} 
+      <textarea
+        onChange={(event) =>
+          setNewRecipe({ ...newRecipe, recipe_description: event.target.value })
+        }
+        placeholder="recipe description"
+        defaultValue={recipeInfo.recipe_description}
       />
 
       {/* recipe type dropdown */}
@@ -155,98 +163,115 @@ function AddRecipe(props) {
       {/* difficulty dropdown */}
       <label htmlFor="recipeInput">
         difficulty
-        <select onChange={(event)=> setNewRecipe({...newRecipe, difficulty: event.target.value})}
-          defaultValue={recipeInfo.difficulty} >
+        <select
+          onChange={(event) =>
+            setNewRecipe({ ...newRecipe, difficulty: event.target.value })
+          }
+          defaultValue={recipeInfo.difficulty}
+        >
           <option>Select</option>
           <option value="1">Easy</option>
           <option value="2">Intermediate</option>
           <option value="3">Difficult</option>
         </select>
       </label>
-      
+
       {/* prep time input (hours & minutes) */}
       <label>
         prep time:
-          <input 
-            onChange={(event)=> setNewRecipe({...newRecipe, prep_minutes: event.target.value})} 
-            placeholder="hours" 
-            type="number"
-            defaultValue={recipeInfo.prep_minutes} 
-          />
-          <input 
-            onChange={(event)=> setNewRecipe ({...newRecipe, prep_hours: event.target.value})} 
-            placeholder="minutes" 
-            type="number"
-            defaultValue={recipeInfo.prep_hours} 
-            />
+        <input
+          onChange={(event) =>
+            setNewRecipe({ ...newRecipe, prep_minutes: event.target.value })
+          }
+          placeholder="hours"
+          type="number"
+          defaultValue={recipeInfo.prep_minutes}
+        />
+        <input
+          onChange={(event) =>
+            setNewRecipe({ ...newRecipe, prep_hours: event.target.value })
+          }
+          placeholder="minutes"
+          type="number"
+          defaultValue={recipeInfo.prep_hours}
+        />
       </label>
 
       {/* servings input */}
       <label>
         Servings:
-          <input 
-            onChange={(event)=> setNewRecipe ({...newRecipe, servings: event.target.value})} 
-            placeholder="servings" 
-            type="number"
-            defaultValue={recipeInfo.servings} 
-          />
+        <input
+          onChange={(event) =>
+            setNewRecipe({ ...newRecipe, servings: event.target.value })
+          }
+          placeholder="servings"
+          type="number"
+          defaultValue={recipeInfo.servings}
+        />
       </label>
 
       <h3>Ingredients</h3>
       <label>
-          <input 
-            onChange={(event)=> setNewIngredient ({...newIngredient, ingredient: event.target.value})}  
-            placeholder="ingredient"
-          />
-          <input 
-            onChange={(event)=> setNewIngredient ({...newIngredient, ingredient_amount: event.target.value})} 
-            placeholder="amount"
-          />
+        <input
+          onChange={(event) =>
+            setNewIngredient({
+              ...newIngredient,
+              ingredient: event.target.value,
+            })
+          }
+          placeholder="ingredient"
+        />
+        <input
+          onChange={(event) =>
+            setNewIngredient({
+              ...newIngredient,
+              ingredient_amount: event.target.value,
+            })
+          }
+          placeholder="amount"
+        />
       </label>
       <button onClick={addIngredient}>Add Ingredient</button>
-          <p>{JSON.stringify(ingredients)}</p>
       <ul>
-      {ingredients.map((ingredient) => {
-          return(
-          <Ingredient
-            key={ingredient.id}
-            ingredientName={ingredient.ingredient}
-            ingredientAmount={ingredient.ingredient_amount}
-            ingredientId={ingredient.id}
-            editMode={true}// <--- editMode determines whether or not the delete buttons show up 
-            recipeId={recipeInfo.id}
-          />
+        {ingredients.map((ingredient) => {
+          return (
+            <Ingredient
+              key={ingredient.id}
+              ingredientName={ingredient.ingredient}
+              ingredientAmount={ingredient.ingredient_amount}
+              ingredientId={ingredient.id}
+              editMode={true} // <--- editMode determines whether or not the delete buttons show up
+              recipeId={recipeInfo.id}
+            />
           );
         })}
       </ul>
 
       <h3>Instructions</h3>
       <label>
-          <input 
-            onChange={(event)=> setNewInstruction (event.target.value)}  
-            placeholder="instruction"
-          />
+        <input
+          onChange={(event) => setNewInstruction(event.target.value)}
+          placeholder="instruction"
+        />
       </label>
 
       <button onClick={addInstruction}>Add instruction</button>
       <ul>
-      {instructions.map((instruction) => {
-          return(
-          <Instruction
-            key={instruction.id}
-            instructionName={instruction.instruction}
-            instructionId={instruction.id}
-            editMode={true}
-            recipeId={recipeInfo.id}
-          />
+        {instructions.map((instruction) => {
+          return (
+            <Instruction
+              key={instruction.id}
+              instructionName={instruction.instruction}
+              instructionId={instruction.id}
+              editMode={true}
+              recipeId={recipeInfo.id}
+            />
           );
         })}
       </ul>
 
-
       <button onClick={submit}>Submit recipe</button>
-    
-
+      <DeleteRecipeButton recipeId={recipeInfo.id} />
     </div>
   );
 }
