@@ -6,32 +6,71 @@ import { put, takeLatest, takeEvery } from "redux-saga/effects";
 // const history = useHistory();
 
 function* recipeSaga() {
-  yield takeEvery("FETCH_RECIPE_CARD_INFO", getRecipeCardInfo);
-  yield takeEvery("FETCH_RECIPE_PAGE_INFO", getRecipePageInfo);
-  yield takeEvery("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
-  yield takeEvery("FETCH_RECIPE_INSTRUCTIONS", getRecipeInstructions);
-  yield takeEvery("FETCH_RECIPE_TYPES", getRecipeTypes);
-  yield takeEvery("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
-  yield takeEvery("FETCH_SAVED_RECIPES", getSavedRecipes);
-  yield takeEvery("ADD_NEW_LIKE", addLike);
-  yield takeEvery("FETCH_RECIPES_BY_TYPE", getRecipesByType);
-  yield takeEvery("ADD_RECIPE", addRecipe);
-  yield takeEvery("UPDATE_RECIPE", updateRecipe);
-  yield takeEvery("ADD_INSTRUCTION", addInstruction);
-  yield takeEvery("ADD_INGREDIENT", addIngredient);
-  yield takeEvery("DELETE_INSTRUCTION", deleteInstruction);
-  yield takeEvery("DELETE_INGREDIENT", deleteIngredient);
-  yield takeEvery("DELETE_RECIPE", deleteRecipe);
+  yield takeLatest("FETCH_RECIPE_CARD_INFO", getRecipeCardInfo);
+  yield takeLatest("FETCH_RECIPE_PAGE_INFO", getRecipePageInfo);
+  yield takeLatest("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
+  yield takeLatest("FETCH_RECIPE_INSTRUCTIONS", getRecipeInstructions);
+  yield takeLatest("FETCH_RECIPE_TYPES", getRecipeTypes);
+  yield takeLatest("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
+  yield takeLatest("FETCH_LIKED_RECIPES", getLikedRecipes);
+  yield takeLatest("ADD_NEW_LIKE", addLike);
+  yield takeLatest("FETCH_RECIPES_BY_TYPE", getRecipesByType);
+  yield takeLatest("ADD_RECIPE", addRecipe);
+  yield takeLatest("UPDATE_RECIPE", updateRecipe);
+  yield takeLatest("ADD_INSTRUCTION", addInstruction);
+  yield takeLatest("ADD_INGREDIENT", addIngredient);
+  yield takeLatest("DELETE_INSTRUCTION", deleteInstruction);
+  yield takeLatest("DELETE_INGREDIENT", deleteIngredient);
+  yield takeLatest("DELETE_RECIPE", deleteRecipe);
+  yield takeLatest("FETCH_RECIPE_LIKES", getRecipeLikes);
+  yield takeLatest("DELETE_LIKE", deleteLike);
 
-  //   yield takeEvery('DELETE_INGREDIENT', deleteIngredient);
+  //   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
+
+
+function *deleteLike(action){
+  yield console.log("in deleteRecipe saga=======>", action.payload)
+  try {
+    const response = yield axios.delete(`/api/recipes/delete-like/${action.payload.likedStatusId}`);
+    console.log("back from delete-like", response.data);
+    yield put({
+      type: "FETCH_RECIPE_LIKES",
+      payload: action.payload
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
+}
+
+
+function *getRecipeLikes(action){
+  console.log("getRecipeLikes---->", action.payload)
+  try {
+    //yield axios get req that includes the userId and recipeId specifically
+    //the userId and recipeId are included in the url in order to have access to them in the router
+    const response = yield axios.get(`/api/recipes/liked-recipe-status/${action.payload.userId}/${action.payload.recipeId}`);
+    // response.data will always come back as an array. Whether it's an empty array or has things in it. If it did come back with a result, the array would have something in it. if there were no results, it would come back as an empty array.
+    console.log("back from liked-recipe-status get:", response.data); 
+    //dispatch SET_RECIPES_LIKES_STATUS with the payload of response.data (which is either [] or an array with something in it).
+    yield put({
+      type: "SET_RECIPES_LIKES_STATUS",
+      //response.data cannot be [0], because when the recipe is not liked(response.data=[]), there is no 0th index since it's an empty array 
+      payload: response.data
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
+}
 
 function *deleteRecipe(action){
   console.log("in deleteRecipe", action.payload);
   try {
     const response = yield axios.delete(
-      `/api/recipes/delete-recipe/${action.payload}`
+      `/api/recipes/delete-recipe/${action.payload.recipeId}/${action.payload.userId}`
     );
   } catch (error) {
     console.log("get request failed", error);
@@ -73,6 +112,11 @@ function* addLike(action) {
   console.log("in addLike---->", action.payload);
   try {
     const response = yield axios.post("/api/recipes/add-like", action.payload);
+  //yield put to run the getRecipeLikes saga  
+  yield put({
+      type: "FETCH_RECIPE_LIKES",
+      payload: action.payload
+    });
   } catch (error) {
     console.log("get request failed", error);
   }
@@ -252,13 +296,13 @@ function* getSpecificRecipeType(action) {
   }
 }
 
-function* getSavedRecipes(action) {
-  console.log("----->in getSavedRecipes", action);
+function* getLikedRecipes(action) {
+  console.log("----->in getLikedRecipes", action);
   try {
-    const response = yield axios.get(`/api/recipes/saved-recipes`);
-    console.log("back from getSavedRecipes get:", response.data);
+    const response = yield axios.get(`/api/recipes/liked-recipes/${action.payload}`);
+    console.log("back from getLikedRecipes get:", response.data);
     yield put({
-      type: "SET_SAVED_RECIPES",
+      type: "SET_LIKED_RECIPES",
       payload: response.data,
     });
   } catch (err) {

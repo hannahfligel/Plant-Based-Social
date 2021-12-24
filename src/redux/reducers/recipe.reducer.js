@@ -70,14 +70,27 @@ const specificRecipeTypeReducer = (state = {}, action) => {
 
 
 
-const savedRecipesReducer = (state = [], action) => {
+const likedRecipesReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_SAVED_RECIPES':
+    case 'SET_LIKED_RECIPES':
       return action.payload;
     default:
       return state;
   }
 };
+
+//likedStatusReducer starts as an empty array 
+const likedStatusReducer = (state=[], action) =>{
+  switch (action.type) {
+    // case'RESET_RECIPE_LIKE_STATUS':
+    //   return state;
+    case 'SET_RECIPES_LIKES_STATUS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 
 
 
@@ -92,6 +105,7 @@ const savedRecipesReducer = (state = [], action) => {
     recipeInstructionsReducer,
     recipeTypesReducer,
     specificRecipeTypeReducer,
-    savedRecipesReducer,
+    likedRecipesReducer,
+    likedStatusReducer
   });
   
