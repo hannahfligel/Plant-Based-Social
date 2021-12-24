@@ -23,8 +23,26 @@ function* recipeSaga() {
   yield takeLatest("DELETE_INGREDIENT", deleteIngredient);
   yield takeLatest("DELETE_RECIPE", deleteRecipe);
   yield takeLatest("FETCH_RECIPE_LIKES", getRecipeLikes);
+  yield takeLatest("DELETE_LIKE", deleteLike);
 
   //   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
+}
+
+
+
+function *deleteLike(action){
+  yield console.log("in deleteRecipe saga=======>", action.payload)
+  try {
+    const response = yield axios.delete(`/api/recipes/delete-like/${action.payload.likedStatusId}`);
+    console.log("back from delete-like", response.data);
+    yield put({
+      type: "FETCH_RECIPE_LIKES",
+      payload: action.payload
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
 }
 
 
@@ -36,7 +54,7 @@ function *getRecipeLikes(action){
     console.log("back from liked-recipe-status get:", response.data);
     yield put({
       type: "SET_RECIPES_LIKES_STATUS",
-      payload: response.data[0],
+      payload: response.data
     });
   } catch (err) {
     alert("no");

@@ -354,13 +354,14 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
   // GET route code here
   console.log("liked recipe status req.body----->", req.params)
   const query = `
-    SELECT COUNT (*) 
+    SELECT COUNT(*), liked_recipes.id
     FROM
     "liked_recipes"
     WHERE
     user_id=${req.params.userId} 
     AND
-    recipes_id=${req.params.recipeId};`;
+    recipes_id=${req.params.recipeId}
+    GROUP BY liked_recipes.id;`;
   pool
     .query(query)
     .then((result) => {
@@ -373,6 +374,19 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
 });
 
 
+router.delete("/delete-like/:id", (req, res) => {
+  console.log("IN DELETE LIKE ROUTER =============>", req.params.id);
+  const queryString = `DELETE FROM "liked_recipes" WHERE id=${req.params.id}`;
+  pool
+    .query(queryString)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("DELETE failed: ", err);
+      res.sendStatus(500);
+    });
+});
 
 
 

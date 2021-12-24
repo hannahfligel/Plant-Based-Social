@@ -80,14 +80,18 @@ const likedRecipesReducer = (state = [], action) => {
 };
 
 //likedStatusReducer starts the state of 0 
-const likedStatusReducer = (state=0, action) =>{
+const likedStatusReducer = (state="0", action) =>{
   switch (action.type) {
+    // case'RESET_RECIPE_LIKE_STATUS':
+    //   return state;
     case 'SET_RECIPES_LIKES_STATUS':
-      return action.payload.count;
+      return action.payload;
     default:
       return state;
   }
 };
+
+
 
 
   

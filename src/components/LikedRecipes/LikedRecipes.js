@@ -27,11 +27,12 @@ function LikedRecipes(props) {
   return (
     <div>
       <h2>{heading}</h2>
-      {/* {JSON.stringify(likedRecipes)} */}
+      {JSON.stringify(likedRecipes)}
       {likedRecipes.map((likedRecipe) => {
         return (
           <RecipeCard
             recipe= {likedRecipe}
+            key={likedRecipe.id}
           />
         );
       })}
