@@ -47,13 +47,17 @@ function *deleteLike(action){
 
 
 function *getRecipeLikes(action){
-  yield console.log("getRecipeLikes---->", action.payload)
+  console.log("getRecipeLikes---->", action.payload)
   try {
-    //the axios get url includes both the userId and recipeId so that they both are accessible in the router
+    //yield axios get req that includes the userId and recipeId specifically
+    //the userId and recipeId are included in the url in order to have access to them in the router
     const response = yield axios.get(`/api/recipes/liked-recipe-status/${action.payload.userId}/${action.payload.recipeId}`);
-    console.log("back from liked-recipe-status get:", response.data);
+    // response.data will always come back as an array. Whether it's an empty array or has things in it. If it did come back with a result, the array would have something in it. if there were no results, it would come back as an empty array.
+    console.log("back from liked-recipe-status get:", response.data); 
+    //dispatch SET_RECIPES_LIKES_STATUS with the payload of response.data (which is either [] or an array with something in it).
     yield put({
       type: "SET_RECIPES_LIKES_STATUS",
+      //response.data cannot be [0], because when the recipe is not liked(response.data=[]), there is no 0th index since it's an empty array 
       payload: response.data
     });
   } catch (err) {
@@ -108,6 +112,7 @@ function* addLike(action) {
   console.log("in addLike---->", action.payload);
   try {
     const response = yield axios.post("/api/recipes/add-like", action.payload);
+  //yield put to run the getRecipeLikes saga  
   yield put({
       type: "FETCH_RECIPE_LIKES",
       payload: action.payload

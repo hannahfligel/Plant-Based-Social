@@ -12,11 +12,13 @@ function AddLikeButton(props) {
 
   const userId = useSelector((store) => store.user.id);
 
+  //onClick of the deleteLike button, dispatch DELETE_LIKE 
   const deleteLike = () => {
     console.log("delete like button clicked========>",likedStatus.id )
     dispatch({
       type: "DELETE_LIKE",
       payload: {
+        // the likedStatusId payload holds the likesStatus at 0th index.id 
         likedStatusId: likedStatus[0].id,
         userId: userId,
         recipeId: recipeId,
@@ -24,6 +26,7 @@ function AddLikeButton(props) {
     })
   }
 
+  //dispatch ADD_NEW_LIKE with the payload of userId (coming from the store) & recipeId (coming from RecipePage that got it from the store)
   const addLike = () => {
     dispatch({
       type: "ADD_NEW_LIKE",
@@ -36,13 +39,12 @@ function AddLikeButton(props) {
 
   return (
     <div>
-      {/* if likedStatus > 0  */}
-      {/* {JSON.stringify(likedStatus.count)} */}
+      {/* if the length of the likedStatus array is greater than 0, display the dislike button */}
       {likedStatus.length > 0 ?
       <button onClick={deleteLike}>
         Dislike
       </button>
-      //else, show the dislike button 
+      //else, display the like button (on the click of it, add a like to the likedStatus array)
       :
       <button onClick={addLike}>
         Like

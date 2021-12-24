@@ -79,8 +79,8 @@ const likedRecipesReducer = (state = [], action) => {
   }
 };
 
-//likedStatusReducer starts the state of 0 
-const likedStatusReducer = (state="0", action) =>{
+//likedStatusReducer starts as an empty array 
+const likedStatusReducer = (state=[], action) =>{
   switch (action.type) {
     // case'RESET_RECIPE_LIKE_STATUS':
     //   return state;

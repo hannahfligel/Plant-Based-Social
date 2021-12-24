@@ -307,9 +307,7 @@ router.delete("/delete-ingredient/:id", (req, res) => {
     });
 });
 
-/**
- * POST route template
- */
+//post router to add user like to the db with the user_id & recipe_id
 router.post("/add-like", (req, res) => {
   // POST route code here
   console.log("req.body----------------------->", req.body.recipeId);
@@ -326,20 +324,19 @@ router.post("/add-like", (req, res) => {
     });
 });
 
-//get route to get like recipe status
-//the route includes both the userId and the recipeId in the url. This is specific to have both of the ids in req.params
+//get route to get liked status for a specific recipe 
 router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
   // GET route code here
   console.log("liked recipe status req.body----->", req.params);
   const query = `
-    SELECT COUNT(*), liked_recipes.id
+    SELECT liked_recipes.id
     FROM
     "liked_recipes"
     WHERE
     user_id=${req.params.userId} 
     AND
     recipes_id=${req.params.recipeId}
-    GROUP BY liked_recipes.id;`;
+    ;`;
   pool
     .query(query)
     .then((result) => {
