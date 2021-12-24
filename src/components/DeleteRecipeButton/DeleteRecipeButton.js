@@ -15,12 +15,15 @@ function EditRecipeButton(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
+  const userId = useSelector((store) => store.user.id);
 
   const deleteRecipe = async() => {
       console.log ("IN DELETE RECIPE=====>",props.recipeId)
         await dispatch({ type: "DELETE_RECIPE",
-      payload: props.recipeId
+      payload: ({
+        recipeId: props.recipeId,
+        userId: userId
+      })
      });
         await history.push('/home');
   }

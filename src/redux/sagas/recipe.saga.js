@@ -66,7 +66,7 @@ function *deleteRecipe(action){
   console.log("in deleteRecipe", action.payload);
   try {
     const response = yield axios.delete(
-      `/api/recipes/delete-recipe/${action.payload}`
+      `/api/recipes/delete-recipe/${action.payload.recipeId}/${action.payload.userId}`
     );
   } catch (error) {
     console.log("get request failed", error);

@@ -307,26 +307,6 @@ router.delete("/delete-ingredient/:id", (req, res) => {
     });
 });
 
-router.delete("/delete-recipe/:id", (req, res) => {
-  console.log("IN DELETE RECIPE =============>", req.params.id);
-  const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.id}`;
-  pool.query(queryString).then(() => {
-    const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.id}`;
-    pool.query(deleteInstructionsQuery).then(() => {
-      const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=${req.params.id}`;
-      pool
-        .query(deleteRecipeQuery)
-        .then(() => {
-          res.sendStatus(200);
-        })
-        .catch((err) => {
-          console.log("DELETE failed: ", err);
-          res.sendStatus(500);
-        });
-    });
-  });
-});
-
 /**
  * POST route template
  */
@@ -346,13 +326,11 @@ router.post("/add-like", (req, res) => {
     });
 });
 
-
-
-//get route to get like recipe status 
+//get route to get like recipe status
 //the route includes both the userId and the recipeId in the url. This is specific to have both of the ids in req.params
 router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
   // GET route code here
-  console.log("liked recipe status req.body----->", req.params)
+  console.log("liked recipe status req.body----->", req.params);
   const query = `
     SELECT COUNT(*), liked_recipes.id
     FROM
@@ -373,7 +351,6 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
     });
 });
 
-
 router.delete("/delete-like/:id", (req, res) => {
   console.log("IN DELETE LIKE ROUTER =============>", req.params.id);
   const queryString = `DELETE FROM "liked_recipes" WHERE id=${req.params.id}`;
@@ -388,7 +365,31 @@ router.delete("/delete-like/:id", (req, res) => {
     });
 });
 
-
-
+router.delete("/delete-recipe/:recipeId/:userId", (req, res) => {
+  console.log("IN DELETE RECIPE =============>", req.params);
+  // delete liked recipe
+  const deleteLikeQuery = `DELETE FROM "liked_recipes" WHERE EXISTS (SELECT * FROM liked_recipes WHERE user_id=${req.params.userId} AND recipes_id=${req.params.recipeId})`;
+  pool.query(deleteLikeQuery).then(() => {
+  //delete ingredients 
+  const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.recipeId}`;
+  pool.query(queryString).then(() => {
+    // delete instructions
+    const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.recipeId}`;
+    pool.query(deleteInstructionsQuery).then(() => {
+        //delete recipe
+        const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=${req.params.recipeId}`;
+        pool
+          .query(deleteRecipeQuery)
+          .then(() => {
+            res.sendStatus(200);
+          })
+          .catch((err) => {
+            console.log("DELETE failed: ", err);
+            res.sendStatus(500);
+          });
+      });
+    });
+  });
+});
 
 module.exports = router;
