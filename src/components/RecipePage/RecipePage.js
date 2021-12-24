@@ -4,6 +4,9 @@ import Ingredient from "../Ingredient/Ingredient";
 import Instruction from '../Instruction/Instruction';
 import AddLikeButton from "../AddLikeButton/AddLikeButton";
 import EditRecipeButton from "../EditRecipeButton/EditRecipeButton";
+import ShareModal from "../ShareModal/ShareModal";
+import Button from 'react-bootstrap/Button';
+
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -48,6 +51,7 @@ function RecipePage(props) {
 
   return (
     <div>
+      <ShareModal/>
       {JSON.stringify(likedStatus)}
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id}/>

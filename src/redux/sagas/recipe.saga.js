@@ -6,6 +6,7 @@ import { put, takeLatest, takeEvery } from "redux-saga/effects";
 // const history = useHistory();
 
 function* recipeSaga() {
+  yield takeLatest("FETCH_ALL_USERS", getAllUsers)
   yield takeLatest("FETCH_RECIPE_CARD_INFO", getRecipeCardInfo);
   yield takeLatest("FETCH_RECIPE_PAGE_INFO", getRecipePageInfo);
   yield takeLatest("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
@@ -29,21 +30,21 @@ function* recipeSaga() {
 }
 
 
-
-function *deleteLike(action){
-  yield console.log("in deleteRecipe saga=======>", action.payload)
-  try {
-    const response = yield axios.delete(`/api/recipes/delete-like/${action.payload.likedStatusId}`);
-    console.log("back from delete-like", response.data);
-    yield put({
-      type: "FETCH_RECIPE_LIKES",
-      payload: action.payload
-    });
+function *getAllUsers(action){
+  console.log("in getAllUsers saga======>", action)
+  try{
+    const response = yield axios.get(`/api/recipes/all-users`);
+    console.log("BACK FROM SERVER WITH USERS", response.data)
+    yield put ({
+      type:"SET_ALL_USERS",
+      payload: response.data
+    })
   } catch (err) {
     alert("no");
     console.log(err);
   }
 }
+
 
 
 function *getRecipeLikes(action){
@@ -89,6 +90,22 @@ function *deleteIngredient(action) {
     });
   } catch (error) {
     console.log("get request failed", error);
+  }
+}
+
+
+function *deleteLike(action){
+  yield console.log("in deleteRecipe saga=======>", action.payload)
+  try {
+    const response = yield axios.delete(`/api/recipes/delete-like/${action.payload.likedStatusId}`);
+    console.log("back from delete-like", response.data);
+    yield put({
+      type: "FETCH_RECIPE_LIKES",
+      payload: action.payload
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
   }
 }
 

@@ -89,6 +89,22 @@ router.get("/liked-recipes/:id", (req, res) => {
     });
 });
 
+//GET route to get all users from the db
+router.get("/all-users", (req, res) => {
+  const query = `
+  SELECT "user".id, "user".username FROM "user";
+  `;
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all recipe card info", err);
+      res.sendStatus(500);
+    });
+});
+
 router.get("/ingredients/:id", (req, res) => {
   console.log("ing req.params=========>", req.params);
   // GET route code here
@@ -324,7 +340,7 @@ router.post("/add-like", (req, res) => {
     });
 });
 
-//get route to get liked status for a specific recipe 
+//get route to get liked status for a specific recipe
 router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
   // GET route code here
   console.log("liked recipe status req.body----->", req.params);
@@ -367,12 +383,12 @@ router.delete("/delete-recipe/:recipeId/:userId", (req, res) => {
   // delete liked recipe
   const deleteLikeQuery = `DELETE FROM "liked_recipes" WHERE EXISTS (SELECT * FROM liked_recipes WHERE user_id=${req.params.userId} AND recipes_id=${req.params.recipeId})`;
   pool.query(deleteLikeQuery).then(() => {
-  //delete ingredients 
-  const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.recipeId}`;
-  pool.query(queryString).then(() => {
-    // delete instructions
-    const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.recipeId}`;
-    pool.query(deleteInstructionsQuery).then(() => {
+    //delete ingredients
+    const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.recipeId}`;
+    pool.query(queryString).then(() => {
+      // delete instructions
+      const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.recipeId}`;
+      pool.query(deleteInstructionsQuery).then(() => {
         //delete recipe
         const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=${req.params.recipeId}`;
         pool
