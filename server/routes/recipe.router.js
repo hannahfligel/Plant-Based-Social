@@ -186,6 +186,21 @@ router.get("/specific-recipe-type", (req, res) => {
     });
 });
 
+router.post("/post-share-recipe", (req, res) => {
+  console.log("IN post-share-recipe=========>", req.body);
+  const queryString =  `INSERT INTO "shared_recipes" (sender_id, receiver_id, recipe_id) VALUES ($1, $2, $3);`
+  value = [req.body.userId, req.body.receiverId, req.body.recipeId]
+  pool
+    .query(queryString, value)
+    .then((results) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
 router.post("/add-recipe", (req, res) => {
   // POST route code here
   console.log("req.body----------->", req.body);

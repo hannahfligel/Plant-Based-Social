@@ -25,6 +25,7 @@ function* recipeSaga() {
   yield takeLatest("DELETE_RECIPE", deleteRecipe);
   yield takeLatest("FETCH_RECIPE_LIKES", getRecipeLikes);
   yield takeLatest("DELETE_LIKE", deleteLike);
+  yield takeLatest("POST_SHARE_RECIPE", postShareRecipe);
 
   //   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
@@ -120,6 +121,17 @@ function* deleteInstruction(action) {
     //     type:'FETCH_RECIPE_INSTRUCTIONS',
     //     payload: response.data
     // })
+  } catch (error) {
+    console.log("get request failed", error);
+  }
+}
+
+
+function *postShareRecipe(action){
+  console.log("in postShareRecipe", action.payload)
+  try{
+    const response = yield axios.post("/api/recipes/post-share-recipe", action.payload)
+    console.log("BACK FROM THE SERVER=====>",response)
   } catch (error) {
     console.log("get request failed", error);
   }
