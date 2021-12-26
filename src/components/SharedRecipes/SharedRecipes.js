@@ -40,9 +40,9 @@ function SharedRecipes() {
       <p>Recipes SharedRecipes with you</p>
       {sharedRecipes.map((recipe) => {
         return (
-          <div>
+          <div key={recipe.id}>
             <p>{recipe.sender} shared a recipe with you!</p>
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard recipe={recipe} />
           </div>
         );
       })}

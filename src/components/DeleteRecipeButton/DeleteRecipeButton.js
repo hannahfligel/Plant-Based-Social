@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useNavigate, useHistory } from "react-router-dom";
-
+import { Button, Modal } from "react-bootstrap";
 
 
 // Basic functional component structure for React with default state
@@ -15,21 +15,51 @@ function EditRecipeButton(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const userId = useSelector((store) => store.user.id);
 
-  const deleteRecipe = async() => {
-      console.log ("IN DELETE RECIPE=====>",props.recipeId)
-        await dispatch({ type: "DELETE_RECIPE",
-      payload: ({
+  const deleteRecipe = async () => {
+    console.log("IN DELETE RECIPE=====>", props.recipeId);
+    await dispatch({
+      type: "DELETE_RECIPE",
+      payload: {
         recipeId: props.recipeId,
-        userId: userId
-      })
-     });
-        await history.push('/home');
-  }
+        userId: userId,
+      },
+    });
+    await history.push("/home");
+  };
 
   return (
-        <button onClick={deleteRecipe}>Delete Recipe</button>
+    <div>
+      <Button variant="primary" onClick={handleShow}>
+        Delete recipe
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this recipe?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button onClick={deleteRecipe} variant="primary">
+            Yes, delete recipe
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 }
 
