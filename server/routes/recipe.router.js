@@ -379,6 +379,48 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
     });
 });
 
+
+//GET router to get all shared recipes 
+router.get("/get-shared-recipes/:id", (req, res) => {
+  console.log("shared recipes in reducer----->", req.params)
+  const query = `
+  SELECT 
+  recipes.prep_hours,
+  recipes.prep_minutes,
+  recipes.id,
+	recipes.id AS id,
+	recipes.image_url,
+	recipes.recipe_name,
+	shared_recipes.id AS sharedRecipeId, 
+	shared_recipes.receiver_id,
+	shared_recipes.sender_id, 
+	shared_recipes.recipe_id, 
+	"user".username AS "sender" 
+FROM 
+	"shared_recipes"
+JOIN 
+	"user"
+ON
+	shared_recipes.sender_id="user".id
+JOIN 
+	"recipes"
+ON
+	shared_recipes.recipe_id="recipes".id
+WHERE 
+	receiver_id=12;
+  `;
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all shared recipe info", err);
+      res.sendStatus(500);
+    });
+});
+
+
 router.delete("/delete-like/:id", (req, res) => {
   console.log("IN DELETE LIKE ROUTER =============>", req.params.id);
   const queryString = `DELETE FROM "liked_recipes" WHERE id=${req.params.id}`;
