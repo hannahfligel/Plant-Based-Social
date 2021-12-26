@@ -37,6 +37,7 @@ function RecipeCard(props) {
     history.push("/recipe-page");
   };
 
+
   return (
     <Card onClick={() => recipePage(props.recipe)}>
       {/* {JSON.stringify(props)} */}
