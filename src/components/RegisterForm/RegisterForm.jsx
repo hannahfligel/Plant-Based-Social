@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import '../RegisterPage/RegisterPage.css';
+import "../RegisterPage/RegisterPage.css";
+import { Button } from "react-bootstrap";
 
 function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -27,7 +28,7 @@ function RegisterForm() {
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
+      <div className="registerInputContainer">
         <input
           className="registerInput"
           placeholder="Username"
@@ -37,8 +38,6 @@ function RegisterForm() {
           required
           onChange={(event) => setUsername(event.target.value)}
         />
-      </div>
-      <div>
         <input
           className="registerInput"
           placeholder="Password"
@@ -49,11 +48,11 @@ function RegisterForm() {
           onChange={(event) => setPassword(event.target.value)}
         />
       </div>
-      <div>
+      <div className="registerButton">
         {/* <input className="btn" type="submit" name="submit" value="Register" /> */}
-        <button onClick={registerUser}>
+        <Button className="btn-primary registerButton" onClick={registerUser}>
           Register
-        </button>
+        </Button>
       </div>
     </form>
   );

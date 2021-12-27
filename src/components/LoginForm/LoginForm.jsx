@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import "../LoginPage/LoginPage.css";
+import { Button } from "react-bootstrap";
+
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -25,40 +29,40 @@ function LoginForm() {
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+    <form className="loginForm" onSubmit={login}>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
+      <div className='loginContainer'>
           <input
+            placeholder='Username'
+            className="loginInput"
             type="text"
             name="username"
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
+
           <input
+            placeholder='Password'
+            className="loginInput"
             type="password"
             name="password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
       </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+      <div className="loginButton">
+      <Button className="btn-primary loginButton" onClick={login}>
+          Login
+      </Button>
       </div>
+
+      
     </form>
   );
 }

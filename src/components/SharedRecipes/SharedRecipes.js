@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
+import Nav from "../Nav/Nav";
+
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -46,6 +48,7 @@ function SharedRecipes() {
           </div>
         );
       })}
+      <Nav/>
     </div>
   );
 }
