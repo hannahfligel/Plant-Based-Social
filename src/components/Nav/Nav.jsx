@@ -31,15 +31,19 @@ function Nav() {
             <Link className="navLink" to="/saved-recipes">
               Favorites
             </Link>
-
-            <Link className="navLink" to="/shared-recipes">
-              Shared
-            </Link>
-
-            <LogOutButton className="navLink" />
           </>
         )}
 
+        {user.admin && <AddRecipeButton />}
+
+        {user.id && (
+          <>
+            <Link className="navLink" to="/shared-recipes">
+              Shared
+            </Link>
+            <LogOutButton className="navLink" />
+          </>
+        )}
         {user.admin && <AddRecipeButton />}
 
         {user.id ? (
