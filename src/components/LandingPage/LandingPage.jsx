@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import './LandingPage.css';
-import handsGraphic from '../../images/handsgraphic.png';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import "./LandingPage.css";
+import { ButtonGroup, Button, Container } from "react-bootstrap";
+import handsGraphic from "../../images/handsgraphic.png";
 
 // CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
-
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 function LandingPage() {
   const history = useHistory();
 
   const onLogin = (event) => {
-    history.push('/login');
+    history.push("/login");
   };
 
   const onRegister = (event) => {
-    history.push('/registration');
+    history.push("/registration");
   };
 
   return (
-    <div className="container">
-      <img src={handsGraphic}/>
-      <h1>Welcome to</h1>
-      <h2>Plant Based Social</h2>
+    <Container className="landingPageContainer">
+      <img className="landingImg" src={handsGraphic} />
+      <h1 className="landingH1">Welcome to</h1>
+      <h2 className="landingH2">Plant Based Social</h2>
 
-
-      <div>
-            <button className="btn btn_sizeSm" onClick={onRegister}>
-            REGISTER</button>
-            <h4>Already have an account?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              GET STARTED
-            </button>
-      </div>
-      </div>
+      <ButtonGroup vertical className="buttonGroup">
+        <Button className="btn-primary landingBtnPrimary" onClick={onRegister}>
+          GET STARTED
+        </Button>
+        <p className="landingPText">Already have an account?</p>
+        <Button className="btn-secondary landingBtnsecondary" onClick={onLogin}>
+          SIGN IN
+        </Button>
+      </ButtonGroup>
+    </Container>
   );
 }
 

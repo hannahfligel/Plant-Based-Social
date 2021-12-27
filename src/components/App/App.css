@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Amerigo-Bold";
+  src: local("Amerigo-Bold"),
+    url("../../fonts/Amerigo\ Bold\ BT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Amerigo";
+  src: local("Amerigo"),
+    url("../../fonts/Amerigo\ BT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: local("Quicksand"),
+    url("../../fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
+}
+
 html,
 body,
 #react-root {
@@ -5,8 +23,9 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Quicksand;
   margin: 0px;
+  background-color: #fbfceb;
 }
 
 img {
@@ -14,71 +33,7 @@ img {
   max-width: 100%;
 }
 
-/* --------------------------------------------------------------------------------
-Container
--------------------------------------------------------------------------------- */
 
-.container {
-  padding: 20px;
-}
-
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #00acb0;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: #008183;
-  text-decoration: none;
-}
-
-/* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #444;
-  border-radius: 0;
-  background: none;
-  font: inherit;
-  color: #444;
-}
-
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: #008183;
-  color: #008183;
-}
-
-/* --------------------------------------------------------------------------------
-Alert
--------------------------------------------------------------------------------- */
 
 .alert {
   box-sizing: border-box;
@@ -91,9 +46,6 @@ Alert
   font-size: 0.8rem;
 }
 
-/* --------------------------------------------------------------------------------
-Form Treatment
--------------------------------------------------------------------------------- */
 
 .formPanel {
   box-sizing: border-box;
@@ -109,4 +61,42 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+
+h1{
+  font-family: Amerigo-Bold;
+  font-size: 48px;
+  text-transform: uppercase;
+}
+
+
+
+h2{
+  font-family: Amerigo-Bold;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.btn-primary{
+  background-color: #5FA21B;
+  border-color: #5FA21B;
+  color: white;
+  border-radius: 5px !important;
+  width: 100% !important;
+  height: 48px;
+  font-family: Quicksand !important;
+}
+
+.btn-secondary{
+  background-color: #DFE9AC;
+  border-color: #DFE9AC;
+  color: #126F27;
+  border-radius: 5px !important;
+  font-family: Quicksand;
+  font-weight: bolder;
+}
+
+.buttonGroup{
+  width: 80%;
 }
