@@ -18,15 +18,15 @@ function RegisterPage() {
       <center>
         Already have an account?
         <br/>
-        <button
+        <a
           type="button"
-          className="btn btn_asLink"
+          className="btn_asLink"
           onClick={() => {
             history.push('/login');
           }}
         >
-          Login
-        </button>
+          sign in
+        </a>
       </center>
     </Container>
   );

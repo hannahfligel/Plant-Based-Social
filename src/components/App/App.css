@@ -100,3 +100,12 @@ h2{
 .buttonGroup{
   width: 80%;
 }
+
+
+
+a{
+  font-family: Quicksand;
+  font-weight: bold;
+  color:black;
+  font-size: 18px;
+}
