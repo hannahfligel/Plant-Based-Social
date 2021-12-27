@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
+import Nav from "../Nav/Nav";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -29,16 +30,11 @@ function LikedRecipes(props) {
       <h2>{heading}</h2>
       {JSON.stringify(likedRecipes)}
       {likedRecipes.map((likedRecipe) => {
-        return (
-          <RecipeCard
-            recipe= {likedRecipe}
-            key={likedRecipe.id}
-          />
-        );
+        return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;
       })}
+      <Nav />
     </div>
   );
 }
-
 
 export default LikedRecipes;
