@@ -4,6 +4,7 @@ import { useNavigate, useHistory } from "react-router-dom";
 import Ingredient from "../Ingredient/Ingredient";
 import Instruction from "../Instruction/Instruction";
 import DeleteRecipeButton from "../DeleteRecipeButton/DeleteRecipeButton";
+import Nav from "../Nav/Nav";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -61,7 +62,7 @@ function AddRecipe(props) {
     history.push("/user");
   };
 
-  const submit = async() => {
+  const submit = async () => {
     console.log("Submit new recipe---->", newRecipe);
     await dispatch({
       type: "UPDATE_RECIPE",
@@ -70,7 +71,7 @@ function AddRecipe(props) {
         id: recipeInfo.id,
       },
     });
-    await history.push('/home');
+    await history.push("/home");
   };
 
   const addIngredient = () => {
@@ -84,8 +85,8 @@ function AddRecipe(props) {
     });
     setNewIngredient({
       ingredient: "",
-      ingredient_amount: ""
-    })
+      ingredient_amount: "",
+    });
     dispatch({
       type: "FETCH_RECIPE_INGREDIENTS",
       payload: recipeInfo.id,
@@ -102,8 +103,8 @@ function AddRecipe(props) {
       },
     });
     setNewInstruction({
-      instruction: ""
-    })
+      instruction: "",
+    });
     dispatch({
       type: "FETCH_RECIPE_INSTRUCTIONS",
       payload: recipeInfo.id,
@@ -283,6 +284,7 @@ function AddRecipe(props) {
 
       <button onClick={submit}>Submit recipe</button>
       <DeleteRecipeButton recipeId={recipeInfo.id} />
+      <Nav />
     </div>
   );
 }

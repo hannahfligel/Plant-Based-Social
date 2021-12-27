@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RecipeTypeButtons from '../RecipeTypeButtons/RecipeTypeButtons';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import RecipeCard from '../RecipeCard/RecipeCard';
+import Nav from '../Nav/Nav';
 
 
 function UserPage() {
@@ -57,6 +58,7 @@ function UserPage() {
         })}
 
       </div>
+      <Nav />
     </div>
   );
 }
