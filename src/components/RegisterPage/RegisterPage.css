@@ -1,0 +1,41 @@
+.registerPageContainer{
+    background-image: url("../../images/pbs-background.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pbs-logo{
+    width: 200px;
+    max-width: 100%;
+    margin: 93px 0px 0px;
+}
+
+.register-h1{
+    text-transform: none;
+}
+
+.register-p{
+    text-align: center;
+    width: 80%;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 24px;
+    margin-bottom: 39px;
+}
+
+.registerInput{
+    width:100% ;
+    height: 48px;
+    background-color: white !important;
+    border: 1px solid #B3D38C !important;
+    font-size: 18px;
+    font-family: Quicksand;
+    padding-left: 12px;
+}
+
+.registerForm{
+    width: 76%;
+}
