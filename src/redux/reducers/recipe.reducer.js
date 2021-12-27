@@ -96,6 +96,17 @@ const allUsersReducer = (state = [], action) => {
   }
 };
 
+
+const sharedRecipesReducer = (state = [], action) => {
+  switch (action.type) {
+    case "SET_SHARED_RECIPES":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+
 // user will be on the redux state at:
 // state.user
 
@@ -108,5 +119,6 @@ export default combineReducers({
   specificRecipeTypeReducer,
   likedRecipesReducer,
   likedStatusReducer,
-  allUsersReducer 
+  allUsersReducer,
+  sharedRecipesReducer
 });

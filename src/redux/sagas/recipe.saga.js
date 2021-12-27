@@ -6,7 +6,7 @@ import { put, takeLatest, takeEvery } from "redux-saga/effects";
 // const history = useHistory();
 
 function* recipeSaga() {
-  yield takeLatest("FETCH_ALL_USERS", getAllUsers)
+  yield takeLatest("FETCH_ALL_USERS", getAllUsers);
   yield takeLatest("FETCH_RECIPE_CARD_INFO", getRecipeCardInfo);
   yield takeLatest("FETCH_RECIPE_PAGE_INFO", getRecipePageInfo);
   yield takeLatest("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
@@ -25,40 +25,21 @@ function* recipeSaga() {
   yield takeLatest("DELETE_RECIPE", deleteRecipe);
   yield takeLatest("FETCH_RECIPE_LIKES", getRecipeLikes);
   yield takeLatest("DELETE_LIKE", deleteLike);
+  yield takeLatest("POST_SHARE_RECIPE", postShareRecipe);
+  yield takeLatest("FETCH_SHARED_RECIPES", getSharedRecipes);
 
   //   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
-
-function *getAllUsers(action){
-  console.log("in getAllUsers saga======>", action)
-  try{
-    const response = yield axios.get(`/api/recipes/all-users`);
-    console.log("BACK FROM SERVER WITH USERS", response.data)
-    yield put ({
-      type:"SET_ALL_USERS",
-      payload: response.data
-    })
-  } catch (err) {
-    alert("no");
-    console.log(err);
-  }
-}
-
-
-
-function *getRecipeLikes(action){
-  console.log("getRecipeLikes---->", action.payload)
+function* getSharedRecipes(action) {
+  console.log("in getSharedRecipes saga========>", action.payload);
   try {
-    //yield axios get req that includes the userId and recipeId specifically
-    //the userId and recipeId are included in the url in order to have access to them in the router
-    const response = yield axios.get(`/api/recipes/liked-recipe-status/${action.payload.userId}/${action.payload.recipeId}`);
-    // response.data will always come back as an array. Whether it's an empty array or has things in it. If it did come back with a result, the array would have something in it. if there were no results, it would come back as an empty array.
-    console.log("back from liked-recipe-status get:", response.data); 
-    //dispatch SET_RECIPES_LIKES_STATUS with the payload of response.data (which is either [] or an array with something in it).
+    const response = yield axios.get(
+      `/api/recipes/get-shared-recipes/${action.payload}`
+    );
+    console.log("Shared recipes in saga back from server---->", response.data)
     yield put({
-      type: "SET_RECIPES_LIKES_STATUS",
-      //response.data cannot be [0], because when the recipe is not liked(response.data=[]), there is no 0th index since it's an empty array 
+      type: "SET_SHARED_RECIPES",
       payload: response.data
     });
   } catch (err) {
@@ -67,7 +48,44 @@ function *getRecipeLikes(action){
   }
 }
 
-function *deleteRecipe(action){
+function* getAllUsers(action) {
+  console.log("in getAllUsers saga======>", action);
+  try {
+    const response = yield axios.get(`/api/recipes/all-users`);
+    console.log("BACK FROM SERVER WITH USERS", response.data);
+    yield put({
+      type: "SET_ALL_USERS",
+      payload: response.data,
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
+}
+
+function* getRecipeLikes(action) {
+  console.log("getRecipeLikes---->", action.payload);
+  try {
+    //yield axios get req that includes the userId and recipeId specifically
+    //the userId and recipeId are included in the url in order to have access to them in the router
+    const response = yield axios.get(
+      `/api/recipes/liked-recipe-status/${action.payload.userId}/${action.payload.recipeId}`
+    );
+    // response.data will always come back as an array. Whether it's an empty array or has things in it. If it did come back with a result, the array would have something in it. if there were no results, it would come back as an empty array.
+    console.log("back from liked-recipe-status get:", response.data);
+    //dispatch SET_RECIPES_LIKES_STATUS with the payload of response.data (which is either [] or an array with something in it).
+    yield put({
+      type: "SET_RECIPES_LIKES_STATUS",
+      //response.data cannot be [0], because when the recipe is not liked(response.data=[]), there is no 0th index since it's an empty array
+      payload: response.data,
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
+}
+
+function* deleteRecipe(action) {
   console.log("in deleteRecipe", action.payload);
   try {
     const response = yield axios.delete(
@@ -78,7 +96,7 @@ function *deleteRecipe(action){
   }
 }
 
-function *deleteIngredient(action) {
+function* deleteIngredient(action) {
   console.log("in deleteIngredient", action.payload);
   try {
     const response = yield axios.delete(
@@ -93,15 +111,16 @@ function *deleteIngredient(action) {
   }
 }
 
-
-function *deleteLike(action){
-  yield console.log("in deleteRecipe saga=======>", action.payload)
+function* deleteLike(action) {
+  yield console.log("in deleteRecipe saga=======>", action.payload);
   try {
-    const response = yield axios.delete(`/api/recipes/delete-like/${action.payload.likedStatusId}`);
+    const response = yield axios.delete(
+      `/api/recipes/delete-like/${action.payload.likedStatusId}`
+    );
     console.log("back from delete-like", response.data);
     yield put({
       type: "FETCH_RECIPE_LIKES",
-      payload: action.payload
+      payload: action.payload,
     });
   } catch (err) {
     alert("no");
@@ -125,14 +144,27 @@ function* deleteInstruction(action) {
   }
 }
 
+function* postShareRecipe(action) {
+  console.log("in postShareRecipe", action.payload);
+  try {
+    const response = yield axios.post(
+      "/api/recipes/post-share-recipe",
+      action.payload
+    );
+    console.log("BACK FROM THE SERVER=====>", response);
+  } catch (error) {
+    console.log("get request failed", error);
+  }
+}
+
 function* addLike(action) {
   console.log("in addLike---->", action.payload);
   try {
     const response = yield axios.post("/api/recipes/add-like", action.payload);
-  //yield put to run the getRecipeLikes saga  
-  yield put({
+    //yield put to run the getRecipeLikes saga
+    yield put({
       type: "FETCH_RECIPE_LIKES",
-      payload: action.payload
+      payload: action.payload,
     });
   } catch (error) {
     console.log("get request failed", error);
@@ -316,7 +348,9 @@ function* getSpecificRecipeType(action) {
 function* getLikedRecipes(action) {
   console.log("----->in getLikedRecipes", action);
   try {
-    const response = yield axios.get(`/api/recipes/liked-recipes/${action.payload}`);
+    const response = yield axios.get(
+      `/api/recipes/liked-recipes/${action.payload}`
+    );
     console.log("back from getLikedRecipes get:", response.data);
     yield put({
       type: "SET_LIKED_RECIPES",
