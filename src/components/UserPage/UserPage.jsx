@@ -5,6 +5,8 @@ import RecipeTypeButtons from "../RecipeTypeButtons/RecipeTypeButtons";
 import { propTypes } from "react-bootstrap/esm/Image";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Nav from "../Nav/Nav";
+import { Container } from "react-bootstrap";
+import "../UserPage/UserPage.css";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   return (
     <>
-      <div className="container">
+      <Container className="userPageContainer">
         <h1>Hello {user.username}!</h1>
         <p>What do you want to cook today?</p>
         {/* <p>Your ID is: {user.id}</p> */}
@@ -61,7 +63,7 @@ function UserPage() {
             return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
           })}
         </div>
-      </div>
+      </Container>
 
       <Nav />
     </>
