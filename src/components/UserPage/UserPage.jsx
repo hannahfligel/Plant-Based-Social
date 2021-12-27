@@ -34,39 +34,45 @@ function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   return (
-    <>
-      <Container className="userPageContainer">
-        <h1>Hello {user.username}!</h1>
-        <p>What do you want to cook today?</p>
-        {/* <p>Your ID is: {user.id}</p> */}
-        {/* {JSON.stringify(recipeReducer)} */}
-        <div>
-          <h2>Filter by meal</h2>
+    <div className="userPageContainer">
+      <Container>
+        <h1 className="usePageH1">Hello {user.username}!</h1>
+        <p className="usePageP">What do you want to cook today?</p>
+      </Container>
 
-          {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}
-          <button onClick={allButton}>All</button>
-          {recipeTypes.map((recipeType) => {
-            return (
-              //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name" and the id as "id"
-              <RecipeTypeButtons
-                key={recipeType.id}
-                name={recipeType.recipe_type}
-                id={recipeType.id}
-              />
-            );
-          })}
-        </div>
+      <div className="filterByMeal">
+        <Container>
+          <h3>Filter by meal</h3>
+
+          <div className="filterButtonsContainer">
+            {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}
+            <button className="filterButtons" onClick={allButton}>
+              All
+            </button>
+            {recipeTypes.map((recipeType) => {
+              return (
+                //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name" and the id as "id"
+                <RecipeTypeButtons
+                  key={recipeType.id}
+                  name={recipeType.recipe_type}
+                  id={recipeType.id}
+                />
+              );
+            })}
+          </div>
+        </Container>
+      </div>
+      <Container>
         <div>
-          <h2>Recipes</h2>
+          <h3>Recipes</h3>
           {/* {JSON.stringify(recipeCardInfo)} */}
           {recipeCardInfo.map((recipeCard) => {
             return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
           })}
         </div>
       </Container>
-
       <Nav />
-    </>
+    </div>
   );
 }
 
