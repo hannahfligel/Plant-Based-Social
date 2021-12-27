@@ -186,6 +186,21 @@ router.get("/specific-recipe-type", (req, res) => {
     });
 });
 
+router.post("/post-share-recipe", (req, res) => {
+  console.log("IN post-share-recipe=========>", req.body);
+  const queryString =  `INSERT INTO "shared_recipes" (sender_id, receiver_id, recipe_id) VALUES ($1, $2, $3);`
+  value = [req.body.userId, req.body.receiverId, req.body.recipeId]
+  pool
+    .query(queryString, value)
+    .then((results) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
 router.post("/add-recipe", (req, res) => {
   // POST route code here
   console.log("req.body----------->", req.body);
@@ -363,6 +378,48 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+//GET router to get all shared recipes 
+router.get("/get-shared-recipes/:id", (req, res) => {
+  console.log("shared recipes in reducer----->", req.params)
+  const query = `
+  SELECT 
+  recipes.prep_hours,
+  recipes.prep_minutes,
+  recipes.id,
+	recipes.id AS id,
+	recipes.image_url,
+	recipes.recipe_name,
+	shared_recipes.id AS sharedRecipeId, 
+	shared_recipes.receiver_id,
+	shared_recipes.sender_id, 
+	shared_recipes.recipe_id, 
+	"user".username AS "sender" 
+FROM 
+	"shared_recipes"
+JOIN 
+	"user"
+ON
+	shared_recipes.sender_id="user".id
+JOIN 
+	"recipes"
+ON
+	shared_recipes.recipe_id="recipes".id
+WHERE 
+	receiver_id=12;
+  `;
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all shared recipe info", err);
+      res.sendStatus(500);
+    });
+});
+
 
 router.delete("/delete-like/:id", (req, res) => {
   console.log("IN DELETE LIKE ROUTER =============>", req.params.id);

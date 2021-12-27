@@ -5,6 +5,7 @@ import Ingredient from "../Ingredient/Ingredient";
 import Instruction from "../Instruction/Instruction";
 import DeleteRecipeButton from "../DeleteRecipeButton/DeleteRecipeButton";
 import Nav from "../Nav/Nav";
+import { Button, Modal } from "react-bootstrap";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -14,6 +15,11 @@ function AddRecipe(props) {
   // a default value of 'Functional Component'
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const store = useSelector((store) => store);
 
@@ -71,8 +77,13 @@ function AddRecipe(props) {
         id: recipeInfo.id,
       },
     });
-    await history.push("/home");
+    await handleShow();
   };
+
+  const okayModal = () => {
+    handleClose();
+    history.push('/home');
+  }
 
   const addIngredient = () => {
     console.log("New Ingredient------>", newIngredient);
@@ -282,7 +293,40 @@ function AddRecipe(props) {
         })}
       </ul>
 
-      <button onClick={submit}>Submit recipe</button>
+
+
+
+
+      <Button variant="primary" onClick={submit}>
+        Submit recipe
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            Recipe was submitted successfully! 
+        </Modal.Body>
+        <Modal.Footer>
+          {/* <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button> */}
+          <Button onClick={okayModal} variant="primary">OK</Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
+
+
+      {/* <button onClick={submit}>Submit recipe</button> */}
+      
       <DeleteRecipeButton recipeId={recipeInfo.id} />
       <Nav />
     </div>

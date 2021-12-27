@@ -46,7 +46,7 @@ function RecipePage(props) {
 
   return (
     <div>
-      <ShareModal />
+      <ShareModal recipeId={recipeGeneralInfo.id}/>
       {JSON.stringify(likedStatus)}
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id} />
