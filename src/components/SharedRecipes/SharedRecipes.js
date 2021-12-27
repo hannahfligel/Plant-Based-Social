@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Nav from "../Nav/Nav";
 
-
 // This is one of our simplest components
 // It doesn't have local state
 // It doesn't dispatch any redux actions or display any part of redux state
@@ -26,7 +25,6 @@ function SharedRecipes() {
     (store) => store.recipeReducer.recipeCardReducer
   );
 
-
   useEffect(() => {
     dispatch({
       type: "FETCH_SHARED_RECIPES",
@@ -35,21 +33,23 @@ function SharedRecipes() {
   }, []);
 
   return (
-    <div className="container">
-      {/* {JSON.stringify(sharedRecipesSender)}
+    <>
+      <div className="container">
+        {/* {JSON.stringify(sharedRecipesSender)}
       {JSON.stringify(sharedRecipesImage)} */}
 
-      <p>Recipes SharedRecipes with you</p>
-      {sharedRecipes.map((recipe) => {
-        return (
-          <div key={recipe.id}>
-            <p>{recipe.sender} shared a recipe with you!</p>
-            <RecipeCard recipe={recipe} />
-          </div>
-        );
-      })}
-      <Nav/>
-    </div>
+        <p>Recipes SharedRecipes with you</p>
+        {sharedRecipes.map((recipe) => {
+          return (
+            <div key={recipe.id}>
+              <p>{recipe.sender} shared a recipe with you!</p>
+              <RecipeCard recipe={recipe} />
+            </div>
+          );
+        })}
+      </div>
+      <Nav />
+    </>
   );
 }
 

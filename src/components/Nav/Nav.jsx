@@ -10,7 +10,6 @@ function Nav() {
 
   return (
     <div className="nav">
-      <Link to="/home"></Link>
       <div>
         {/* If no user is logged in, show these links */}
         {user.id === null && (
@@ -44,7 +43,6 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
-        {user.admin && <AddRecipeButton />}
 
         {user.id ? (
           <></>
