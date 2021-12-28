@@ -26,14 +26,15 @@ function LikedRecipes(props) {
   }, []);
 
   return (
-    <div>
-      <h2>{heading}</h2>
-      {JSON.stringify(likedRecipes)}
-      {likedRecipes.map((likedRecipe) => {
-        return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;
-      })}
+    <>
+      <div>
+        <h2>{heading}</h2>
+        {likedRecipes.map((likedRecipe) => {
+          return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;
+        })}
+      </div>
       <Nav />
-    </div>
+    </>
   );
 }
 

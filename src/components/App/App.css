@@ -6,14 +6,25 @@
 
 @font-face {
   font-family: "Amerigo";
-  src: local("Amerigo"),
-    url("../../fonts/Amerigo\ BT.ttf") format("truetype");
+  src: local("Amerigo"), url("../../fonts/Amerigo\ BT.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Quicksand";
   src: local("Quicksand"),
     url("../../fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Quicksand-Bold";
+  src: local("Quicksand"),
+    url("../../fonts/Quicksand-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Quicksand-SemiBold";
+  src: local("Quicksand"),
+    url("../../fonts/Quicksand-SemiBold.ttf") format("truetype");
 }
 
 html,
@@ -33,8 +44,6 @@ img {
   max-width: 100%;
 }
 
-
-
 /* .alert {
   box-sizing: border-box;
   padding: 15px 10px;
@@ -45,7 +54,6 @@ img {
   color: #e01616;
   font-size: 0.8rem;
 } */
-
 
 .formPanel {
   box-sizing: border-box;
@@ -63,24 +71,21 @@ input {
   margin-bottom: 10px;
 }
 
-
-h1{
+h1 {
   font-family: Amerigo-Bold;
   font-size: 48px;
   text-transform: uppercase;
 }
 
-
-
-h2{
+h2 {
   font-family: Amerigo-Bold;
   font-size: 28px;
   text-transform: uppercase;
 }
 
-.btn-primary{
-  background-color: #5FA21B;
-  border-color: #5FA21B;
+.btn-primary {
+  background-color: #5fa21b;
+  border-color: #5fa21b;
   color: white;
   border-radius: 5px !important;
   width: 100% !important;
@@ -88,24 +93,22 @@ h2{
   font-family: Quicksand !important;
 }
 
-.btn-secondary{
-  background-color: #DFE9AC;
-  border-color: #DFE9AC;
-  color: #126F27;
+.btn-secondary {
+  background-color: #dfe9ac;
+  border-color: #dfe9ac;
+  color: #126f27;
   border-radius: 5px !important;
   font-family: Quicksand;
   font-weight: bolder;
 }
 
-.buttonGroup{
+.buttonGroup {
   width: 80%;
 }
 
-
-
-a{
+a {
   font-family: Quicksand;
   font-weight: bold;
-  color:black;
+  color: black;
   font-size: 18px;
 }

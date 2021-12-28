@@ -188,8 +188,8 @@ router.get("/specific-recipe-type", (req, res) => {
 
 router.post("/post-share-recipe", (req, res) => {
   console.log("IN post-share-recipe=========>", req.body);
-  const queryString =  `INSERT INTO "shared_recipes" (sender_id, receiver_id, recipe_id) VALUES ($1, $2, $3);`
-  value = [req.body.userId, req.body.receiverId, req.body.recipeId]
+  const queryString = `INSERT INTO "shared_recipes" (sender_id, receiver_id, recipe_id) VALUES ($1, $2, $3);`;
+  value = [req.body.userId, req.body.receiverId, req.body.recipeId];
   pool
     .query(queryString, value)
     .then((results) => {
@@ -270,7 +270,7 @@ router.post("/add-instruction", (req, res) => {
 
 router.put("/update-recipe/:id", (req, res) => {
   // console.log("UPDATE RECIPE -------->",req.body);
-  console.log("UPDATE RECIPE -------->", req.body.newRecipe.image_url);
+  console.log("UPDATE RECIPE -------->", req.body.newRecipe);
   const queryString = `
     UPDATE
       "recipes"
@@ -379,10 +379,9 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
     });
 });
 
-
-//GET router to get all shared recipes 
+//GET router to get all shared recipes
 router.get("/get-shared-recipes/:id", (req, res) => {
-  console.log("shared recipes in reducer----->", req.params)
+  console.log("shared recipes in reducer----->", req.params);
   const query = `
   SELECT 
   recipes.prep_hours,
@@ -419,7 +418,6 @@ WHERE
       res.sendStatus(500);
     });
 });
-
 
 router.delete("/delete-like/:id", (req, res) => {
   console.log("IN DELETE LIKE ROUTER =============>", req.params.id);

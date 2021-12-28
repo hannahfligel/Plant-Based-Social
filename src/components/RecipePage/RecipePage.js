@@ -7,6 +7,7 @@ import EditRecipeButton from "../EditRecipeButton/EditRecipeButton";
 import ShareModal from "../ShareModal/ShareModal";
 import Button from "react-bootstrap/Button";
 import Nav from "../Nav/Nav";
+import { Container } from "react-bootstrap";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -45,8 +46,8 @@ function RecipePage(props) {
   const [heading, setHeading] = useState("Recipe");
 
   return (
-    <div>
-      <ShareModal recipeId={recipeGeneralInfo.id}/>
+    <Container className="RecipePageContainer">
+      <ShareModal recipeId={recipeGeneralInfo.id} />
       {JSON.stringify(likedStatus)}
       <img src={recipeGeneralInfo.image_url} />
       <AddLikeButton recipeId={recipeGeneralInfo.id} />
@@ -94,7 +95,7 @@ function RecipePage(props) {
         })}
       </ul>
       <Nav />
-    </div>
+    </Container>
   );
 }
 

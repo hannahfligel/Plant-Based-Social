@@ -1,0 +1,59 @@
+.userPageContainer {
+  padding-bottom: 87px;
+  padding-top: 90px;
+}
+
+.usePageH1 {
+  text-transform: capitalize;
+  font-size: 45px;
+  margin-bottom: 0px;
+}
+
+.usePageP {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 27px;
+}
+
+.filterByMeal {
+  background-color: #dfe9ac;
+  padding: 20px 0px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  font-size: 24px;
+  font-family: Quicksand-SemiBold;
+  margin-bottom: 30px;
+}
+
+.filterButtons {
+  background-color: #97be11;
+  border-color: #97be11;
+  border: #97be11;
+  width: 110px;
+  margin-bottom: 16px;
+  color: white;
+  border-radius: 23px;
+  height: 40px;
+  font-family: Quicksand-SemiBold;
+}
+
+.filterButtons:focus {
+  background-color: #28590c;
+  border-color: #28590c;
+  border: #28590c;
+}
+
+.filterButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.recipeCardContainer {
+  margin: 0 !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
