@@ -12,6 +12,7 @@
 .usePageP {
   font-weight: bold;
   font-size: 18px;
+  margin-bottom: 27px;
 }
 
 .filterByMeal {
@@ -36,6 +37,12 @@ h3 {
   border-radius: 23px;
   height: 40px;
   font-family: Quicksand-SemiBold;
+}
+
+.filterButtons:focus {
+  background-color: #28590c;
+  border-color: #28590c;
+  border: #28590c;
 }
 
 .filterButtonsContainer {
