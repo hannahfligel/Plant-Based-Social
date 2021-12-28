@@ -1,0 +1,9 @@
+.cardImg {
+  border-radius: 20px;
+  height: 187px;
+  object-fit: cover;
+}
+
+.recipeCard {
+  width: 170px;
+}

@@ -47,14 +47,14 @@ function AddRecipe(props) {
 
   //useState stores values coming from the reducers in the store
   const [newRecipe, setNewRecipe] = useState({
-    image_url: "",
-    recipe_name: "",
-    recipe_description: "",
-    difficulty: 1,
-    prep_hours: 0,
-    prep_minutes: 0,
-    servings: 0,
-    recipe_type_id: 0,
+    image_url: recipeInfo.image_url,
+    recipe_name: recipeInfo.recipe_name,
+    recipe_description: recipeInfo.recipe_description,
+    difficulty: recipeInfo.difficulty,
+    prep_hours: recipeInfo.prep_hours,
+    prep_minutes: recipeInfo.prep_minutes,
+    servings: recipeInfo.servings,
+    recipe_type_id: recipeInfo.recipe_type_id,
   });
 
   const [newIngredient, setNewIngredient] = useState({
@@ -82,8 +82,8 @@ function AddRecipe(props) {
 
   const okayModal = () => {
     handleClose();
-    history.push('/home');
-  }
+    history.push("/home");
+  };
 
   const addIngredient = () => {
     console.log("New Ingredient------>", newIngredient);
@@ -124,8 +124,8 @@ function AddRecipe(props) {
 
   return (
     <div>
-      {JSON.stringify(recipeInfo.id)}
-      {JSON.stringify(newRecipe.id)}
+      {/* {JSON.stringify(recipeInfo)}
+      {JSON.stringify(newRecipe.id)} */}
       {/* currently goes back to the /user page */}
       <button onClick={back}>BACK</button>
       {/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
@@ -167,6 +167,7 @@ function AddRecipe(props) {
           }
           id="recipeInput"
           name="Recipe type"
+          defaultValue={recipeInfo.recipe_type_id}
         >
           <option>select recipe type</option>
           {recipeTypes.map((recipeType) => {
@@ -239,7 +240,7 @@ function AddRecipe(props) {
               ingredient: event.target.value,
             })
           }
-          value={newIngredient.ingredient}
+          defaultValue={newIngredient.ingredient}
           placeholder="ingredient"
         />
         <input
@@ -249,7 +250,7 @@ function AddRecipe(props) {
               ingredient_amount: event.target.value,
             })
           }
-          value={newIngredient.ingredient_amount}
+          defaultValue={newIngredient.ingredient_amount}
           placeholder="amount"
         />
       </label>
@@ -293,10 +294,6 @@ function AddRecipe(props) {
         })}
       </ul>
 
-
-
-
-
       <Button variant="primary" onClick={submit}>
         Submit recipe
       </Button>
@@ -310,23 +307,19 @@ function AddRecipe(props) {
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-            Recipe was submitted successfully! 
-        </Modal.Body>
+        <Modal.Body>Recipe was submitted successfully!</Modal.Body>
         <Modal.Footer>
           {/* <Button variant="secondary" onClick={handleClose}>
             Close
           </Button> */}
-          <Button onClick={okayModal} variant="primary">OK</Button>
+          <Button onClick={okayModal} variant="primary">
+            OK
+          </Button>
         </Modal.Footer>
       </Modal>
 
-
-
-
-
       {/* <button onClick={submit}>Submit recipe</button> */}
-      
+
       <DeleteRecipeButton recipeId={recipeInfo.id} />
       <Nav />
     </div>

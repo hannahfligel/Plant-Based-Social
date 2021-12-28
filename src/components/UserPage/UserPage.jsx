@@ -65,10 +65,12 @@ function UserPage() {
       <Container>
         <div>
           <h3>Recipes</h3>
-          {/* {JSON.stringify(recipeCardInfo)} */}
-          {recipeCardInfo.map((recipeCard) => {
-            return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
-          })}
+          <div className="recipeCardContainer">
+            {/* {JSON.stringify(recipeCardInfo)} */}
+            {recipeCardInfo.map((recipeCard) => {
+              return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
+            })}
+          </div>
         </div>
       </Container>
       <Nav />

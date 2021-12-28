@@ -31,7 +31,7 @@ h3 {
   background-color: #97be11;
   border-color: #97be11;
   border: #97be11;
-  width: 100px;
+  width: 110px;
   margin-bottom: 16px;
   color: white;
   border-radius: 23px;
@@ -49,4 +49,11 @@ h3 {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.recipeCardContainer {
+  margin: 0 !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
