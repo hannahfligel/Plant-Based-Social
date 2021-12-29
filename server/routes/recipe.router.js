@@ -386,7 +386,6 @@ router.get("/get-shared-recipes/:id", (req, res) => {
   SELECT 
   recipes.prep_hours,
   recipes.prep_minutes,
-  recipes.id,
 	recipes.id AS id,
 	recipes.image_url,
 	recipes.recipe_name,
@@ -406,11 +405,12 @@ JOIN
 ON
 	shared_recipes.recipe_id="recipes".id
 WHERE 
-	receiver_id=12;
+	receiver_id=${req.params.id};
   `;
   pool
     .query(query)
     .then((result) => {
+      console.log("BACK FROM GET SHARED RECIPES ROUTER=====>", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {

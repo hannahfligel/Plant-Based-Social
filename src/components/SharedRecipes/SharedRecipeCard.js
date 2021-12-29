@@ -2,21 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Card, Col } from "react-bootstrap";
 import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "../RecipeCard/RecipeCard.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import "../SharedRecipes/SharedRecipes.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
-// component name RecipeCard with the name for the new component.
-function RecipeCard(props) {
+// component name SharedRecipeCard with the name for the new component.
+function SharedRecipeCard(props) {
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const userId = useSelector((store) => store.user.id);
-
-  const clock = <FontAwesomeIcon icon={faClock} />;
 
   const recipe_type = useSelector(
     (store) => store.recipeReducer.specificRecipeTypeReducer
@@ -43,27 +39,30 @@ function RecipeCard(props) {
   };
 
   return (
-    <Card className="recipeCard" onClick={() => recipePage(props.recipe)}>
+    <Card className="SharedRecipeCard" onClick={() => recipePage(props.recipe)}>
       <Card.Img className="cardImg" src={props.recipe.image_url} />
-      <div className="recipeCardBody">
-        <h3 className="recipeCardName text">{props.recipe.recipe_name}</h3>
+      <div className="SharedRecipeCardBody">
+        <h3 className="SharedRecipeCardName text">
+          {props.recipe.recipe_name}
+        </h3>
         <div className="cardHrsAndMins">
           {/* if the prep time if greater then 1 hour, display num hours */}
-          <span className="clockIcon">{clock}</span>
           {props.recipe.prep_hours > 1 && (
-            <p className="recipeCardPrepTime cardHours">
-              {props.recipe.prep_hours}hrs
+            <p className="SharedRecipeCardPrepTime cardHours">
+              {props.recipe.prep_hours}-hrs
             </p>
           )}
           {/* else the prep time if greater then 1 hour, display num hour */}
           {props.recipe.prep_hours === 1 && (
-            <p className="recipeCardPrepTime cardHours">
-              {props.recipe.prep_hours}hr
+            <p className="SharedRecipeCardPrepTime cardHours">
+              {props.recipe.prep_hours}-hr
             </p>
           )}
 
           {props.recipe.prep_minutes > 1 && (
-            <p className="recipeCardPrepTime">{props.recipe.prep_minutes}min</p>
+            <p className="SharedRecipeCardPrepTime">
+              {props.recipe.prep_minutes}-min
+            </p>
           )}
         </div>
       </div>
@@ -71,4 +70,4 @@ function RecipeCard(props) {
   );
 }
 
-export default RecipeCard;
+export default SharedRecipeCard;

@@ -137,7 +137,7 @@ function AddRecipe(props) {
           setNewRecipe({ ...newRecipe, image_url: event.target.value })
         }
         placeholder="Recipe image url"
-        defaultValue={recipeInfo.image_url}
+        defaultValue={newRecipe.image_url}
       />
 
       {/* input for recipe_name */}
@@ -146,7 +146,7 @@ function AddRecipe(props) {
           setNewRecipe({ ...newRecipe, recipe_name: event.target.value })
         }
         placeholder="Recipe name"
-        defaultValue={recipeInfo.recipe_name}
+        defaultValue={newRecipe.recipe_name}
       />
 
       {/* input for recipe_description */}
@@ -155,7 +155,7 @@ function AddRecipe(props) {
           setNewRecipe({ ...newRecipe, recipe_description: event.target.value })
         }
         placeholder="recipe description"
-        defaultValue={recipeInfo.recipe_description}
+        defaultValue={newRecipe.recipe_description}
       />
 
       {/* recipe type dropdown */}
@@ -167,7 +167,7 @@ function AddRecipe(props) {
           }
           id="recipeInput"
           name="Recipe type"
-          defaultValue={recipeInfo.recipe_type_id}
+          defaultValue={newRecipe.recipe_type_id}
         >
           <option>select recipe type</option>
           {recipeTypes.map((recipeType) => {
@@ -202,19 +202,19 @@ function AddRecipe(props) {
         prep time:
         <input
           onChange={(event) =>
-            setNewRecipe({ ...newRecipe, prep_minutes: event.target.value })
+            setNewRecipe({ ...newRecipe, prep_hours: event.target.value })
           }
           placeholder="hours"
           type="number"
-          defaultValue={recipeInfo.prep_minutes}
+          defaultValue={recipeInfo.prep_hours}
         />
         <input
           onChange={(event) =>
-            setNewRecipe({ ...newRecipe, prep_hours: event.target.value })
+            setNewRecipe({ ...newRecipe, prep_minutes: event.target.value })
           }
           placeholder="minutes"
           type="number"
-          defaultValue={recipeInfo.prep_hours}
+          defaultValue={recipeInfo.prep_minutes}
         />
       </label>
 
