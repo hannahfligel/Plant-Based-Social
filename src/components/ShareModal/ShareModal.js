@@ -47,7 +47,9 @@ function ShareModal(props) {
 
   return (
     <>
-      <span onClick={shareButton}>{shareIcon}</span>
+      <span className="recipePageHeaderIcon" onClick={shareButton}>
+        {shareIcon}
+      </span>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

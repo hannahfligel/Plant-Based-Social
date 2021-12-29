@@ -11,6 +11,7 @@ import { Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router";
+import "../RecipePage/RecipePage.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -55,8 +56,13 @@ function RecipePage(props) {
   return (
     <>
       <div>
-        <Container>
-          <span onClick={() => history.goBack()}>{backIcon}</span>
+        <Container className="headerIconsContainer">
+          <span
+            className="recipePageHeaderIcon"
+            onClick={() => history.goBack()}
+          >
+            {backIcon}
+          </span>
           <ShareModal recipeId={recipeGeneralInfo.id} />
         </Container>
       </div>
@@ -107,8 +113,8 @@ function RecipePage(props) {
             );
           })}
         </ul>
-        <Nav />
       </Container>
+      <Nav />
     </>
   );
 }
