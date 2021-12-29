@@ -66,54 +66,56 @@ function RecipePage(props) {
           <ShareModal recipeId={recipeGeneralInfo.id} />
         </Container>
       </div>
+      <img className="recipePageImage" src={recipeGeneralInfo.image_url} />
 
-      <Container className="RecipePageContainer">
-        <img src={recipeGeneralInfo.image_url} />
-        <AddLikeButton recipeId={recipeGeneralInfo.id} />
+      <div className="recipeInfoContainer">
+        <Container className="RecipePageContainer">
+          <AddLikeButton recipeId={recipeGeneralInfo.id} />
 
-        {/* conditionally render to only show the edit button if an admin is logged in */}
-        {user.admin && <EditRecipeButton recipe_id={recipeGeneralInfo.id} />}
+          {/* conditionally render to only show the edit button if an admin is logged in */}
+          {user.admin && <EditRecipeButton recipe_id={recipeGeneralInfo.id} />}
 
-        <p>{recipeGeneralInfo.difficulty}</p>
-        <p>{recipeGeneralInfo.prep_hours} hr</p>
-        <p>{recipeGeneralInfo.prep_minutes} min</p>
-        <p>Servings: {recipeGeneralInfo.servings}</p>
+          <p>{recipeGeneralInfo.difficulty}</p>
+          <p>{recipeGeneralInfo.prep_hours} hr</p>
+          <p>{recipeGeneralInfo.prep_minutes} min</p>
+          <p>Servings: {recipeGeneralInfo.servings}</p>
 
-        <h1>{recipeGeneralInfo.recipe_name}</h1>
-        <h5>{recipeGeneralInfo.recipe_description}</h5>
+          <h1>{recipeGeneralInfo.recipe_name}</h1>
+          <h5>{recipeGeneralInfo.recipe_description}</h5>
 
-        <hr className="solid" />
+          <hr className="solid" />
 
-        <h3>Ingredients</h3>
+          <h3>Ingredients</h3>
 
-        <ul>
-          {ingredients.map((ingredient) => {
-            return (
-              <Ingredient
-                key={ingredient.id}
-                ingredientName={ingredient.ingredient}
-                ingredientAmount={ingredient.ingredient_amount}
-                ingredientId={ingredient.id}
-                editMode={false}
-              />
-            );
-          })}
-        </ul>
+          <ul>
+            {ingredients.map((ingredient) => {
+              return (
+                <Ingredient
+                  key={ingredient.id}
+                  ingredientName={ingredient.ingredient}
+                  ingredientAmount={ingredient.ingredient_amount}
+                  ingredientId={ingredient.id}
+                  editMode={false}
+                />
+              );
+            })}
+          </ul>
 
-        <h3>Instructions</h3>
-        <ul>
-          {instructions.map((instruction) => {
-            return (
-              <Instruction
-                key={instruction.id}
-                instructionName={instruction.instruction}
-                instructionId={instruction.id}
-                editMode={false} // <--- editMode determines whether or not the delete buttons show up
-              />
-            );
-          })}
-        </ul>
-      </Container>
+          <h3>Instructions</h3>
+          <ul>
+            {instructions.map((instruction) => {
+              return (
+                <Instruction
+                  key={instruction.id}
+                  instructionName={instruction.instruction}
+                  instructionId={instruction.id}
+                  editMode={false} // <--- editMode determines whether or not the delete buttons show up
+                />
+              );
+            })}
+          </ul>
+        </Container>
+      </div>
       <Nav />
     </>
   );

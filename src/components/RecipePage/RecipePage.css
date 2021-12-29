@@ -13,3 +13,9 @@
   font-size: 24px;
   color: #5fa21b;
 }
+
+.recipePageImage {
+  height: 408px;
+  width: 100%;
+  object-fit: cover;
+}
