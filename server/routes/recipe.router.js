@@ -405,7 +405,8 @@ JOIN
 ON
 	shared_recipes.recipe_id="recipes".id
 WHERE 
-	receiver_id=${req.params.id};
+	receiver_id=${req.params.id}
+ORDER BY shared_recipes.id DESC;
   `;
   pool
     .query(query)

@@ -3,6 +3,8 @@ import { Card, Col } from "react-bootstrap";
 import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "../SharedRecipes/SharedRecipes.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -13,6 +15,8 @@ function SharedRecipeCard(props) {
   const history = useHistory();
 
   const userId = useSelector((store) => store.user.id);
+
+  const clock = <FontAwesomeIcon icon={faClock} />;
 
   const recipe_type = useSelector(
     (store) => store.recipeReducer.specificRecipeTypeReducer
@@ -46,6 +50,8 @@ function SharedRecipeCard(props) {
           {props.recipe.recipe_name}
         </h3>
         <div className="cardHrsAndMins">
+          <span className="clockIcon">{clock}</span>
+
           {/* if the prep time if greater then 1 hour, display num hours */}
           {props.recipe.prep_hours > 1 && (
             <p className="SharedRecipeCardPrepTime cardHours">

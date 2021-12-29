@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import SharedRecipeCard from "../SharedRecipes/SharedRecipeCard";
 import Nav from "../Nav/Nav";
 import "../SharedRecipes/SharedRecipes.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { Card, Col, Container } from "react-bootstrap";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -11,6 +14,8 @@ import "../SharedRecipes/SharedRecipes.css";
 
 function SharedRecipes(props) {
   const dispatch = useDispatch();
+
+  const userIcon = <FontAwesomeIcon icon={faUserCircle} />;
 
   const userId = useSelector((store) => store.user.id);
   const sharedRecipes = useSelector(
@@ -35,21 +40,24 @@ function SharedRecipes(props) {
 
   return (
     <>
-      <div className="container">
+      <Container className="sharedRecipesContainer">
         {/* {JSON.stringify(sharedRecipesImage)} */}
 
-        <p>Recipes SharedRecipes with you</p>
+        <h2 className="sharedRecipesH2">Recipes shared with you:</h2>
         {sharedRecipes.map((recipe) => {
           return (
             <div key={recipe.id}>
-              <h2 className="sharedRecipesP">
-                {recipe.sender} shared a recipe with you!
-              </h2>
+              <div className="sharedUser">
+                <span className="userIcon">{userIcon}</span>
+                <h2 className="sharedRecipesP">
+                  {recipe.sender} sent a recipe!
+                </h2>
+              </div>
               <SharedRecipeCard recipe={recipe} />
             </div>
           );
         })}
-      </div>
+      </Container>
       <Nav />
     </>
   );
