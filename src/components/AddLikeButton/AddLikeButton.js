@@ -48,14 +48,18 @@ function AddLikeButton(props) {
     <div>
       {/* if the length of the likedStatus array is greater than 0, display the dislike button */}
       {likedStatus.length > 0 ? (
-        <span className="heartIconChecked" onClick={deleteLike}>
-          {heartIcon}
-        </span>
+        <div className="likeButtonContainer">
+          <span className="heartIconChecked" onClick={deleteLike}>
+            {heartIcon}
+          </span>
+        </div>
       ) : (
         //else, display the like button (on the click of it, add a like to the likedStatus array)
-        <span className="heartIconUnchecked" onClick={addLike}>
-          {heartIcon}
-        </span>
+        <div className="deleteLikedButtonContainer">
+          <span className="heartIconUnchecked" onClick={addLike}>
+            {heartIcon}
+          </span>
+        </div>
       )}
     </div>
   );
