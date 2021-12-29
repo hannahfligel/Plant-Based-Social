@@ -15,7 +15,7 @@
 }
 
 .recipePageImage {
-  height: 408px;
+  height: 387px;
   width: 100%;
   object-fit: cover;
 }
@@ -25,4 +25,12 @@
   border-radius: 44px 44px 0px 0px;
   top: 420px;
   position: absolute;
+}
+
+.heartIconChecked {
+  color: #ff3900;
+}
+
+.heartIconUnchecked {
+  color: black;
 }
