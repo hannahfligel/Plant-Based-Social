@@ -1,6 +1,8 @@
 import { Button, Modal, Alert } from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareSquare } from "@fortawesome/free-solid-svg-icons";
 
 function ShareModal(props) {
   const dispatch = useDispatch();
@@ -8,6 +10,8 @@ function ShareModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
+
+  const shareIcon = <FontAwesomeIcon icon={faShareSquare} />;
 
   const shareButton = () => {
     setShow(true);
@@ -29,8 +33,10 @@ function ShareModal(props) {
         userId: user.id,
       },
     });
-    setAlertShow(true)
-    setTimeout(() => {setAlertShow(false)}, 3000) 
+    setAlertShow(true);
+    setTimeout(() => {
+      setAlertShow(false);
+    }, 3000);
   };
 
   const [alertShow, setAlertShow] = useState(false);
@@ -41,9 +47,7 @@ function ShareModal(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={shareButton}>
-        Share
-      </Button>
+      <span onClick={shareButton}>{shareIcon}</span>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -63,7 +67,9 @@ function ShareModal(props) {
               );
             })}
           </ul>
-          <Alert show={alertShow} variant="success">Recipe shared! </Alert>
+          <Alert show={alertShow} variant="success">
+            Recipe shared!{" "}
+          </Alert>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
