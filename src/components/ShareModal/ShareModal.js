@@ -2,7 +2,7 @@ import { Button, Modal, Alert, Container } from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareSquare } from "@fortawesome/free-solid-svg-icons";
+import { faShareSquare, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "../ShareModal/ShareModal.css";
 import context from "react-bootstrap/esm/AccordionContext";
 
@@ -12,6 +12,8 @@ function ShareModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
+
+  const userIcon = <FontAwesomeIcon icon={faUserCircle} />;
 
   const shareIcon = <FontAwesomeIcon icon={faShareSquare} />;
 
@@ -64,25 +66,29 @@ function ShareModal(props) {
           </center>
         </Container>
 
-        <Modal.Body>
-          <div>
-            {allUsers.map((user) => {
-              return (
-                <div key={user.id}>
-                  <div>
-                    {user.username}
-                    {/* onClick of the share button, run the shareRecipe function and give it the argument of the specific users id (the receiver) */}
-                    <Button onClick={() => shareRecipe(user.id)}>share</Button>
-                  </div>
+        <Modal.Body className="shareModalScroll">
+          {allUsers.map((user) => {
+            return (
+              <div className="ShareModalUserContainer" key={user.id}>
+                <div className="ShareRecipeUserNameAndIcon">
+                  <span className="userIcon">{userIcon}</span>
+                  {user.username}
+                  {/* onClick of the share button, run the shareRecipe function and give it the argument of the specific users id (the receiver) */}
                 </div>
-              );
-            })}
-          </div>
+                <button
+                  className="modalShareButton"
+                  onClick={() => shareRecipe(user.id)}
+                >
+                  share
+                </button>
+              </div>
+            );
+          })}
           <Alert show={alertShow} variant="success">
             Recipe shared!{" "}
           </Alert>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="modalFooter">
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
