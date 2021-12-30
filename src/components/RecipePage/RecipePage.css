@@ -80,7 +80,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid black;
+  border-right: 1px solid #d7d7d7;
+  height: 36px;
 }
 
 .recipePageBasicInfoP {
