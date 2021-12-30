@@ -84,17 +84,12 @@ function ShareModal(props) {
               </div>
             );
           })}
-          <Alert show={alertShow} variant="success">
-            Recipe shared!{" "}
+          <Alert className="shareModalAlert" show={alertShow} variant="success">
+            Recipe shared!
           </Alert>
         </Modal.Body>
-        <Modal.Footer className="modalFooter">
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+        <Modal.Footer className="shareModalFooter">
+          <Button onClick={handleClose}>Close</Button>
         </Modal.Footer>
       </Modal>
     </>
