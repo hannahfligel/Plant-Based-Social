@@ -1,0 +1,11 @@
+.shareModalHeader {
+  border-bottom: none;
+}
+
+.shareModalTitleH2 {
+  margin-top: 14px !important;
+  margin-bottom: 10px;
+  font-family: Amerigo-Bold;
+  text-transform: none !important;
+  font-size: 23px;
+}

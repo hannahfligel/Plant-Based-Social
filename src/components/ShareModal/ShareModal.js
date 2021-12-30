@@ -1,8 +1,10 @@
-import { Button, Modal, Alert } from "react-bootstrap";
+import { Button, Modal, Alert, Container } from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareSquare } from "@fortawesome/free-solid-svg-icons";
+import "../ShareModal/ShareModal.css";
+import context from "react-bootstrap/esm/AccordionContext";
 
 function ShareModal(props) {
   const dispatch = useDispatch();
@@ -52,23 +54,30 @@ function ShareModal(props) {
       </span>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Send on Plant Based Social</Modal.Title>
+        <Modal.Header className="shareModalHeader" closeButton>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
+        <Container>
+          <center>
+            <h2 className="shareModalTitleH2">Share on Plant Based Social</h2>
+            <hr />
+          </center>
+        </Container>
+
         <Modal.Body>
-          <ul>
+          <div>
             {allUsers.map((user) => {
               return (
                 <div key={user.id}>
-                  <li>
+                  <div>
                     {user.username}
                     {/* onClick of the share button, run the shareRecipe function and give it the argument of the specific users id (the receiver) */}
                     <Button onClick={() => shareRecipe(user.id)}>share</Button>
-                  </li>
+                  </div>
                 </div>
               );
             })}
-          </ul>
+          </div>
           <Alert show={alertShow} variant="success">
             Recipe shared!{" "}
           </Alert>
