@@ -124,14 +124,16 @@ function RecipePage(props) {
             </Col>
           </Row>
 
-          <h1>{recipeGeneralInfo.recipe_name}</h1>
-          <h5>{recipeGeneralInfo.recipe_description}</h5>
+          <h1 className="recipePageH1">{recipeGeneralInfo.recipe_name}</h1>
+          <p className="RecipePageDescription">
+            {recipeGeneralInfo.recipe_description}
+          </p>
 
           <hr className="solid" />
 
-          <h3>Ingredients</h3>
+          <h2 className="RecipePageH2">Ingredients</h2>
 
-          <ul>
+          <ul className="RecipePageLists">
             {ingredients.map((ingredient) => {
               return (
                 <Ingredient
@@ -145,8 +147,8 @@ function RecipePage(props) {
             })}
           </ul>
 
-          <h3>Instructions</h3>
-          <ul>
+          <h2 className="RecipePageH2">Instructions</h2>
+          <ol className="RecipePageLists">
             {instructions.map((instruction) => {
               return (
                 <Instruction
@@ -157,7 +159,7 @@ function RecipePage(props) {
                 />
               );
             })}
-          </ul>
+          </ol>
         </Container>
       </div>
       <Nav />

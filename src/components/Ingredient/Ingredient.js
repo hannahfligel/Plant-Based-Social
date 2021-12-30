@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import "../RecipePage/RecipePage.css";
 
 function Ingredient(props) {
   const dispatch = useDispatch();
@@ -25,17 +26,17 @@ function Ingredient(props) {
   };
 
   return (
-    <div>
-      <li>
-        {props.ingredientName}
-        {props.ingredientAmount}
-        {/* is editMode set to true? */}
-        {props.editMode && (
-          //if it is, display the delete button next to each ingredient
-          <button onClick={deleteIngredient}>Delete</button>
-        )}
-      </li>
-    </div>
+    <li>
+      <div className="ingredientsAndAmount">
+        <p>{props.ingredientName}</p>
+        <p>{props.ingredientAmount}</p>
+      </div>
+      {/* is editMode set to true? */}
+      {props.editMode && (
+        //if it is, display the delete button next to each ingredient
+        <button onClick={deleteIngredient}>Delete</button>
+      )}
+    </li>
   );
 }
 

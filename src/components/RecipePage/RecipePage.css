@@ -5,13 +5,13 @@
 .headerIconsContainer {
   display: flex;
   justify-content: space-between;
-  background-color: #eff1cb;
+  background-color: #dfe9ac;
   padding: 16px;
 }
 
 .recipePageHeaderIcon {
   font-size: 24px;
-  color: #406e12;
+  color: #569219;
 }
 
 .recipePageImage {
@@ -95,4 +95,32 @@
 
 .recipePageHours {
   margin-right: 4px;
+}
+
+.recipePageH1 {
+  margin-top: 34px;
+}
+
+.RecipePageDescription {
+  font-size: 16px;
+  font-family: Quicksand-SemiBold;
+}
+
+.RecipePageH2 {
+  text-transform: none;
+  margin-top: 31px;
+  margin-bottom: 23px;
+}
+
+.RecipePageLists {
+  font-family: Quicksand-SemiBold;
+}
+
+.ingredientsAndAmount {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredientP {
+  width: 225px;
 }

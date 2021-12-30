@@ -4,21 +4,19 @@ import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 function Instruction(props) {
-
   const dispatch = useDispatch();
 
-
   const deleteInstruction = () => {
-    console.log("Delete button clicked")
-    dispatch({ 
+    console.log("Delete button clicked");
+    dispatch({
       type: "DELETE_INSTRUCTION",
       payload: props.instructionId,
     });
     dispatch({
-      type:"FETCH_RECIPE_INSTRUCTIONS",
-      payload: props.recipeId//<--recipeId is coming from AppRecipe via props and holds the specific recipe id 
-    })
-  }
+      type: "FETCH_RECIPE_INSTRUCTIONS",
+      payload: props.recipeId, //<--recipeId is coming from AppRecipe via props and holds the specific recipe id
+    });
+  };
 
   return (
     <div>
