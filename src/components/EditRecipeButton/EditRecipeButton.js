@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useNavigate, useHistory } from "react-router-dom";
-
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import "../RecipePage/RecipePage.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -16,16 +16,20 @@ function EditRecipeButton(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const editIcon = <FontAwesomeIcon icon={faEdit} />;
 
-  const editRecipe = () =>{
+  const editRecipe = () => {
     history.push(`/add-recipe/${props.recipe_id}`);
-  }
-
+  };
 
   return (
-        <Link onClick={editRecipe} className="navLink" to="/add-recipe">
-            Edit
-        </Link>
+    <Link
+      to="/add-recipe"
+      className="editIcon recipePageHeaderIcon"
+      onClick={editRecipe}
+    >
+      {editIcon}
+    </Link>
   );
 }
 

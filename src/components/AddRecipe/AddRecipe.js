@@ -191,9 +191,9 @@ function AddRecipe(props) {
           defaultValue={recipeInfo.difficulty}
         >
           <option>Select</option>
-          <option value="1">Easy</option>
-          <option value="2">Intermediate</option>
-          <option value="3">Difficult</option>
+          <option value="Easy">Easy</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Difficult">Difficult</option>
         </select>
       </label>
 

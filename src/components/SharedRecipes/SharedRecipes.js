@@ -43,7 +43,7 @@ function SharedRecipes(props) {
       <Container className="sharedRecipesContainer">
         {/* {JSON.stringify(sharedRecipesImage)} */}
 
-        <h2 className="sharedRecipesH2">Recipes shared with you:</h2>
+        <h1 className="sharedRecipesH1">Recipes shared with you </h1>
         {sharedRecipes.map((recipe) => {
           return (
             <div key={recipe.id}>

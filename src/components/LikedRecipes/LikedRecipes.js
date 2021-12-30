@@ -29,7 +29,7 @@ function LikedRecipes(props) {
   return (
     <>
       <Container>
-        <h2 className="likedRecipesH1">My favorite recipes:</h2>
+        <h1 className="likedRecipesH1">My favorite recipes:</h1>
         <div className="recipeCardContainer">
           {likedRecipes.map((likedRecipe) => {
             return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;

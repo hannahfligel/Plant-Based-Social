@@ -7,9 +7,9 @@ import EditRecipeButton from "../EditRecipeButton/EditRecipeButton";
 import ShareModal from "../ShareModal/ShareModal";
 import Button from "react-bootstrap/Button";
 import Nav from "../Nav/Nav";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router";
 import "../RecipePage/RecipePage.css";
 
@@ -21,6 +21,7 @@ function RecipePage(props) {
   const history = useHistory();
 
   const backIcon = <FontAwesomeIcon icon={faArrowLeft} />;
+  const editIcon = <FontAwesomeIcon icon={faEdit} />;
 
   const user = useSelector((store) => store.user);
 
@@ -63,7 +64,13 @@ function RecipePage(props) {
           >
             {backIcon}
           </span>
-          <ShareModal recipeId={recipeGeneralInfo.id} />
+          <div>
+            {/* conditionally render to only show the edit button if an admin is logged in */}
+            {user.admin && (
+              <EditRecipeButton recipe_id={recipeGeneralInfo.id} />
+            )}
+            <ShareModal recipeId={recipeGeneralInfo.id} />
+          </div>
         </Container>
       </div>
       <img className="recipePageImage" src={recipeGeneralInfo.image_url} />
@@ -72,13 +79,50 @@ function RecipePage(props) {
         <Container className="RecipePageContainer">
           <AddLikeButton recipeId={recipeGeneralInfo.id} />
 
-          {/* conditionally render to only show the edit button if an admin is logged in */}
-          {user.admin && <EditRecipeButton recipe_id={recipeGeneralInfo.id} />}
+          <Row className="recipePageBasicInfoContainer">
+            <Col className="recipePageCol">
+              <p className="recipePageBasicInfoP">
+                {recipeGeneralInfo.difficulty}
+              </p>
+            </Col>
+            {/* if the prep time if greater then 1 hour, display num hours */}
+            <Col className="recipePagePrepTime recipePageCol">
+              {recipeGeneralInfo.prep_hours > 1 && (
+                <p className="recipePageHours recipePageBasicInfoP">
+                  {recipeGeneralInfo.prep_hours}hrs
+                </p>
+              )}
+              {/* else the prep time if greater then 1 hour, display num hour */}
+              {recipeGeneralInfo.prep_hours === 1 && (
+                <p className="recipePageHours recipePageBasicInfoP">
+                  {recipeGeneralInfo.prep_hours}hr
+                </p>
+              )}
 
-          <p>{recipeGeneralInfo.difficulty}</p>
-          <p>{recipeGeneralInfo.prep_hours} hr</p>
-          <p>{recipeGeneralInfo.prep_minutes} min</p>
-          <p>Servings: {recipeGeneralInfo.servings}</p>
+              {recipeGeneralInfo.prep_minutes > 1 && (
+                <p className="recipePageBasicInfoP">
+                  {recipeGeneralInfo.prep_minutes}min
+                </p>
+              )}
+            </Col>
+            <Col className="recipePageCol">
+              {recipeGeneralInfo.servings === 1 && (
+                <p className="recipePageBasicInfoP">
+                  {recipeGeneralInfo.servings}serving
+                </p>
+              )}
+
+              {recipeGeneralInfo.servings > 1 && (
+                <p className="recipePageBasicInfoP">
+                  {recipeGeneralInfo.servings} servings
+                </p>
+              )}
+              {/* 
+              <p className="recipePageServings">
+                {recipeGeneralInfo.servings} serving
+              </p> */}
+            </Col>
+          </Row>
 
           <h1>{recipeGeneralInfo.recipe_name}</h1>
           <h5>{recipeGeneralInfo.recipe_description}</h5>

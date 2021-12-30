@@ -7,9 +7,10 @@
   font-family: Quicksand-Bold;
 }
 
-.sharedRecipesH2 {
+.sharedRecipesH1 {
   text-transform: none;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 46px;
 }
 
 .userIcon {
@@ -23,7 +24,7 @@
 
 .sharedRecipesContainer {
   padding-bottom: 100px;
-  padding-top: 70px;
+  padding-top: 50px;
 }
 
 .SharedRecipeCard {
@@ -41,4 +42,8 @@
 
 .clockIcon {
   font-size: 16px;
+}
+
+.editIcon {
+  margin-right: 15px;
 }

@@ -5,13 +5,13 @@
 .headerIconsContainer {
   display: flex;
   justify-content: space-between;
-  background-color: #dfe9ac;
+  background-color: #eff1cb;
   padding: 16px;
 }
 
 .recipePageHeaderIcon {
   font-size: 24px;
-  color: #5fa21b;
+  color: #406e12;
 }
 
 .recipePageImage {
@@ -63,4 +63,35 @@
   position: absolute;
   right: 58px;
   top: -25px;
+}
+
+.recipePageBasicInfoContainer {
+  margin-top: 58px;
+  font-size: 15px;
+  font-family: Quicksand-Bold;
+}
+
+.recipePagePrepTime {
+  display: flex;
+  justify-content: center;
+}
+
+.recipePageCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+}
+
+.recipePageBasicInfoP {
+  margin-bottom: 0px !important;
+}
+
+.recipePageServings {
+  display: flex;
+  justify-content: center;
+}
+
+.recipePageHours {
+  margin-right: 4px;
 }
