@@ -92,13 +92,32 @@ h2 {
   font-family: Quicksand !important;
 }
 
+/* .btn-primary:focus,
+.btn-primary:active,
+.btn-primary:hover {
+  background-color: #28590c;
+  border-color: #28590c;
+  color: white;
+  border-radius: 5px !important;
+  width: 100% !important;
+  height: 48px;
+  font-family: Quicksand !important;
+  box-shadow: 0 0 0 0.25rem rgba(167, 37, 210, 0.5);
+} */
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #28590c;
+}
+
 .btn-secondary {
   background-color: #dfe9ac;
   border-color: #dfe9ac;
   color: #126f27;
   border-radius: 5px !important;
   font-family: Quicksand;
-  font-weight: bolder;
 }
 
 .buttonGroup {
