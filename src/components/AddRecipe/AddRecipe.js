@@ -5,7 +5,11 @@ import Ingredient from "../Ingredient/Ingredient";
 import Instruction from "../Instruction/Instruction";
 import DeleteRecipeButton from "../DeleteRecipeButton/DeleteRecipeButton";
 import Nav from "../Nav/Nav";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Form, Container, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
+import "../RecipePage/RecipePage.css";
+import "../AddRecipe/AddRecipe.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -15,6 +19,8 @@ function AddRecipe(props) {
   // a default value of 'Functional Component'
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const backIcon = <FontAwesomeIcon icon={faArrowLeft} />;
 
   const [show, setShow] = useState(false);
 
@@ -123,206 +129,252 @@ function AddRecipe(props) {
   };
 
   return (
-    <div>
-      {/* {JSON.stringify(recipeInfo)}
-      {JSON.stringify(newRecipe.id)} */}
-      {/* currently goes back to the /user page */}
-      <button onClick={back}>BACK</button>
-      {/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
+    <>
+      <div>
+        <Container className="headerIconsContainer">
+          <span
+            className="recipePageHeaderIcon"
+            onClick={() => history.goBack()}
+          >
+            {backIcon}
+          </span>
+        </Container>
+      </div>
 
-      {/* input for image_url */}
-      {/* defaultValue holders the the value of the useState that came from the store  */}
-      <input
-        onChange={(event) =>
-          setNewRecipe({ ...newRecipe, image_url: event.target.value })
-        }
-        placeholder="Recipe image url"
-        defaultValue={newRecipe.image_url}
-      />
+      <Container className="addRecipeContainer">
+        <Form>
+          {/* input for image_url */}
+          {/* defaultValue holders the the value of the useState that came from the store  */}
+          <Form.Group>
+            <Form.Label htmlFor="imageUrl">Image Url</Form.Label>
+            <Form.Control
+              id="imageUrl"
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, image_url: event.target.value })
+              }
+              defaultValue={newRecipe.image_url}
+            />
+          </Form.Group>
 
-      {/* input for recipe_name */}
-      <input
-        onChange={(event) =>
-          setNewRecipe({ ...newRecipe, recipe_name: event.target.value })
-        }
-        placeholder="Recipe name"
-        defaultValue={newRecipe.recipe_name}
-      />
+          <Form.Group>
+            <Form.Label htmlFor="recipeName">Recipe name</Form.Label>
+            {/* input for recipe_name */}
+            <Form.Control
+              id="recipeName"
+              onChange={(event) =>
+                setNewRecipe({
+                  ...newRecipe,
+                  recipe_name: event.target.value,
+                })
+              }
+              defaultValue={newRecipe.recipe_name}
+            />
+          </Form.Group>
 
-      {/* input for recipe_description */}
-      <textarea
-        onChange={(event) =>
-          setNewRecipe({ ...newRecipe, recipe_description: event.target.value })
-        }
-        placeholder="recipe description"
-        defaultValue={newRecipe.recipe_description}
-      />
+          <Form.Group>
+            <Form.Label htmlFor="recipeDescription">
+              Recipe description
+            </Form.Label>
+            {/* input for recipe_description */}
+            <Form.Control
+              as="textarea"
+              rows={3}
+              id="recipeDescription"
+              onChange={(event) =>
+                setNewRecipe({
+                  ...newRecipe,
+                  recipe_description: event.target.value,
+                })
+              }
+              defaultValue={newRecipe.recipe_description}
+            />
+          </Form.Group>
 
-      {/* recipe type dropdown */}
-      <label htmlFor="recipeInput">
-        recipe type
-        <select
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, recipe_type_id: event.target.value })
-          }
-          id="recipeInput"
-          name="Recipe type"
-          defaultValue={newRecipe.recipe_type_id}
-        >
-          <option>select recipe type</option>
-          {recipeTypes.map((recipeType) => {
+          <Form.Group>
+            {/* recipe type dropdown */}
+            <Form.Label htmlFor="recipeType">recipe type</Form.Label>
+            <Form.Select
+              onChange={(event) =>
+                setNewRecipe({
+                  ...newRecipe,
+                  recipe_type_id: event.target.value,
+                })
+              }
+              id="recipeType"
+              name="Recipe type"
+              defaultValue={newRecipe.recipe_type_id}
+            >
+              <option>select recipe type</option>
+              {recipeTypes.map((recipeType) => {
+                return (
+                  //onClick, run the details function and passing it the individual movie info that was clicked on
+                  <option value={recipeType.id} key={recipeType.id}>
+                    {recipeType.recipe_type}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group>
+            {/* difficulty dropdown */}
+            <Form.Label htmlFor="recipeDifficulty">difficulty</Form.Label>
+            <Form.Select
+              id="recipeDifficulty"
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, difficulty: event.target.value })
+              }
+              defaultValue={recipeInfo.difficulty}
+            >
+              <option>Select</option>
+              <option value="Easy">Easy</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Difficult">Difficult</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group>
+            <h3>Prep Time:</h3>
+            {/* prep time input (hours & minutes) */}
+            <Row>
+              <Col>
+                <Form.Label htmlFor="recipePrepTimeHr">hours</Form.Label>
+                <Form.Control
+                  id="recipePrepTimeHr"
+                  onChange={(event) =>
+                    setNewRecipe({
+                      ...newRecipe,
+                      prep_hours: event.target.value,
+                    })
+                  }
+                  type="number"
+                  defaultValue={recipeInfo.prep_hours}
+                />
+              </Col>
+              <Col>
+                <Form.Label htmlFor="recipePrepTimeMin">minutes</Form.Label>
+
+                <Form.Control
+                  id="recipePrepTimeMin"
+                  onChange={(event) =>
+                    setNewRecipe({
+                      ...newRecipe,
+                      prep_minutes: event.target.value,
+                    })
+                  }
+                  type="number"
+                  defaultValue={recipeInfo.prep_minutes}
+                />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          <Form.Group>
+            {/* servings input */}
+            <Form.Label>Servings:</Form.Label>
+            <Form.Control
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, servings: event.target.value })
+              }
+              placeholder="servings"
+              type="number"
+              defaultValue={recipeInfo.servings}
+            />
+          </Form.Group>
+        </Form>
+
+        <h3>Ingredients</h3>
+        <label>
+          <input
+            onChange={(event) =>
+              setNewIngredient({
+                ...newIngredient,
+                ingredient: event.target.value,
+              })
+            }
+            defaultValue={newIngredient.ingredient}
+            placeholder="ingredient"
+          />
+          <input
+            onChange={(event) =>
+              setNewIngredient({
+                ...newIngredient,
+                ingredient_amount: event.target.value,
+              })
+            }
+            defaultValue={newIngredient.ingredient_amount}
+            placeholder="amount"
+          />
+        </label>
+        <button onClick={addIngredient}>Add Ingredient</button>
+        <ul>
+          {ingredients.map((ingredient) => {
             return (
-              //onClick, run the details function and passing it the individual movie info that was clicked on
-              <option value={recipeType.id} key={recipeType.id}>
-                {recipeType.recipe_type}
-              </option>
+              <Ingredient
+                key={ingredient.id}
+                ingredientName={ingredient.ingredient}
+                ingredientAmount={ingredient.ingredient_amount}
+                ingredientId={ingredient.id}
+                editMode={true} // <--- editMode determines whether or not the delete buttons show up
+                recipeId={recipeInfo.id}
+              />
             );
           })}
-        </select>
-      </label>
+        </ul>
 
-      {/* difficulty dropdown */}
-      <label htmlFor="recipeInput">
-        difficulty
-        <select
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, difficulty: event.target.value })
-          }
-          defaultValue={recipeInfo.difficulty}
+        <h3>Instructions</h3>
+        <label>
+          <input
+            onChange={(event) => setNewInstruction(event.target.value)}
+            value={newInstruction.instruction}
+            placeholder="instruction"
+          />
+        </label>
+
+        <button onClick={addInstruction}>Add instruction</button>
+        <ul>
+          {instructions.map((instruction) => {
+            return (
+              <Instruction
+                key={instruction.id}
+                instructionName={instruction.instruction}
+                instructionId={instruction.id}
+                editMode={true}
+                recipeId={recipeInfo.id}
+              />
+            );
+          })}
+        </ul>
+
+        <Button variant="primary" onClick={submit}>
+          Submit recipe
+        </Button>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
         >
-          <option>Select</option>
-          <option value="Easy">Easy</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Difficult">Difficult</option>
-        </select>
-      </label>
-
-      {/* prep time input (hours & minutes) */}
-      <label>
-        prep time:
-        <input
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, prep_hours: event.target.value })
-          }
-          placeholder="hours"
-          type="number"
-          defaultValue={recipeInfo.prep_hours}
-        />
-        <input
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, prep_minutes: event.target.value })
-          }
-          placeholder="minutes"
-          type="number"
-          defaultValue={recipeInfo.prep_minutes}
-        />
-      </label>
-
-      {/* servings input */}
-      <label>
-        Servings:
-        <input
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, servings: event.target.value })
-          }
-          placeholder="servings"
-          type="number"
-          defaultValue={recipeInfo.servings}
-        />
-      </label>
-
-      <h3>Ingredients</h3>
-      <label>
-        <input
-          onChange={(event) =>
-            setNewIngredient({
-              ...newIngredient,
-              ingredient: event.target.value,
-            })
-          }
-          defaultValue={newIngredient.ingredient}
-          placeholder="ingredient"
-        />
-        <input
-          onChange={(event) =>
-            setNewIngredient({
-              ...newIngredient,
-              ingredient_amount: event.target.value,
-            })
-          }
-          defaultValue={newIngredient.ingredient_amount}
-          placeholder="amount"
-        />
-      </label>
-      <button onClick={addIngredient}>Add Ingredient</button>
-      <ul>
-        {ingredients.map((ingredient) => {
-          return (
-            <Ingredient
-              key={ingredient.id}
-              ingredientName={ingredient.ingredient}
-              ingredientAmount={ingredient.ingredient_amount}
-              ingredientId={ingredient.id}
-              editMode={true} // <--- editMode determines whether or not the delete buttons show up
-              recipeId={recipeInfo.id}
-            />
-          );
-        })}
-      </ul>
-
-      <h3>Instructions</h3>
-      <label>
-        <input
-          onChange={(event) => setNewInstruction(event.target.value)}
-          value={newInstruction.instruction}
-          placeholder="instruction"
-        />
-      </label>
-
-      <button onClick={addInstruction}>Add instruction</button>
-      <ul>
-        {instructions.map((instruction) => {
-          return (
-            <Instruction
-              key={instruction.id}
-              instructionName={instruction.instruction}
-              instructionId={instruction.id}
-              editMode={true}
-              recipeId={recipeInfo.id}
-            />
-          );
-        })}
-      </ul>
-
-      <Button variant="primary" onClick={submit}>
-        Submit recipe
-      </Button>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Recipe was submitted successfully!</Modal.Body>
-        <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Recipe was submitted successfully!</Modal.Body>
+          <Modal.Footer>
+            {/* <Button variant="secondary" onClick={handleClose}>
             Close
           </Button> */}
-          <Button onClick={okayModal} variant="primary">
-            OK
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <Button onClick={okayModal} variant="primary">
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-      {/* <button onClick={submit}>Submit recipe</button> */}
+        {/* <button onClick={submit}>Submit recipe</button> */}
 
-      <DeleteRecipeButton recipeId={recipeInfo.id} />
+        <DeleteRecipeButton recipeId={recipeInfo.id} />
+      </Container>
       <Nav />
-    </div>
+    </>
   );
 }
 

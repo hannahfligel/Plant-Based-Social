@@ -25,6 +25,7 @@
   border-radius: 44px 44px 0px 0px;
   top: 420px;
   position: absolute;
+  width: 100%;
 }
 
 .heartIconChecked {
@@ -123,4 +124,21 @@
 
 .ingredientP {
   width: 225px;
+}
+
+.checkbox:focus {
+  background-color: green !important;
+}
+
+.checkbox {
+  border-color: green !important;
+}
+
+.ingredientAmount {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ingredientsContainer {
+  margin-bottom: 5px;
 }

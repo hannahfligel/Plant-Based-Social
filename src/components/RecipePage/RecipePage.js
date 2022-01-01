@@ -133,7 +133,7 @@ function RecipePage(props) {
 
           <h2 className="RecipePageH2">Ingredients</h2>
 
-          <ul className="RecipePageLists">
+          <div className="RecipePageLists">
             {ingredients.map((ingredient) => {
               return (
                 <Ingredient
@@ -145,7 +145,7 @@ function RecipePage(props) {
                 />
               );
             })}
-          </ul>
+          </div>
 
           <h2 className="RecipePageH2">Instructions</h2>
           <ol className="RecipePageLists">
