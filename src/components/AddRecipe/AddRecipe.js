@@ -91,20 +91,20 @@ function AddRecipe(props) {
     history.push("/home");
   };
 
-  const addIngredient = () => {
+  const addIngredient = async () => {
     console.log("New Ingredient------>", newIngredient);
-    dispatch({
+    await dispatch({
       type: "ADD_INGREDIENT",
       payload: {
         newIngredient: newIngredient,
         id: recipeInfo.id,
       },
     });
-    setNewIngredient({
+    await setNewIngredient({
       ingredient: "",
       ingredient_amount: "",
     });
-    dispatch({
+    await dispatch({
       type: "FETCH_RECIPE_INGREDIENTS",
       payload: recipeInfo.id,
     });
@@ -270,80 +270,93 @@ function AddRecipe(props) {
 
           <Form.Group>
             {/* servings input */}
-            <Form.Label>Servings:</Form.Label>
+            <Form.Label htmlFor="recipeServing">Servings:</Form.Label>
             <Form.Control
+              id="recipeServing"
               onChange={(event) =>
                 setNewRecipe({ ...newRecipe, servings: event.target.value })
               }
-              placeholder="servings"
               type="number"
               defaultValue={recipeInfo.servings}
             />
           </Form.Group>
         </Form>
 
-        <h3>Ingredients</h3>
-        <label>
-          <input
-            onChange={(event) =>
-              setNewIngredient({
-                ...newIngredient,
-                ingredient: event.target.value,
-              })
-            }
-            defaultValue={newIngredient.ingredient}
-            placeholder="ingredient"
-          />
-          <input
-            onChange={(event) =>
-              setNewIngredient({
-                ...newIngredient,
-                ingredient_amount: event.target.value,
-              })
-            }
-            defaultValue={newIngredient.ingredient_amount}
-            placeholder="amount"
-          />
-        </label>
-        <button onClick={addIngredient}>Add Ingredient</button>
-        <ul>
-          {ingredients.map((ingredient) => {
-            return (
-              <Ingredient
-                key={ingredient.id}
-                ingredientName={ingredient.ingredient}
-                ingredientAmount={ingredient.ingredient_amount}
-                ingredientId={ingredient.id}
-                editMode={true} // <--- editMode determines whether or not the delete buttons show up
-                recipeId={recipeInfo.id}
-              />
-            );
-          })}
-        </ul>
+        <>
+          <Form.Group>
+            <h3>Ingredients</h3>
+            <Row>
+              <Col>
+                <Form.Label htmlFor="recipeIngredient">Ingredient</Form.Label>
+                <Form.Control
+                  id="recipeIngredient"
+                  onChange={(event) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      ingredient: event.target.value,
+                    })
+                  }
+                  value={newIngredient.ingredient}
+                />
+              </Col>
+              <Col>
+                <Form.Label htmlFor="recipeIngredientAmount">Amount</Form.Label>
+                <Form.Control
+                  id="recipeIngredientAmount"
+                  onChange={(event) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      ingredient_amount: event.target.value,
+                    })
+                  }
+                  value={newIngredient.ingredient_amount}
+                />
+              </Col>
+            </Row>
+            <button onClick={addIngredient}>Add Ingredient</button>
+          </Form.Group>
+          <ul>
+            {ingredients.map((ingredient) => {
+              return (
+                <Ingredient
+                  key={ingredient.id}
+                  ingredientName={ingredient.ingredient}
+                  ingredientAmount={ingredient.ingredient_amount}
+                  ingredientId={ingredient.id}
+                  editMode={true} // <--- editMode determines whether or not the delete buttons show up
+                  recipeId={recipeInfo.id}
+                />
+              );
+            })}
+          </ul>
 
-        <h3>Instructions</h3>
-        <label>
-          <input
-            onChange={(event) => setNewInstruction(event.target.value)}
-            value={newInstruction.instruction}
-            placeholder="instruction"
-          />
-        </label>
+          <Form.Group>
+            <h3>Instructions</h3>
+            <Form.Label htmlFor="recipeIngredientAmount">
+              Instructions
+            </Form.Label>
+            <Form.Control
+              onChange={(event) => setNewInstruction(event.target.value)}
+              value={newInstruction.instruction}
+              placeholder="instruction"
+            />
 
-        <button onClick={addInstruction}>Add instruction</button>
-        <ul>
-          {instructions.map((instruction) => {
-            return (
-              <Instruction
-                key={instruction.id}
-                instructionName={instruction.instruction}
-                instructionId={instruction.id}
-                editMode={true}
-                recipeId={recipeInfo.id}
-              />
-            );
-          })}
-        </ul>
+            <button onClick={addInstruction}>Add instruction</button>
+          </Form.Group>
+          <ul>
+            {instructions.map((instruction) => {
+              return (
+                <Instruction
+                  key={instruction.id}
+                  instructionName={instruction.instruction}
+                  instructionId={instruction.id}
+                  editMode={true}
+                  recipeId={recipeInfo.id}
+                />
+              );
+            })}
+          </ul>
+        </>
 
         <Button variant="primary" onClick={submit}>
           Submit recipe
