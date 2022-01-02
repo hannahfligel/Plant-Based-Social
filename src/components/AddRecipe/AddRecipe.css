@@ -60,3 +60,38 @@
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
+.addIngredientListItem {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+  border-bottom: 1px solid #2450091c;
+  padding-bottom: 10px;
+  font-family: Quicksand-SemiBold;
+}
+
+.ingredientsAmountAndDelete {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ingredientsAmountAndDelete p {
+  margin-bottom: 0px;
+}
+
+.ingredientName {
+  max-width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+.ingredientName p {
+  margin-bottom: 0px;
+}
+
+.ingredientAmount {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 12px;
+}

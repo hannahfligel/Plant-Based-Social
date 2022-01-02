@@ -317,7 +317,7 @@ function AddRecipe(props) {
               Add Ingredient
             </button>
           </Form.Group>
-          <ul>
+          <div>
             {ingredients.map((ingredient) => {
               return (
                 <Ingredient
@@ -330,7 +330,7 @@ function AddRecipe(props) {
                 />
               );
             })}
-          </ul>
+          </div>
 
           <Form.Group>
             <h3>Instructions</h3>

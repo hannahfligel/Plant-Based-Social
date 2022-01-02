@@ -32,35 +32,32 @@ function Ingredient(props) {
   };
 
   return (
-    <Row>
-      <div className="ingredientsAndAmount addRecipeListItem">
+    <div className="addIngredientListItem">
+      <div className="ingredientName">
+        {/* when not in edit more, show checkboxes */}
         {!props.editMode && (
-          //if it is, display the delete button next to each ingredient
-          <Col className="ingredientsContainer" xs="1">
-            <input className="checkbox" type="checkbox" name="check" />
-          </Col>
+          <input className="checkbox" type="checkbox" name="check" />
         )}
-        <Col className="ingredientsContainer" xs="7">
-          {props.ingredientName}
-        </Col>
-        <Col className="ingredientAmount ingredientsContainer" xs="2">
-          <p className="ingredientP">{props.ingredientAmount}</p>
-        </Col>
+        <p>{props.ingredientName}</p>
+      </div>
+
+      <div className="ingredientsAmountAndDelete">
+        <div className="ingredientAmount">
+          <p>{props.ingredientAmount}</p>
+        </div>
 
         {/* is editMode set to true? */}
         {props.editMode && (
           //if it is, display the delete button next to each ingredient
-          <Col className="ingredientsContainer" xs="2">
-            <button
-              className="deleteIngredientAndInstructionsButton"
-              onClick={deleteIngredient}
-            >
-              delete
-            </button>
-          </Col>
+          <button
+            className="deleteIngredientAndInstructionsButton"
+            onClick={deleteIngredient}
+          >
+            delete
+          </button>
         )}
       </div>
-    </Row>
+    </div>
   );
 }
 
