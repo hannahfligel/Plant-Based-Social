@@ -4,9 +4,14 @@ import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "../RecipePage/RecipePage.css";
 import { Container, Row, Col } from "react-bootstrap";
+import "../AddRecipe/AddRecipe.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Ingredient(props) {
   const dispatch = useDispatch();
+
+  const deleteIcon = <FontAwesomeIcon icon={faTimes} />;
 
   //deleteIngredient deletes a specific ingredient from the db and then get the updated ingredients for the specific recipe after deleting (this allows the list to be updated automatically rather than having to reload the page after each delete)
   const deleteIngredient = () => {
@@ -27,21 +32,34 @@ function Ingredient(props) {
   };
 
   return (
-    <Row className="ingredientsContainer">
-      <div className="ingredientsAndAmount">
-        <Col xs="1">
-          <input className="checkbox" type="checkbox" name="check" />
+    <Row>
+      <div className="ingredientsAndAmount addRecipeListItem">
+        {!props.editMode && (
+          //if it is, display the delete button next to each ingredient
+          <Col className="ingredientsContainer" xs="1">
+            <input className="checkbox" type="checkbox" name="check" />
+          </Col>
+        )}
+        <Col className="ingredientsContainer" xs="7">
+          {props.ingredientName}
         </Col>
-        <Col xs="8">{props.ingredientName}</Col>
-        <Col className="ingredientAmount" xs="3">
-          <p>{props.ingredientAmount}</p>
+        <Col className="ingredientAmount ingredientsContainer" xs="2">
+          <p className="ingredientP">{props.ingredientAmount}</p>
         </Col>
+
+        {/* is editMode set to true? */}
+        {props.editMode && (
+          //if it is, display the delete button next to each ingredient
+          <Col className="ingredientsContainer" xs="2">
+            <button
+              className="deleteIngredientAndInstructionsButton"
+              onClick={deleteIngredient}
+            >
+              delete
+            </button>
+          </Col>
+        )}
       </div>
-      {/* is editMode set to true? */}
-      {props.editMode && (
-        //if it is, display the delete button next to each ingredient
-        <button onClick={deleteIngredient}>Delete</button>
-      )}
     </Row>
   );
 }

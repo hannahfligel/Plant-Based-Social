@@ -313,7 +313,9 @@ function AddRecipe(props) {
                 />
               </Col>
             </Row>
-            <button onClick={addIngredient}>Add Ingredient</button>
+            <button className="addRecipeAddButton" onClick={addIngredient}>
+              Add Ingredient
+            </button>
           </Form.Group>
           <ul>
             {ingredients.map((ingredient) => {
@@ -333,15 +335,18 @@ function AddRecipe(props) {
           <Form.Group>
             <h3>Instructions</h3>
             <Form.Label htmlFor="recipeIngredientAmount">
-              Instructions
+              Add Instruction
             </Form.Label>
             <Form.Control
+              as="textarea"
               onChange={(event) => setNewInstruction(event.target.value)}
               value={newInstruction.instruction}
               placeholder="instruction"
             />
 
-            <button onClick={addInstruction}>Add instruction</button>
+            <button className="addRecipeAddButton" onClick={addInstruction}>
+              Add instruction
+            </button>
           </Form.Group>
           <ul>
             {instructions.map((instruction) => {
@@ -358,9 +363,13 @@ function AddRecipe(props) {
           </ul>
         </>
 
-        <Button variant="primary" onClick={submit}>
+        <button
+          className="addRecipeSubmitButton"
+          variant="primary"
+          onClick={submit}
+        >
           Submit recipe
-        </Button>
+        </button>
 
         <Modal
           show={show}

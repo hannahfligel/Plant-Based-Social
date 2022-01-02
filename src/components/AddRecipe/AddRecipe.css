@@ -1,3 +1,62 @@
 .addRecipeContainer {
   padding-bottom: 100px;
 }
+
+.deleteIngredientAndInstructionsButton {
+  font-size: 15px;
+  background-color: #dfe9ac;
+  color: #245009 !important;
+  border: none;
+  border-radius: 23px;
+  padding: 5px;
+  font-family: Quicksand-SemiBold;
+}
+
+.ingredientsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ingredientP {
+  margin-bottom: 0px;
+}
+
+/* .addRecipeListItem {
+  border-bottom: 1px solid gray;
+} */
+
+.addRecipeAddButton {
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #97be11;
+  color: white !important;
+  border: none;
+  border-radius: 23px;
+  width: 100%;
+  padding: 5px;
+  font-family: Quicksand-SemiBold;
+  margin: 20px 0px;
+}
+
+.addRecipeSubmitButton {
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #245009;
+  color: white !important;
+  border: none;
+  border-radius: 23px;
+  width: 100%;
+  padding: 5px;
+  margin-top: 50px;
+  font-family: Quicksand-SemiBold;
+}
+
+.deleteRecipeLink {
+  display: flex;
+  justify-content: center;
+  color: #245009;
+  text-transform: uppercase;
+  font-family: Quicksand-SemiBold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

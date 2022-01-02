@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import "../AddRecipe/AddRecipe.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Instruction(props) {
   const dispatch = useDispatch();
+
+  const deleteIcon = <FontAwesomeIcon icon={faTimes} />;
 
   const deleteInstruction = () => {
     console.log("Delete button clicked");
@@ -19,17 +24,20 @@ function Instruction(props) {
   };
 
   return (
-    <div>
-      <li>
-        {props.instructionName}
-        {props.InstructionAmount}
-        {/* is editMode set to true? */}
-        {props.editMode && (
-          //if it is, display the delete button next to each instruction
-          <button onClick={deleteInstruction}>Delete</button>
-        )}
-      </li>
-    </div>
+    <li className="addRecipeListItem">
+      {props.instructionName}
+      {props.InstructionAmount}
+      {/* is editMode set to true? */}
+      {props.editMode && (
+        //if it is, display the delete button next to each instruction
+        <button
+          className="deleteIngredientAndInstructionsButton"
+          onClick={deleteInstruction}
+        >
+          delete
+        </button>
+      )}
+    </li>
   );
 }
 

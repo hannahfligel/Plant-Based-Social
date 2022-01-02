@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate, useHistory } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-
+import "../AddRecipe/AddRecipe.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -36,9 +36,9 @@ function EditRecipeButton(props) {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        Delete recipe
-      </Button>
+      <a className="deleteRecipeLink" variant="primary" onClick={handleShow}>
+        delete recipe
+      </a>
 
       <Modal
         show={show}
