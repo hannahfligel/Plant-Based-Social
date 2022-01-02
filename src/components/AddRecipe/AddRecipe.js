@@ -142,6 +142,7 @@ function AddRecipe(props) {
       </div>
 
       <Container className="addRecipeContainer">
+        <h1>Recipe Form</h1>
         <Form>
           {/* input for image_url */}
           {/* defaultValue holders the the value of the useState that came from the store  */}
@@ -284,7 +285,7 @@ function AddRecipe(props) {
 
         <>
           <Form.Group>
-            <h3>Ingredients</h3>
+            <h2>Ingredients</h2>
             <Row>
               <Col>
                 <Form.Label htmlFor="recipeIngredient">Ingredient</Form.Label>
@@ -333,7 +334,7 @@ function AddRecipe(props) {
           </div>
 
           <Form.Group>
-            <h3>Instructions</h3>
+            <h2>Instructions</h2>
             <Form.Label htmlFor="recipeIngredientAmount">
               Add Instruction
             </Form.Label>
@@ -348,7 +349,7 @@ function AddRecipe(props) {
               Add instruction
             </button>
           </Form.Group>
-          <ul>
+          <ol>
             {instructions.map((instruction) => {
               return (
                 <Instruction
@@ -360,7 +361,7 @@ function AddRecipe(props) {
                 />
               );
             })}
-          </ul>
+          </ol>
         </>
 
         <button

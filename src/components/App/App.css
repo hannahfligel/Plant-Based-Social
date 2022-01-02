@@ -89,7 +89,7 @@ h2 {
   border-radius: 5px !important;
   width: 100% !important;
   height: 48px;
-  font-family: Quicksand !important;
+  font-family: Quicksand-SemiBold !important;
 }
 
 /* .btn-primary:focus,
@@ -117,7 +117,7 @@ h2 {
   border-color: #dfe9ac;
   color: #126f27;
   border-radius: 5px !important;
-  font-family: Quicksand;
+  font-family: Quicksand-SemiBold !important;
 }
 
 .buttonGroup {
@@ -129,4 +129,13 @@ a {
   font-weight: bold;
   color: black;
   font-size: 18px;
+}
+
+.ModalTitle {
+  font-family: Quicksand-Bold;
+}
+
+.modalBody {
+  font-family: Quicksand-SemiBold;
+  font-size: 15px;
 }

@@ -25,18 +25,21 @@ function Instruction(props) {
 
   return (
     <li className="addRecipeListItem">
-      {props.instructionName}
-      {props.InstructionAmount}
-      {/* is editMode set to true? */}
-      {props.editMode && (
-        //if it is, display the delete button next to each instruction
-        <button
-          className="deleteIngredientAndInstructionsButton"
-          onClick={deleteInstruction}
-        >
-          delete
-        </button>
-      )}
+      <div className="AddRecipeInstructionContainer">
+        <div className="instructionName">{props.instructionName}</div>
+        {/* is editMode set to true? */}
+        {props.editMode && (
+          //if it is, display the delete button next to each instruction
+          <div className="deleteInstruction">
+            <button
+              className="deleteIngredientAndInstructionsButton"
+              onClick={deleteInstruction}
+            >
+              delete
+            </button>
+          </div>
+        )}
+      </div>
     </li>
   );
 }
