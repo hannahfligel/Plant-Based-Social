@@ -7,7 +7,7 @@ import DeleteRecipeButton from "../DeleteRecipeButton/DeleteRecipeButton";
 import Nav from "../Nav/Nav";
 import { Button, Modal, Form, Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faClock } from "@fortawesome/free-solid-svg-icons";
 import "../RecipePage/RecipePage.css";
 import "../AddRecipe/AddRecipe.css";
 
@@ -21,6 +21,7 @@ function AddRecipe(props) {
   const history = useHistory();
 
   const backIcon = <FontAwesomeIcon icon={faArrowLeft} />;
+  const clock = <FontAwesomeIcon icon={faClock} />;
 
   const [show, setShow] = useState(false);
 
@@ -130,17 +131,6 @@ function AddRecipe(props) {
 
   return (
     <>
-      <div>
-        <Container className="headerIconsContainer">
-          <span
-            className="recipePageHeaderIcon"
-            onClick={() => history.goBack()}
-          >
-            {backIcon}
-          </span>
-        </Container>
-      </div>
-
       <Container className="addRecipeContainer">
         <h1>Recipe Form</h1>
         <Form>
@@ -233,8 +223,22 @@ function AddRecipe(props) {
               <option value="Difficult">Difficult</option>
             </Form.Select>
           </Form.Group>
+
           <Form.Group>
-            <h3>Prep Time:</h3>
+            {/* servings input */}
+            <Form.Label htmlFor="recipeServing">Servings:</Form.Label>
+            <Form.Control
+              id="recipeServing"
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, servings: event.target.value })
+              }
+              type="number"
+              defaultValue={recipeInfo.servings}
+            />
+          </Form.Group>
+
+          <Form.Group className="addRecipeFormGroup">
+            <h2 className="addRecipeH2">{clock} Prep Time</h2>
             {/* prep time input (hours & minutes) */}
             <Row>
               <Col>
@@ -268,24 +272,11 @@ function AddRecipe(props) {
               </Col>
             </Row>
           </Form.Group>
-
-          <Form.Group>
-            {/* servings input */}
-            <Form.Label htmlFor="recipeServing">Servings:</Form.Label>
-            <Form.Control
-              id="recipeServing"
-              onChange={(event) =>
-                setNewRecipe({ ...newRecipe, servings: event.target.value })
-              }
-              type="number"
-              defaultValue={recipeInfo.servings}
-            />
-          </Form.Group>
         </Form>
 
         <>
-          <Form.Group>
-            <h2>Ingredients</h2>
+          <Form.Group className="addRecipeFormGroup">
+            <h2 className="addRecipeH2">Ingredients</h2>
             <Row>
               <Col>
                 <Form.Label htmlFor="recipeIngredient">Ingredient</Form.Label>
@@ -334,7 +325,7 @@ function AddRecipe(props) {
           </div>
 
           <Form.Group>
-            <h2>Instructions</h2>
+            <h2 className="addRecipeH2">Instructions</h2>
             <Form.Label htmlFor="recipeIngredientAmount">
               Add Instruction
             </Form.Label>

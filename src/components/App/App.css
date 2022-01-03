@@ -66,9 +66,9 @@ img {
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
 }
 
-input {
-  margin: 5px;
-  margin-bottom: 10px;
+input,
+textarea {
+  margin: 5px 0px 10px 0px;
 }
 
 h1 {
@@ -79,7 +79,6 @@ h1 {
 h2 {
   font-family: Amerigo-Bold;
   font-size: 28px;
-  text-transform: uppercase;
 }
 
 .btn-primary {

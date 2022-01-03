@@ -5,7 +5,7 @@ import RecipeTypeButtons from "../RecipeTypeButtons/RecipeTypeButtons";
 import { propTypes } from "react-bootstrap/esm/Image";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Nav from "../Nav/Nav";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import "../UserPage/UserPage.css";
 
 function UserPage() {

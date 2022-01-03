@@ -1,5 +1,6 @@
 .addRecipeContainer {
   padding-bottom: 100px;
+  padding-top: 90px;
 }
 
 .deleteIngredientAndInstructionsButton {
@@ -123,14 +124,27 @@ ol {
   font-family: Quicksand-SemiBold;
 }
 
-.deleteModalNoButton {
-}
-
-.deleteModalDeleteButton {
-}
-
 .deleteModalButtonsContainer {
   display: flex;
   justify-content: space-between;
   font-family: Quicksand-SemiBold !important;
+}
+
+h2 {
+  text-transform: capitalize;
+}
+
+label {
+  text-transform: lowercase;
+  font-size: 15px;
+  font-family: Quicksand-SemiBold;
+  margin-bottom: 0px !important;
+}
+
+/* .addRecipeH2 {
+  margin: 20px 0px;
+} */
+
+.addRecipeFormGroup {
+  padding-top: 32px;
 }
