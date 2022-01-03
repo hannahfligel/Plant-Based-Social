@@ -2,10 +2,11 @@ import { combineReducers } from "redux";
 
 //on page load, recipeCardReducer hold all the recipes.
 //on the click of a filter button, it gets replaced with the specific recipes depending on the type selected
-//recipeCardReducer holds all the recipes on we see on the home page
+//recipeCardReducer holds all the recipes we see on the home page or the specific recipe associated with the selected recipe type (filter)
 const recipeCardReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_RECIPE_CARD_INFO":
+      //action.payload will replace the initial state of an empty array with all the recipe cards and the recipe types associated with specific recipes
       return action.payload;
     default:
       return state;
@@ -51,6 +52,7 @@ const recipeInstructionsReducer = (state = [], action) => {
 const recipeTypesReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_RECIPE_TYPES":
+      //return action.payload to replace the empty array with the recipe types
       return action.payload;
     default:
       return state;
@@ -96,7 +98,6 @@ const allUsersReducer = (state = [], action) => {
   }
 };
 
-
 const sharedRecipesReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_SHARED_RECIPES":
@@ -104,8 +105,7 @@ const sharedRecipesReducer = (state = [], action) => {
     default:
       return state;
   }
-}
-
+};
 
 // user will be on the redux state at:
 // state.user
@@ -120,5 +120,5 @@ export default combineReducers({
   likedRecipesReducer,
   likedStatusReducer,
   allUsersReducer,
-  sharedRecipesReducer
+  sharedRecipesReducer,
 });

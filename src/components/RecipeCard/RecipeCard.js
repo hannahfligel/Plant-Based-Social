@@ -43,6 +43,7 @@ function RecipeCard(props) {
   };
 
   return (
+    //props.recipe hold the recipe card info that was sent from UserPage and LikedRecipes via props
     <Card className="recipeCard" onClick={() => recipePage(props.recipe)}>
       <Card.Img className="cardImg" src={props.recipe.image_url} />
       <div className="recipeCardBody">
@@ -61,7 +62,6 @@ function RecipeCard(props) {
               {props.recipe.prep_hours}hr
             </p>
           )}
-
           {props.recipe.prep_minutes > 1 && (
             <p className="recipeCardPrepTime">{props.recipe.prep_minutes}min</p>
           )}

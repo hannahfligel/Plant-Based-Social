@@ -37,10 +37,10 @@ function* getSharedRecipes(action) {
     const response = yield axios.get(
       `/api/recipes/get-shared-recipes/${action.payload}`
     );
-    console.log("Shared recipes in saga back from server---->", response.data)
+    console.log("Shared recipes in saga back from server---->", response.data);
     yield put({
       type: "SET_SHARED_RECIPES",
-      payload: response.data
+      payload: response.data,
     });
   } catch (err) {
     alert("no");
@@ -225,18 +225,18 @@ function* addIngredient(action) {
 }
 
 function* getRecipesByType(action) {
-  // action.payload holds the recipe type's id
-  console.log("in getRecipesByType", action.payload);
+  // console.log("in getRecipesByType", action.payload);
   try {
     //perform an axios get req to send the id (action.payload) of the recipe type to only receive the recipes that fall under that recipe type
     const response = yield axios.get(
+      //action.payload holds the recipe type id
       `/api/recipes/recipeCardInfo/${action.payload}`
     );
-    console.log("back from recipeCardInfo get:", response.data);
+    // console.log("back from recipeCardInfo get:", response.data);
     //dispatch SET_RECIPE_CARD_INFO' with the payload of what was sent back from the db
-    //this will replace whatever was in
     yield put({
       type: "SET_RECIPE_CARD_INFO",
+      //response.data holds the recipe card info for all the recipes with the specific recipe type associated with it
       payload: response.data,
     });
   } catch (err) {
@@ -245,12 +245,13 @@ function* getRecipesByType(action) {
   }
 }
 
+//getRecipeCardInfo gets all the recipe info for the recipe cards
 function* getRecipeCardInfo(action) {
-  console.log("----->in getRecipeCardInfo", action.payload);
   try {
     const response = yield axios.get(`/api/recipes/recipeCardInfo`);
     console.log("back from recipeCardInfo get:", response.data);
     yield put({
+      //dispatch all the recipe card info from the server (which got it from the db) to the reducer
       type: "SET_RECIPE_CARD_INFO",
       payload: response.data,
     });
@@ -315,12 +316,13 @@ function* getRecipeInstructions(action) {
   }
 }
 
+//get all recipe types to filter through them on the home page
 function* getRecipeTypes(action) {
-  console.log("----->in getRecipeTypes", action);
   try {
     const response = yield axios.get(`/api/recipes/recipe-types`);
     console.log("back from getRecipeTypes get:", response.data);
     yield put({
+      //dispatch SET_RECIPE_TYPES to store all the recipe types in the reducer
       type: "SET_RECIPE_TYPES",
       payload: response.data,
     });
