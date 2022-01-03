@@ -126,16 +126,6 @@
   width: 225px;
 }
 
-.checkbox:focus {
-  background-color: green !important;
-}
-
-.checkbox {
-  border-color: green !important;
-  margin: 0px;
-  margin-right: 12px;
-}
-
 .ingredientAmount {
   display: flex;
   justify-content: flex-end;

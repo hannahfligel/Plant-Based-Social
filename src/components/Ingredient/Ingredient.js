@@ -7,6 +7,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "../AddRecipe/AddRecipe.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Checkbox from "../Checkbox/Checkbox";
 
 function Ingredient(props) {
   const dispatch = useDispatch();
@@ -35,9 +36,7 @@ function Ingredient(props) {
     <div className="addIngredientListItem">
       <div className="ingredientName">
         {/* when not in edit more, show checkboxes */}
-        {!props.editMode && (
-          <input className="checkbox" type="checkbox" name="check" />
-        )}
+        {!props.editMode && <Checkbox />}
         <p>{props.ingredientName}</p>
       </div>
 

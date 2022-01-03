@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router";
 import "../RecipePage/RecipePage.css";
+import Checkbox from "../Checkbox/Checkbox";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -73,6 +74,7 @@ function RecipePage(props) {
           </div>
         </Container>
       </div>
+
       <img className="recipePageImage" src={recipeGeneralInfo.image_url} />
 
       <div className="recipeInfoContainer">
