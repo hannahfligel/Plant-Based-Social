@@ -22,10 +22,6 @@
   margin-bottom: 0px;
 }
 
-/* .addRecipeListItem {
-  border-bottom: 1px solid gray;
-} */
-
 .addRecipeAddButton {
   font-size: 18px;
   text-transform: uppercase;
@@ -99,7 +95,10 @@
 
 .instructionName {
   max-width: 70%;
-  align-items: center;
+}
+
+.instructionNameView {
+  max-width: 100%;
 }
 
 .instructionName p {
