@@ -11,6 +11,8 @@ router.get("/recipeCardInfo", (req, res) => {
             *
         FROM 
             recipes 
+        ORDER BY
+        id DESC
         ;`;
   pool
     .query(query)
