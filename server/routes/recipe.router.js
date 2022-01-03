@@ -3,7 +3,7 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-//GET route to get all info for movie cards
+//GET route to get all info for recipe cards
 router.get("/recipeCardInfo", (req, res) => {
   // GET route code here
   const query = `
@@ -26,6 +26,7 @@ router.get("/recipeCardInfo", (req, res) => {
 });
 
 //GET route to get info the the specific recipe type selected
+//the url is recipeCardInfo because onClick of the recipe type button, the recipe cards need to be rendered onto the DOM
 router.get("/recipeCardInfo/:id", (req, res) => {
   // GET route code here
   const query = `
@@ -39,6 +40,7 @@ router.get("/recipeCardInfo/:id", (req, res) => {
   pool
     .query(query)
     .then((result) => {
+      //result.row is an array that hold the recipe card information for every recipe that falls under the selected recipe type
       res.send(result.rows);
     })
     .catch((err) => {
@@ -153,12 +155,13 @@ router.get("/instructions/:id", (req, res) => {
 
 // GET all recipe types
 router.get("/recipe-types", (req, res) => {
-  // GET route code here
+  // select all from the recipe types table
   const query = `
     SELECT * FROM recipe_types;`;
   pool
     .query(query)
     .then((result) => {
+      //result.rows then holds all the recipe types and sends them back to the saga
       res.send(result.rows);
     })
     .catch((err) => {

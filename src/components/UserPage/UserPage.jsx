@@ -11,16 +11,17 @@ import "../UserPage/UserPage.css";
 function UserPage() {
   const dispatch = useDispatch();
 
-  const recipeReducer = useSelector((store) => store.recipeReducer);
+  //recipeTypes holds all the recipe types from the store
   const recipeTypes = useSelector(
     (store) => store.recipeReducer.recipeTypesReducer
   );
+  //recipeCardInfo hold all the info for the recipe card from the store
   const recipeCardInfo = useSelector(
     (store) => store.recipeReducer.recipeCardReducer
   );
 
   useEffect(() => {
-    //on pageLoad, FETCH_RECIPE_CARD_INFO gets all the recipe cards
+    //on pageLoad, FETCH_RECIPE_CARD_INFO gets all the recipe card info
     dispatch({ type: "FETCH_RECIPE_CARD_INFO" });
     //on pageLoad, FETCH_RECIPE_TYPES gets all the recipe types
     dispatch({ type: "FETCH_RECIPE_TYPES" });
@@ -66,7 +67,7 @@ function UserPage() {
         <div>
           <h3>Recipes</h3>
           <div className="recipeCardContainer">
-            {/* {JSON.stringify(recipeCardInfo)} */}
+            {/* map through recipeCardInfo and send each recipe card info via props to the recipeCard component to individually be displayed on the DOM */}
             {recipeCardInfo.map((recipeCard) => {
               return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
             })}
