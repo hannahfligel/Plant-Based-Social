@@ -1,7 +1,11 @@
 .likedRecipesH1 {
   font-family: Amerigo-Bold;
-  margin-top: 40px;
-  margin-bottom: 30px;
   text-transform: none;
   font-size: 42px;
+  margin-bottom: 27px;
+}
+
+.favoritesContainer {
+  padding-top: 70px;
+  padding-bottom: 100px;
 }

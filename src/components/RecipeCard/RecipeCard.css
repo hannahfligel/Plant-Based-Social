@@ -45,4 +45,9 @@
 
 .cardHours {
   margin-right: 3px;
+  margin-bottom: 0px;
+}
+
+.cardMin {
+  margin-bottom: 0px;
 }

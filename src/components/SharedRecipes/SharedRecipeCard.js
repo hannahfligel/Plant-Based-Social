@@ -66,7 +66,7 @@ function SharedRecipeCard(props) {
           )}
 
           {props.recipe.prep_minutes > 1 && (
-            <p className="SharedRecipeCardPrepTime">
+            <p className="SharedRecipeCardPrepTime cardMin">
               {props.recipe.prep_minutes}-min
             </p>
           )}

@@ -24,12 +24,13 @@
 
 .sharedRecipesContainer {
   padding-bottom: 100px;
-  padding-top: 50px;
+  padding-top: 70px;
 }
 
 .SharedRecipeCard {
   border: none;
   background-color: #fbfceb;
+  margin-bottom: 24px;
 }
 
 .SharedRecipeCardName {
@@ -46,4 +47,7 @@
 
 .editIcon {
   margin-right: 15px;
+}
+
+.cardMin {
 }
