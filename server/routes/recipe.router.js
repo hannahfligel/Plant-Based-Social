@@ -11,6 +11,8 @@ router.get("/recipeCardInfo", (req, res) => {
             *
         FROM 
             recipes 
+        ORDER BY
+        id DESC
         ;`;
   pool
     .query(query)
@@ -386,7 +388,6 @@ router.get("/get-shared-recipes/:id", (req, res) => {
   SELECT 
   recipes.prep_hours,
   recipes.prep_minutes,
-  recipes.id,
 	recipes.id AS id,
 	recipes.image_url,
 	recipes.recipe_name,
@@ -406,11 +407,13 @@ JOIN
 ON
 	shared_recipes.recipe_id="recipes".id
 WHERE 
-	receiver_id=12;
+	receiver_id=${req.params.id}
+ORDER BY shared_recipes.id DESC;
   `;
   pool
     .query(query)
     .then((result) => {
+      console.log("BACK FROM GET SHARED RECIPES ROUTER=====>", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -438,23 +441,27 @@ router.delete("/delete-recipe/:recipeId/:userId", (req, res) => {
   // delete liked recipe
   const deleteLikeQuery = `DELETE FROM "liked_recipes" WHERE EXISTS (SELECT * FROM liked_recipes WHERE user_id=${req.params.userId} AND recipes_id=${req.params.recipeId})`;
   pool.query(deleteLikeQuery).then(() => {
-    //delete ingredients
-    const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.recipeId}`;
-    pool.query(queryString).then(() => {
-      // delete instructions
-      const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.recipeId}`;
-      pool.query(deleteInstructionsQuery).then(() => {
-        //delete recipe
-        const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=${req.params.recipeId}`;
-        pool
-          .query(deleteRecipeQuery)
-          .then(() => {
-            res.sendStatus(200);
-          })
-          .catch((err) => {
-            console.log("DELETE failed: ", err);
-            res.sendStatus(500);
-          });
+    // delete shared recipe
+    const deleteLikeQuery = `DELETE FROM "shared_recipes" WHERE EXISTS (SELECT * FROM shared_recipes WHERE recipe_id=${req.params.recipeId})`;
+    pool.query(deleteLikeQuery).then(() => {
+      //delete ingredients
+      const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.recipeId}`;
+      pool.query(queryString).then(() => {
+        // delete instructions
+        const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.recipeId}`;
+        pool.query(deleteInstructionsQuery).then(() => {
+          //delete recipe
+          const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=${req.params.recipeId}`;
+          pool
+            .query(deleteRecipeQuery)
+            .then(() => {
+              res.sendStatus(200);
+            })
+            .catch((err) => {
+              console.log("DELETE failed: ", err);
+              res.sendStatus(500);
+            });
+        });
       });
     });
   });

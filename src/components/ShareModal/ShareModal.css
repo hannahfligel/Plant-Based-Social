@@ -1,0 +1,61 @@
+.shareModalHeader {
+  border-bottom: none;
+}
+
+.shareModalTitleH2 {
+  margin-top: 14px !important;
+  margin-bottom: 10px;
+  font-family: Amerigo-Bold;
+  text-transform: none !important;
+  font-size: 23px;
+}
+
+.modalShareButton {
+  background-color: #97be11;
+  border-color: #97be11;
+  border: #97be11;
+  width: 80px;
+  color: white;
+  border-radius: 23px;
+  height: 32px;
+  font-family: Quicksand-SemiBold;
+}
+
+.ShareModalUserContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  margin: 10px 0px;
+  border-bottom: 1px solid rgb(233, 231, 231);
+  padding: 5px 0px;
+}
+
+.ShareRecipeUserNameAndIcon {
+  font-size: 17px;
+  font-family: Quicksand-SemiBold;
+  display: flex;
+  align-items: center;
+}
+
+.userIcon {
+  margin-right: 6px;
+  color: #28590c;
+}
+
+.shareModalFooter {
+  box-shadow: rgba(17, 12, 46, 0.15) 100px 100px 100px 100px;
+  /* background-color: #28590c; */
+}
+
+.shareModalScroll {
+  overflow: scroll;
+  max-height: 50vh;
+}
+
+.shareModalAlert {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 0px !important;
+  left: 0;
+}

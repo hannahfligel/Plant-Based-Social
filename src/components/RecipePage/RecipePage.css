@@ -1,3 +1,136 @@
 .RecipePageContainer {
   padding-bottom: 87px;
 }
+
+.headerIconsContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #dfe9ac;
+  padding: 16px;
+}
+
+.recipePageHeaderIcon {
+  font-size: 24px;
+  color: #569219;
+}
+
+.recipePageImage {
+  height: 387px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.recipeInfoContainer {
+  background-color: white;
+  border-radius: 44px 44px 0px 0px;
+  top: 420px;
+  position: absolute;
+  width: 100%;
+}
+
+.heartIconChecked {
+  color: #ff3900;
+  font-size: 28px;
+}
+
+.heartIconUnchecked {
+  color: black;
+  font-size: 28px;
+}
+
+.deleteLikedButtonContainer {
+  background-color: white;
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: absolute;
+  right: 58px;
+  top: -26px;
+}
+
+.likeButtonContainer {
+  background-color: white;
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  position: absolute;
+  right: 58px;
+  top: -25px;
+}
+
+.recipePageBasicInfoContainer {
+  margin-top: 58px;
+  font-size: 15px;
+  font-family: Quicksand-Bold;
+}
+
+.recipePagePrepTime {
+  display: flex;
+  justify-content: center;
+}
+
+.recipePageCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #d7d7d7;
+  height: 36px;
+}
+
+.recipePageBasicInfoP {
+  margin-bottom: 0px !important;
+}
+
+.recipePageServings {
+  display: flex;
+  justify-content: center;
+}
+
+.recipePageHours {
+  margin-right: 4px;
+}
+
+.recipePageH1 {
+  margin-top: 34px;
+}
+
+.RecipePageDescription {
+  font-size: 16px;
+  font-family: Quicksand-SemiBold;
+}
+
+.RecipePageH2 {
+  text-transform: none;
+  margin-top: 31px;
+  margin-bottom: 23px;
+}
+
+.RecipePageLists {
+  font-family: Quicksand-SemiBold;
+}
+
+.ingredientsAndAmount {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredientP {
+  width: 225px;
+}
+
+.ingredientAmount {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ingredientsContainer {
+  margin-bottom: 5px;
+}

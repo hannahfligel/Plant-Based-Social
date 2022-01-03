@@ -1,0 +1,53 @@
+.sharedRecipesP {
+  text-transform: none;
+  font-size: 15px;
+  font-family: Quicksand;
+  margin-top: auto;
+  margin-left: 3px;
+  font-family: Quicksand-Bold;
+}
+
+.sharedRecipesH1 {
+  text-transform: none;
+  margin-bottom: 25px;
+  font-size: 46px;
+}
+
+.userIcon {
+  font-size: 25px;
+}
+
+.sharedUser {
+  display: flex;
+  align-items: center;
+}
+
+.sharedRecipesContainer {
+  padding-bottom: 100px;
+  padding-top: 70px;
+}
+
+.SharedRecipeCard {
+  border: none;
+  background-color: #fbfceb;
+  margin-bottom: 24px;
+}
+
+.SharedRecipeCardName {
+  margin-bottom: 0%;
+}
+
+.SharedRecipeCardPrepTime {
+  font-family: Quicksand-Bold !important;
+}
+
+.clockIcon {
+  font-size: 16px;
+}
+
+.editIcon {
+  margin-right: 15px;
+}
+
+.cardMin {
+}

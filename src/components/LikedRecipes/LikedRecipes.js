@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Nav from "../Nav/Nav";
+import { Container } from "react-bootstrap";
+import "../LikedRecipes/LikedRecipes.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -16,7 +18,6 @@ function LikedRecipes(props) {
   const likedRecipes = useSelector(
     (store) => store.recipeReducer.likedRecipesReducer
   );
-  const [heading, setHeading] = useState("Favorite Recipes");
 
   useEffect(() => {
     dispatch({
@@ -27,12 +28,14 @@ function LikedRecipes(props) {
 
   return (
     <>
-      <div>
-        <h2>{heading}</h2>
-        {likedRecipes.map((likedRecipe) => {
-          return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;
-        })}
-      </div>
+      <Container className="favoritesContainer">
+        <h1 className="likedRecipesH1">My favorite recipes:</h1>
+        <div className="recipeCardContainer">
+          {likedRecipes.map((likedRecipe) => {
+            return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;
+          })}
+        </div>
+      </Container>
       <Nav />
     </>
   );

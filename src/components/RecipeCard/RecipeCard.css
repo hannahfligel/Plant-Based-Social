@@ -6,4 +6,48 @@
 
 .recipeCard {
   width: 170px;
+  background-color: #fbfceb;
+  border: none;
+  margin-bottom: 18px;
+}
+
+.recipeCardName {
+  font-size: 15px;
+  font-family: Quicksand-Bold;
+  margin-bottom: 0px;
+}
+
+.recipeCardPrepTime {
+  font-family: Quicksand-SemiBold;
+  font-size: 13px;
+  margin-bottom: 0px;
+  color: #97be11;
+}
+
+.text {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardHrsAndMins {
+  display: flex;
+  align-items: center;
+  color: #97be11;
+}
+
+.clockIcon {
+  margin-right: 3px;
+  font-size: 15px;
+}
+
+.cardHours {
+  margin-right: 3px;
+  margin-bottom: 0px;
+}
+
+.cardMin {
+  margin-bottom: 0px;
 }

@@ -1,15 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
-import RecipeCard from "../RecipeCard/RecipeCard";
+import SharedRecipeCard from "../SharedRecipes/SharedRecipeCard";
 import Nav from "../Nav/Nav";
+import "../SharedRecipes/SharedRecipes.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { Card, Col, Container } from "react-bootstrap";
 
 // This is one of our simplest components
 // It doesn't have local state
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is
 
-function SharedRecipes() {
+function SharedRecipes(props) {
   const dispatch = useDispatch();
+
+  const userIcon = <FontAwesomeIcon icon={faUserCircle} />;
 
   const userId = useSelector((store) => store.user.id);
   const sharedRecipes = useSelector(
@@ -34,20 +40,24 @@ function SharedRecipes() {
 
   return (
     <>
-      <div className="container">
-        {/* {JSON.stringify(sharedRecipesSender)}
-      {JSON.stringify(sharedRecipesImage)} */}
+      <Container className="sharedRecipesContainer">
+        {/* {JSON.stringify(sharedRecipesImage)} */}
 
-        <p>Recipes SharedRecipes with you</p>
+        <h1 className="sharedRecipesH1">Recipes shared with you </h1>
         {sharedRecipes.map((recipe) => {
           return (
             <div key={recipe.id}>
-              <p>{recipe.sender} shared a recipe with you!</p>
-              <RecipeCard recipe={recipe} />
+              <div className="sharedUser">
+                <span className="userIcon">{userIcon}</span>
+                <h2 className="sharedRecipesP">
+                  {recipe.sender} sent a recipe!
+                </h2>
+              </div>
+              <SharedRecipeCard recipe={recipe} />
             </div>
           );
         })}
-      </div>
+      </Container>
       <Nav />
     </>
   );

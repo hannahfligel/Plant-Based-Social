@@ -2,9 +2,17 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import "../RecipePage/RecipePage.css";
+import { Container, Row, Col } from "react-bootstrap";
+import "../AddRecipe/AddRecipe.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Checkbox from "../Checkbox/Checkbox";
 
 function Ingredient(props) {
   const dispatch = useDispatch();
+
+  const deleteIcon = <FontAwesomeIcon icon={faTimes} />;
 
   //deleteIngredient deletes a specific ingredient from the db and then get the updated ingredients for the specific recipe after deleting (this allows the list to be updated automatically rather than having to reload the page after each delete)
   const deleteIngredient = () => {
@@ -25,16 +33,29 @@ function Ingredient(props) {
   };
 
   return (
-    <div>
-      <li>
-        {props.ingredientName}
-        {props.ingredientAmount}
+    <div className="addIngredientListItem">
+      <div className="ingredientName">
+        {/* when not in edit more, show checkboxes */}
+        {!props.editMode && <Checkbox />}
+        <p>{props.ingredientName}</p>
+      </div>
+
+      <div className="ingredientsAmountAndDelete">
+        <div className="ingredientAmount">
+          <p>{props.ingredientAmount}</p>
+        </div>
+
         {/* is editMode set to true? */}
         {props.editMode && (
           //if it is, display the delete button next to each ingredient
-          <button onClick={deleteIngredient}>Delete</button>
+          <button
+            className="deleteIngredientAndInstructionsButton"
+            onClick={deleteIngredient}
+          >
+            delete
+          </button>
         )}
-      </li>
+      </div>
     </div>
   );
 }

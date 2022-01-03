@@ -66,21 +66,19 @@ img {
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
 }
 
-input {
-  margin: 5px;
-  margin-bottom: 10px;
+input,
+textarea {
+  margin: 5px 0px 10px 0px;
 }
 
 h1 {
   font-family: Amerigo-Bold;
   font-size: 48px;
-  text-transform: uppercase;
 }
 
 h2 {
   font-family: Amerigo-Bold;
   font-size: 28px;
-  text-transform: uppercase;
 }
 
 .btn-primary {
@@ -90,7 +88,27 @@ h2 {
   border-radius: 5px !important;
   width: 100% !important;
   height: 48px;
+  font-family: Quicksand-SemiBold !important;
+}
+
+/* .btn-primary:focus,
+.btn-primary:active,
+.btn-primary:hover {
+  background-color: #28590c;
+  border-color: #28590c;
+  color: white;
+  border-radius: 5px !important;
+  width: 100% !important;
+  height: 48px;
   font-family: Quicksand !important;
+  box-shadow: 0 0 0 0.25rem rgba(167, 37, 210, 0.5);
+} */
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #28590c;
 }
 
 .btn-secondary {
@@ -98,8 +116,7 @@ h2 {
   border-color: #dfe9ac;
   color: #126f27;
   border-radius: 5px !important;
-  font-family: Quicksand;
-  font-weight: bolder;
+  font-family: Quicksand-SemiBold !important;
 }
 
 .buttonGroup {
@@ -111,4 +128,13 @@ a {
   font-weight: bold;
   color: black;
   font-size: 18px;
+}
+
+.ModalTitle {
+  font-family: Quicksand-Bold;
+}
+
+.modalBody {
+  font-family: Quicksand-SemiBold;
+  font-size: 15px;
 }

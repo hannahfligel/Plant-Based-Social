@@ -1,0 +1,149 @@
+.addRecipeContainer {
+  padding-bottom: 100px;
+  padding-top: 90px;
+}
+
+.deleteIngredientAndInstructionsButton {
+  font-size: 15px;
+  background-color: #dfe9ac;
+  color: #245009 !important;
+  border: none;
+  border-radius: 23px;
+  padding: 5px;
+  font-family: Quicksand-SemiBold;
+}
+
+.ingredientsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ingredientP {
+  margin-bottom: 0px;
+}
+
+.addRecipeAddButton {
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #97be11;
+  color: white !important;
+  border: none;
+  border-radius: 23px;
+  width: 100%;
+  padding: 5px;
+  font-family: Quicksand-SemiBold;
+  margin: 20px 0px;
+}
+
+.addRecipeSubmitButton {
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #245009;
+  color: white !important;
+  border: none;
+  border-radius: 23px;
+  width: 100%;
+  padding: 5px;
+  margin-top: 50px;
+  font-family: Quicksand-SemiBold;
+}
+
+.deleteRecipeLink {
+  display: flex;
+  justify-content: center;
+  color: #245009;
+  text-transform: uppercase;
+  font-family: Quicksand-SemiBold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.addIngredientListItem {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+  border-bottom: 1px solid #2450091c;
+  padding-bottom: 10px;
+  font-family: Quicksand-SemiBold;
+}
+
+.ingredientsAmountAndDelete {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ingredientsAmountAndDelete p {
+  margin-bottom: 0px;
+}
+
+.ingredientName {
+  max-width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+.ingredientName p {
+  margin-bottom: 0px;
+}
+
+.ingredientAmount {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 12px;
+}
+
+.instructionName {
+  max-width: 70%;
+}
+
+.instructionNameView {
+  max-width: 100%;
+}
+
+.instructionName p {
+  margin-bottom: 0px;
+}
+
+.deleteInstruction {
+  display: flex;
+  align-items: center;
+}
+
+.AddRecipeInstructionContainer {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #2450091c;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-family: Quicksand-SemiBold;
+}
+
+ol {
+  font-family: Quicksand-SemiBold;
+}
+
+.deleteModalButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  font-family: Quicksand-SemiBold !important;
+}
+
+h2 {
+  text-transform: capitalize;
+}
+
+label {
+  text-transform: lowercase;
+  font-size: 15px;
+  font-family: Quicksand-SemiBold;
+  margin-bottom: 0px !important;
+}
+
+/* .addRecipeH2 {
+  margin: 20px 0px;
+} */
+
+.addRecipeFormGroup {
+  padding-top: 32px;
+}

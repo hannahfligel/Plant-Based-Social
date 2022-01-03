@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate, useHistory } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-
+import "../AddRecipe/AddRecipe.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -36,9 +36,9 @@ function EditRecipeButton(props) {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        Delete recipe
-      </Button>
+      <a tabindex="1" className="deleteRecipeLink" onClick={handleShow}>
+        delete recipe
+      </a>
 
       <Modal
         show={show}
@@ -47,14 +47,19 @@ function EditRecipeButton(props) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
+          <Modal.Title className="ModalTitle">Confirmation</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this recipe?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            No
+        <Modal.Body className="modalBody">
+          Are you sure you want to delete this recipe?
+        </Modal.Body>
+        <Modal.Footer className="deleteModalButtonsContainer">
+          <Button
+            className="btn-secondary deleteModalNoButton"
+            onClick={handleClose}
+          >
+            No, keep recipe
           </Button>
-          <Button onClick={deleteRecipe} variant="primary">
+          <Button className="deleteModalDeleteButton" onClick={deleteRecipe}>
             Yes, delete recipe
           </Button>
         </Modal.Footer>

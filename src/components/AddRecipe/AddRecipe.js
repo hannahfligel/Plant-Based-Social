@@ -5,7 +5,11 @@ import Ingredient from "../Ingredient/Ingredient";
 import Instruction from "../Instruction/Instruction";
 import DeleteRecipeButton from "../DeleteRecipeButton/DeleteRecipeButton";
 import Nav from "../Nav/Nav";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Form, Container, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faClock } from "@fortawesome/free-solid-svg-icons";
+import "../RecipePage/RecipePage.css";
+import "../AddRecipe/AddRecipe.css";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -15,6 +19,9 @@ function AddRecipe(props) {
   // a default value of 'Functional Component'
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const backIcon = <FontAwesomeIcon icon={faArrowLeft} />;
+  const clock = <FontAwesomeIcon icon={faClock} />;
 
   const [show, setShow] = useState(false);
 
@@ -64,10 +71,6 @@ function AddRecipe(props) {
 
   const [newInstruction, setNewInstruction] = useState("");
 
-  const back = () => {
-    history.push("/user");
-  };
-
   const submit = async () => {
     console.log("Submit new recipe---->", newRecipe);
     await dispatch({
@@ -85,20 +88,20 @@ function AddRecipe(props) {
     history.push("/home");
   };
 
-  const addIngredient = () => {
+  const addIngredient = async () => {
     console.log("New Ingredient------>", newIngredient);
-    dispatch({
+    await dispatch({
       type: "ADD_INGREDIENT",
       payload: {
         newIngredient: newIngredient,
         id: recipeInfo.id,
       },
     });
-    setNewIngredient({
+    await setNewIngredient({
       ingredient: "",
       ingredient_amount: "",
     });
-    dispatch({
+    await dispatch({
       type: "FETCH_RECIPE_INGREDIENTS",
       payload: recipeInfo.id,
     });
@@ -122,207 +125,355 @@ function AddRecipe(props) {
     });
   };
 
+  // secret button section
+  const shhSecretButton = async () => {
+    console.log("shhhhh secret button clicked!");
+    await setNewRecipe({
+      image_url:
+        "https://i.pinimg.com/564x/0a/1d/86/0a1d86fb4ddc49b9270db990d6828224.jpg",
+      recipe_name: "Chickpea Tacos",
+      recipe_description:
+        "Al Pastor Chickpea Tacos feature a bright and bold pineapple chili sauce tossed with mushrooms, chickpeas, and onion. The most flavorful vegan tacos, even the most devout carnivores will love this 30 minute recipe.",
+      difficulty: "Easy",
+      prep_hours: "0",
+      prep_minutes: "30",
+      servings: "2",
+      recipe_type_id: "2",
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "olive oil",
+          ingredient_amount: "1 tbs",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "chickpeas, 1 can, drained and rinsed",
+          ingredient_amount: "15 oz",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "low sodium soy sauce",
+          ingredient_amount: "2 tbs",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "chipotle chili powder",
+          ingredient_amount: "1 tsp",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "tortilla",
+          ingredient_amount: "to serve",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction:
+          "Add the olive oil to a pan over medium heat. Once the oil begins to shimmer, add the chickpeas and cook until slightly golden, stirring occasionally.",
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction:
+          "Add soy sauce, chipotle chili powder, and garlic powder to the chickpeas and sauté for 3-4 more minutes, until golden brown.",
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction: "Serve on warm tortillas with desired taco toppings.",
+        id: recipeInfo.id,
+      },
+    });
+  };
+
   return (
-    <div>
-      {/* {JSON.stringify(recipeInfo)}
-      {JSON.stringify(newRecipe.id)} */}
-      {/* currently goes back to the /user page */}
-      <button onClick={back}>BACK</button>
-      {/*<--- need to create modal to delete recipe from db that will pop up on the click of back button */}
-
-      {/* input for image_url */}
-      {/* defaultValue holders the the value of the useState that came from the store  */}
-      <input
-        onChange={(event) =>
-          setNewRecipe({ ...newRecipe, image_url: event.target.value })
-        }
-        placeholder="Recipe image url"
-        defaultValue={recipeInfo.image_url}
-      />
-
-      {/* input for recipe_name */}
-      <input
-        onChange={(event) =>
-          setNewRecipe({ ...newRecipe, recipe_name: event.target.value })
-        }
-        placeholder="Recipe name"
-        defaultValue={recipeInfo.recipe_name}
-      />
-
-      {/* input for recipe_description */}
-      <textarea
-        onChange={(event) =>
-          setNewRecipe({ ...newRecipe, recipe_description: event.target.value })
-        }
-        placeholder="recipe description"
-        defaultValue={recipeInfo.recipe_description}
-      />
-
-      {/* recipe type dropdown */}
-      <label htmlFor="recipeInput">
-        recipe type
-        <select
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, recipe_type_id: event.target.value })
-          }
-          id="recipeInput"
-          name="Recipe type"
-          defaultValue={recipeInfo.recipe_type_id}
-        >
-          <option>select recipe type</option>
-          {recipeTypes.map((recipeType) => {
-            return (
-              //onClick, run the details function and passing it the individual movie info that was clicked on
-              <option value={recipeType.id} key={recipeType.id}>
-                {recipeType.recipe_type}
-              </option>
-            );
-          })}
-        </select>
-      </label>
-
-      {/* difficulty dropdown */}
-      <label htmlFor="recipeInput">
-        difficulty
-        <select
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, difficulty: event.target.value })
-          }
-          defaultValue={recipeInfo.difficulty}
-        >
-          <option>Select</option>
-          <option value="1">Easy</option>
-          <option value="2">Intermediate</option>
-          <option value="3">Difficult</option>
-        </select>
-      </label>
-
-      {/* prep time input (hours & minutes) */}
-      <label>
-        prep time:
-        <input
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, prep_minutes: event.target.value })
-          }
-          placeholder="hours"
-          type="number"
-          defaultValue={recipeInfo.prep_minutes}
-        />
-        <input
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, prep_hours: event.target.value })
-          }
-          placeholder="minutes"
-          type="number"
-          defaultValue={recipeInfo.prep_hours}
-        />
-      </label>
-
-      {/* servings input */}
-      <label>
-        Servings:
-        <input
-          onChange={(event) =>
-            setNewRecipe({ ...newRecipe, servings: event.target.value })
-          }
-          placeholder="servings"
-          type="number"
-          defaultValue={recipeInfo.servings}
-        />
-      </label>
-
-      <h3>Ingredients</h3>
-      <label>
-        <input
-          onChange={(event) =>
-            setNewIngredient({
-              ...newIngredient,
-              ingredient: event.target.value,
-            })
-          }
-          defaultValue={newIngredient.ingredient}
-          placeholder="ingredient"
-        />
-        <input
-          onChange={(event) =>
-            setNewIngredient({
-              ...newIngredient,
-              ingredient_amount: event.target.value,
-            })
-          }
-          defaultValue={newIngredient.ingredient_amount}
-          placeholder="amount"
-        />
-      </label>
-      <button onClick={addIngredient}>Add Ingredient</button>
-      <ul>
-        {ingredients.map((ingredient) => {
-          return (
-            <Ingredient
-              key={ingredient.id}
-              ingredientName={ingredient.ingredient}
-              ingredientAmount={ingredient.ingredient_amount}
-              ingredientId={ingredient.id}
-              editMode={true} // <--- editMode determines whether or not the delete buttons show up
-              recipeId={recipeInfo.id}
+    <>
+      <Container className="addRecipeContainer">
+        <h1 onClick={shhSecretButton}>Recipe Form</h1>
+        <Form>
+          {/* input for image_url */}
+          {/* defaultValue holders the the value of the useState that came from the store  */}
+          <Form.Group>
+            <Form.Label htmlFor="imageUrl">Image Url</Form.Label>
+            <Form.Control
+              id="imageUrl"
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, image_url: event.target.value })
+              }
+              defaultValue={newRecipe.image_url}
             />
-          );
-        })}
-      </ul>
+          </Form.Group>
 
-      <h3>Instructions</h3>
-      <label>
-        <input
-          onChange={(event) => setNewInstruction(event.target.value)}
-          value={newInstruction.instruction}
-          placeholder="instruction"
-        />
-      </label>
-
-      <button onClick={addInstruction}>Add instruction</button>
-      <ul>
-        {instructions.map((instruction) => {
-          return (
-            <Instruction
-              key={instruction.id}
-              instructionName={instruction.instruction}
-              instructionId={instruction.id}
-              editMode={true}
-              recipeId={recipeInfo.id}
+          <Form.Group>
+            <Form.Label htmlFor="recipeName">Recipe name</Form.Label>
+            {/* input for recipe_name */}
+            <Form.Control
+              id="recipeName"
+              onChange={(event) =>
+                setNewRecipe({
+                  ...newRecipe,
+                  recipe_name: event.target.value,
+                })
+              }
+              defaultValue={newRecipe.recipe_name}
             />
-          );
-        })}
-      </ul>
+          </Form.Group>
 
-      <Button variant="primary" onClick={submit}>
-        Submit recipe
-      </Button>
+          <Form.Group>
+            <Form.Label htmlFor="recipeDescription">
+              Recipe description
+            </Form.Label>
+            {/* input for recipe_description */}
+            <Form.Control
+              as="textarea"
+              rows={3}
+              id="recipeDescription"
+              onChange={(event) =>
+                setNewRecipe({
+                  ...newRecipe,
+                  recipe_description: event.target.value,
+                })
+              }
+              defaultValue={newRecipe.recipe_description}
+            />
+          </Form.Group>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Recipe was submitted successfully!</Modal.Body>
-        <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
+          <Form.Group>
+            {/* recipe type dropdown */}
+            <Form.Label htmlFor="recipeType">recipe type</Form.Label>
+            <Form.Select
+              onChange={(event) =>
+                setNewRecipe({
+                  ...newRecipe,
+                  recipe_type_id: event.target.value,
+                })
+              }
+              id="recipeType"
+              name="Recipe type"
+              value={newRecipe.recipe_type_id}
+            >
+              <option>select recipe type</option>
+              {recipeTypes.map((recipeType) => {
+                return (
+                  //onClick, run the details function and passing it the individual movie info that was clicked on
+                  <option value={recipeType.id} key={recipeType.id}>
+                    {recipeType.recipe_type}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group>
+            {/* difficulty dropdown */}
+            <Form.Label htmlFor="recipeDifficulty">difficulty</Form.Label>
+            <Form.Select
+              id="recipeDifficulty"
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, difficulty: event.target.value })
+              }
+              value={newRecipe.difficulty}
+            >
+              <option>Select</option>
+              <option value="Easy">Easy</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Difficult">Difficult</option>
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group>
+            {/* servings input */}
+            <Form.Label htmlFor="recipeServing">Servings:</Form.Label>
+            <Form.Control
+              id="recipeServing"
+              onChange={(event) =>
+                setNewRecipe({ ...newRecipe, servings: event.target.value })
+              }
+              type="number"
+              value={newRecipe.servings}
+            />
+          </Form.Group>
+
+          <Form.Group className="addRecipeFormGroup">
+            <h2 className="addRecipeH2">{clock} Prep Time</h2>
+            {/* prep time input (hours & minutes) */}
+            <Row>
+              <Col>
+                <Form.Label htmlFor="recipePrepTimeHr">hours</Form.Label>
+                <Form.Control
+                  id="recipePrepTimeHr"
+                  onChange={(event) =>
+                    setNewRecipe({
+                      ...newRecipe,
+                      prep_hours: event.target.value,
+                    })
+                  }
+                  type="number"
+                  value={newRecipe.prep_hours}
+                />
+              </Col>
+              <Col>
+                <Form.Label htmlFor="recipePrepTimeMin">minutes</Form.Label>
+
+                <Form.Control
+                  id="recipePrepTimeMin"
+                  onChange={(event) =>
+                    setNewRecipe({
+                      ...newRecipe,
+                      prep_minutes: event.target.value,
+                    })
+                  }
+                  type="number"
+                  value={newRecipe.prep_minutes}
+                />
+              </Col>
+            </Row>
+          </Form.Group>
+        </Form>
+
+        <>
+          <Form.Group className="addRecipeFormGroup">
+            <h2 className="addRecipeH2">Ingredients</h2>
+            <Row>
+              <Col>
+                <Form.Label htmlFor="recipeIngredient">Ingredient</Form.Label>
+                <Form.Control
+                  id="recipeIngredient"
+                  onChange={(event) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      ingredient: event.target.value,
+                    })
+                  }
+                  value={newIngredient.ingredient}
+                />
+              </Col>
+              <Col>
+                <Form.Label htmlFor="recipeIngredientAmount">Amount</Form.Label>
+                <Form.Control
+                  id="recipeIngredientAmount"
+                  onChange={(event) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      ingredient_amount: event.target.value,
+                    })
+                  }
+                  value={newIngredient.ingredient_amount}
+                />
+              </Col>
+            </Row>
+            <button className="addRecipeAddButton" onClick={addIngredient}>
+              Add Ingredient
+            </button>
+          </Form.Group>
+          <div>
+            {ingredients.map((ingredient) => {
+              return (
+                <Ingredient
+                  key={ingredient.id}
+                  ingredientName={ingredient.ingredient}
+                  ingredientAmount={ingredient.ingredient_amount}
+                  ingredientId={ingredient.id}
+                  editMode={true} // <--- editMode determines whether or not the delete buttons show up
+                  recipeId={recipeInfo.id}
+                />
+              );
+            })}
+          </div>
+
+          <Form.Group>
+            <h2 className="addRecipeH2">Instructions</h2>
+            <Form.Label htmlFor="recipeIngredientAmount">
+              Add Instruction
+            </Form.Label>
+            <Form.Control
+              as="textarea"
+              onChange={(event) => setNewInstruction(event.target.value)}
+              value={newInstruction.instruction}
+            />
+
+            <button className="addRecipeAddButton" onClick={addInstruction}>
+              Add instruction
+            </button>
+          </Form.Group>
+          <ol>
+            {instructions.map((instruction) => {
+              return (
+                <Instruction
+                  key={instruction.id}
+                  instructionName={instruction.instruction}
+                  instructionId={instruction.id}
+                  editMode={true}
+                  recipeId={recipeInfo.id}
+                />
+              );
+            })}
+          </ol>
+        </>
+
+        <button
+          className="addRecipeSubmitButton"
+          variant="primary"
+          onClick={submit}
+        >
+          Submit recipe
+        </button>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Recipe was submitted successfully!</Modal.Body>
+          <Modal.Footer>
+            {/* <Button variant="secondary" onClick={handleClose}>
             Close
           </Button> */}
-          <Button onClick={okayModal} variant="primary">
-            OK
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <Button onClick={okayModal} variant="primary">
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-      {/* <button onClick={submit}>Submit recipe</button> */}
+        {/* <button onClick={submit}>Submit recipe</button> */}
 
-      <DeleteRecipeButton recipeId={recipeInfo.id} />
+        <DeleteRecipeButton recipeId={recipeInfo.id} />
+      </Container>
       <Nav />
-    </div>
+    </>
   );
 }
 

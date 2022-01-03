@@ -1,6 +1,10 @@
-import { Button, Modal, Alert } from "react-bootstrap";
+import { Button, Modal, Alert, Container } from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareSquare, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import "../ShareModal/ShareModal.css";
+import context from "react-bootstrap/esm/AccordionContext";
 
 function ShareModal(props) {
   const dispatch = useDispatch();
@@ -8,6 +12,10 @@ function ShareModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
+
+  const userIcon = <FontAwesomeIcon icon={faUserCircle} />;
+
+  const shareIcon = <FontAwesomeIcon icon={faShareSquare} />;
 
   const shareButton = () => {
     setShow(true);
@@ -29,8 +37,10 @@ function ShareModal(props) {
         userId: user.id,
       },
     });
-    setAlertShow(true)
-    setTimeout(() => {setAlertShow(false)}, 3000) 
+    setAlertShow(true);
+    setTimeout(() => {
+      setAlertShow(false);
+    }, 3000);
   };
 
   const [alertShow, setAlertShow] = useState(false);
@@ -41,37 +51,45 @@ function ShareModal(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={shareButton}>
-        Share
-      </Button>
+      <span className="recipePageHeaderIcon" onClick={shareButton}>
+        {shareIcon}
+      </span>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Send on Plant Based Social</Modal.Title>
+        <Modal.Header className="shareModalHeader" closeButton>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <ul>
-            {allUsers.map((user) => {
-              return (
-                <div key={user.id}>
-                  <li>
-                    {user.username}
-                    {/* onClick of the share button, run the shareRecipe function and give it the argument of the specific users id (the receiver) */}
-                    <Button onClick={() => shareRecipe(user.id)}>share</Button>
-                  </li>
+        <Container>
+          <center>
+            <h2 className="shareModalTitleH2">Share on Plant Based Social</h2>
+            <hr />
+          </center>
+        </Container>
+
+        <Modal.Body className="shareModalScroll">
+          {allUsers.map((user) => {
+            return (
+              <div className="ShareModalUserContainer" key={user.id}>
+                <div className="ShareRecipeUserNameAndIcon">
+                  <span className="userIcon">{userIcon}</span>
+                  {user.username}
+                  {/* onClick of the share button, run the shareRecipe function and give it the argument of the specific users id (the receiver) */}
                 </div>
-              );
-            })}
-          </ul>
-          <Alert show={alertShow} variant="success">Recipe shared! </Alert>
+                <button
+                  className="modalShareButton"
+                  onClick={() => shareRecipe(user.id)}
+                >
+                  share
+                </button>
+              </div>
+            );
+          })}
+          <Alert className="shareModalAlert" show={alertShow} variant="success">
+            Recipe shared!
+          </Alert>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+        <Modal.Footer className="shareModalFooter">
+          <Button onClick={handleClose}>Close</Button>
         </Modal.Footer>
       </Modal>
     </>
