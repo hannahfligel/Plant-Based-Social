@@ -132,6 +132,8 @@
 
 .checkbox {
   border-color: green !important;
+  margin: 0px;
+  margin-right: 12px;
 }
 
 .ingredientAmount {
