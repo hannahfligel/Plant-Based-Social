@@ -213,13 +213,6 @@ function AddRecipe(props) {
         id: recipeInfo.id,
       },
     });
-    await dispatch({
-      type: "ADD_INSTRUCTION",
-      payload: {
-        newInstruction: "Enjoy!",
-        id: recipeInfo.id,
-      },
-    });
   };
 
   return (
