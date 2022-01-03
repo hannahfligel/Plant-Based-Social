@@ -71,10 +71,6 @@ function AddRecipe(props) {
 
   const [newInstruction, setNewInstruction] = useState("");
 
-  const back = () => {
-    history.push("/user");
-  };
-
   const submit = async () => {
     console.log("Submit new recipe---->", newRecipe);
     await dispatch({

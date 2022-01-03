@@ -34,6 +34,7 @@
 
 .cardHrsAndMins {
   display: flex;
+  align-items: center;
   color: #97be11;
 }
 
