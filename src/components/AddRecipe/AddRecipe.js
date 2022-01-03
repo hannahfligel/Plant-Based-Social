@@ -129,9 +129,10 @@ function AddRecipe(props) {
     });
   };
 
-  const shhSecretButton = () => {
+  // secret button section
+  const shhSecretButton = async () => {
     console.log("shhhhh secret button clicked!");
-    setNewRecipe({
+    await setNewRecipe({
       image_url:
         "https://i.pinimg.com/564x/0a/1d/86/0a1d86fb4ddc49b9270db990d6828224.jpg",
       recipe_name: "Chickpea Tacos",
@@ -142,6 +143,86 @@ function AddRecipe(props) {
       prep_minutes: "30",
       servings: "2",
       recipe_type_id: "2",
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "olive oil",
+          ingredient_amount: "1 tbs",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "chickpeas, 1 can, drained and rinsed",
+          ingredient_amount: "15 oz",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "low sodium soy sauce",
+          ingredient_amount: "2 tbs",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "chipotle chili powder",
+          ingredient_amount: "1 tsp",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INGREDIENT",
+      payload: {
+        newIngredient: {
+          ingredient: "tortilla",
+          ingredient_amount: "to serve",
+        },
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction:
+          "Add the olive oil to a pan over medium heat. Once the oil begins to shimmer, add the chickpeas and cook until slightly golden, stirring occasionally.",
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction:
+          "Add soy sauce, chipotle chili powder, and garlic powder to the chickpeas and sauté for 3-4 more minutes, until golden brown.",
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction: "Serve on warm tortillas with desired taco toppings.",
+        id: recipeInfo.id,
+      },
+    });
+    await dispatch({
+      type: "ADD_INSTRUCTION",
+      payload: {
+        newInstruction: "Enjoy!",
+        id: recipeInfo.id,
+      },
     });
   };
 
@@ -349,7 +430,6 @@ function AddRecipe(props) {
               as="textarea"
               onChange={(event) => setNewInstruction(event.target.value)}
               value={newInstruction.instruction}
-              placeholder="instruction"
             />
 
             <button className="addRecipeAddButton" onClick={addInstruction}>
