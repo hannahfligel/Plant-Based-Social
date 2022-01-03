@@ -129,10 +129,26 @@ function AddRecipe(props) {
     });
   };
 
+  const shhSecretButton = () => {
+    console.log("shhhhh secret button clicked!");
+    setNewRecipe({
+      image_url:
+        "https://i.pinimg.com/564x/0a/1d/86/0a1d86fb4ddc49b9270db990d6828224.jpg",
+      recipe_name: "Chickpea Tacos",
+      recipe_description:
+        "Al Pastor Chickpea Tacos feature a bright and bold pineapple chili sauce tossed with mushrooms, chickpeas, and onion. The most flavorful vegan tacos, even the most devout carnivores will love this 30 minute recipe.",
+      difficulty: "Easy",
+      prep_hours: "0",
+      prep_minutes: "30",
+      servings: "2",
+      recipe_type_id: "2",
+    });
+  };
+
   return (
     <>
       <Container className="addRecipeContainer">
-        <h1>Recipe Form</h1>
+        <h1 onClick={shhSecretButton}>Recipe Form</h1>
         <Form>
           {/* input for image_url */}
           {/* defaultValue holders the the value of the useState that came from the store  */}
@@ -193,7 +209,7 @@ function AddRecipe(props) {
               }
               id="recipeType"
               name="Recipe type"
-              defaultValue={newRecipe.recipe_type_id}
+              value={newRecipe.recipe_type_id}
             >
               <option>select recipe type</option>
               {recipeTypes.map((recipeType) => {
@@ -215,7 +231,7 @@ function AddRecipe(props) {
               onChange={(event) =>
                 setNewRecipe({ ...newRecipe, difficulty: event.target.value })
               }
-              defaultValue={recipeInfo.difficulty}
+              value={newRecipe.difficulty}
             >
               <option>Select</option>
               <option value="Easy">Easy</option>
@@ -233,7 +249,7 @@ function AddRecipe(props) {
                 setNewRecipe({ ...newRecipe, servings: event.target.value })
               }
               type="number"
-              defaultValue={recipeInfo.servings}
+              value={newRecipe.servings}
             />
           </Form.Group>
 
@@ -252,7 +268,7 @@ function AddRecipe(props) {
                     })
                   }
                   type="number"
-                  defaultValue={recipeInfo.prep_hours}
+                  value={newRecipe.prep_hours}
                 />
               </Col>
               <Col>
@@ -267,7 +283,7 @@ function AddRecipe(props) {
                     })
                   }
                   type="number"
-                  defaultValue={recipeInfo.prep_minutes}
+                  value={newRecipe.prep_minutes}
                 />
               </Col>
             </Row>
