@@ -36,6 +36,8 @@ router.get("/recipeCardInfo/:id", (req, res) => {
             recipes
         WHERE
           recipes.recipe_type_id = ${req.params.id}
+        ORDER BY
+        id DESC
         ;`;
   pool
     .query(query)

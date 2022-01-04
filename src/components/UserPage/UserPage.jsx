@@ -65,7 +65,7 @@ function UserPage() {
       </div>
       <Container>
         <div>
-          <h3>Recipes</h3>
+          {/* <h3>Recipes</h3> */}
           <div className="recipeCardContainer">
             {/* map through recipeCardInfo and send each recipe card info via props to the recipeCard component to individually be displayed on the DOM */}
             {recipeCardInfo.map((recipeCard) => {

@@ -4,6 +4,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Nav from "../Nav/Nav";
 import { Container } from "react-bootstrap";
 import "../LikedRecipes/LikedRecipes.css";
+import Banner from "../../images/likesbackground.png";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -28,8 +29,9 @@ function LikedRecipes(props) {
 
   return (
     <>
+      <img src={Banner} />
       <Container className="favoritesContainer">
-        <h1 className="likedRecipesH1">My favorite recipes:</h1>
+        <h1 className="likedRecipesH1">My favorite recipes</h1>
         <div className="recipeCardContainer">
           {likedRecipes.map((likedRecipe) => {
             return <RecipeCard recipe={likedRecipe} key={likedRecipe.id} />;

@@ -6,6 +6,8 @@ import "../SharedRecipes/SharedRecipes.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { Card, Col, Container } from "react-bootstrap";
+import ShareBanner from "../../images/share-background.png";
+import Banner from "../../images/likesbackground.png";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -40,10 +42,11 @@ function SharedRecipes(props) {
 
   return (
     <>
+      <img src={Banner} />
       <Container className="sharedRecipesContainer">
         {/* {JSON.stringify(sharedRecipesImage)} */}
 
-        <h1 className="sharedRecipesH1">Recipes shared with you </h1>
+        <h1 className="sharedRecipesH1">Your Shared Recipes</h1>
         {sharedRecipes.map((recipe) => {
           return (
             <div key={recipe.id}>
