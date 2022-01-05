@@ -110,7 +110,7 @@ function RecipePage(props) {
             <Col className="recipePageCol">
               {recipeGeneralInfo.servings === 1 && (
                 <p className="recipePageBasicInfoP">
-                  {recipeGeneralInfo.servings}serving
+                  {recipeGeneralInfo.servings} serving
                 </p>
               )}
 

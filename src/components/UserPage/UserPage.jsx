@@ -7,6 +7,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Nav from "../Nav/Nav";
 import { Button, Container } from "react-bootstrap";
 import "../UserPage/UserPage.css";
+import Banner from "../../images/home-banner.png";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -35,47 +36,50 @@ function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   return (
-    <div className="userPageContainer">
-      <Container>
-        <h1 className="usePageH1">Hello {user.username}!</h1>
-        <p className="usePageP">What do you want to cook today?</p>
-      </Container>
-
-      <div className="filterByMeal">
+    <>
+      <img src={Banner} />
+      <div className="userPageContainer">
         <Container>
-          <h3>Filter by meal</h3>
+          <h1 className="usePageH1">Hello, {user.username}!</h1>
+          <p className="usePageP">What do you want to cook today?</p>
+        </Container>
 
-          <div className="filterButtonsContainer">
-            {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}
-            <button className="filterButtons" onClick={allButton}>
-              All
-            </button>
-            {recipeTypes.map((recipeType) => {
-              return (
-                //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name" and the id as "id"
-                <RecipeTypeButtons
-                  key={recipeType.id}
-                  name={recipeType.recipe_type}
-                  id={recipeType.id}
-                />
-              );
-            })}
+        <div className="filterByMeal">
+          <Container>
+            <h3>Filter by Meal</h3>
+
+            <div className="filterButtonsContainer">
+              {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}
+              <button className="filterButtons" onClick={allButton}>
+                All
+              </button>
+              {recipeTypes.map((recipeType) => {
+                return (
+                  //render the RecipeTypeButtons component and pass down the name of the recipe type to it as "name" and the id as "id"
+                  <RecipeTypeButtons
+                    key={recipeType.id}
+                    name={recipeType.recipe_type}
+                    id={recipeType.id}
+                  />
+                );
+              })}
+            </div>
+          </Container>
+        </div>
+        <Container>
+          <div>
+            {/* <h3>Recipes</h3> */}
+            <div className="recipeCardContainer">
+              {/* map through recipeCardInfo and send each recipe card info via props to the recipeCard component to individually be displayed on the DOM */}
+              {recipeCardInfo.map((recipeCard) => {
+                return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
+              })}
+            </div>
           </div>
         </Container>
+        <Nav />
       </div>
-      <Container>
-        <div>
-          {/* <h3>Recipes</h3> */}
-          <div className="recipeCardContainer">
-            {/* map through recipeCardInfo and send each recipe card info via props to the recipeCard component to individually be displayed on the DOM */}
-            {recipeCardInfo.map((recipeCard) => {
-              return <RecipeCard key={recipeCard.id} recipe={recipeCard} />;
-            })}
-          </div>
-        </div>
-      </Container>
-      <Nav />
-    </div>
+    </>
   );
 }
 

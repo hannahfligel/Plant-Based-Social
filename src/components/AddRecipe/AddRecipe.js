@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faClock } from "@fortawesome/free-solid-svg-icons";
 import "../RecipePage/RecipePage.css";
 import "../AddRecipe/AddRecipe.css";
+import Banner from "../../images/admin-banner.png";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -217,6 +218,7 @@ function AddRecipe(props) {
 
   return (
     <>
+      <img src={Banner} />
       <Container className="addRecipeContainer">
         <h1 onClick={shhSecretButton}>Recipe Form</h1>
         <Form>
