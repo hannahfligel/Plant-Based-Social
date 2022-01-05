@@ -112,14 +112,16 @@ function* deleteIngredient(action) {
 }
 
 function* deleteLike(action) {
-  yield console.log("in deleteRecipe saga=======>", action.payload);
+  // yield console.log("in deleteRecipe saga=======>", action.payload);
   try {
     const response = yield axios.delete(
       `/api/recipes/delete-like/${action.payload.likedStatusId}`
     );
     console.log("back from delete-like", response.data);
+    //get the new array of recipe likes after deleting the liked recipe from the db (which would be an empty array now)
     yield put({
       type: "FETCH_RECIPE_LIKES",
+      //action.payload holds the likesStatusId, recipeId, and userId
       payload: action.payload,
     });
   } catch (err) {
@@ -158,12 +160,15 @@ function* postShareRecipe(action) {
 }
 
 function* addLike(action) {
-  console.log("in addLike---->", action.payload);
+  // console.log("in addLike---->", action.payload);
   try {
+    //action.payload hold the userId and recipeId
     const response = yield axios.post("/api/recipes/add-like", action.payload);
-    //yield put to run the getRecipeLikes saga
+    //***yield put to run the getRecipeLikes saga***
     yield put({
+      //FETCH_RECIPE_LIKES determines whether the recipe is liked or not. It's checking if the specific recipe that was liked exists in the liked recipes table in the db
       type: "FETCH_RECIPE_LIKES",
+      //action.payload holds the recipeId & userId
       payload: action.payload,
     });
   } catch (error) {

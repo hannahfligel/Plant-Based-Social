@@ -275,6 +275,23 @@ router.post("/add-instruction", (req, res) => {
     });
 });
 
+//post router to add user like to the db with the user_id & recipe_id
+router.post("/add-like", (req, res) => {
+  // POST route code here
+  // console.log("req.body----------------------->", req.body.recipeId);
+  const queryString = `INSERT INTO "liked_recipes" (user_id, recipes_id) VALUES ($1, $2);`;
+  value = [req.body.userId, req.body.recipeId];
+  pool
+    .query(queryString, value)
+    .then((results) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
 router.put("/update-recipe/:id", (req, res) => {
   // console.log("UPDATE RECIPE -------->",req.body);
   console.log("UPDATE RECIPE -------->", req.body.newRecipe);
@@ -345,27 +362,10 @@ router.delete("/delete-ingredient/:id", (req, res) => {
     });
 });
 
-//post router to add user like to the db with the user_id & recipe_id
-router.post("/add-like", (req, res) => {
-  // POST route code here
-  console.log("req.body----------------------->", req.body.recipeId);
-  const queryString = `INSERT INTO "liked_recipes" (user_id, recipes_id) VALUES ($1, $2);`;
-  value = [req.body.userId, req.body.recipeId];
-  pool
-    .query(queryString, value)
-    .then((results) => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
-});
-
 //get route to get liked status for a specific recipe
 router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
   // GET route code here
-  console.log("liked recipe status req.body----->", req.params);
+  // console.log("liked recipe status req.body----->", req.params);
   const query = `
     SELECT liked_recipes.id
     FROM
@@ -378,6 +378,7 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
   pool
     .query(query)
     .then((result) => {
+      //result.rows is an array which is either be empty of have item (likedRecipeId)
       res.send(result.rows);
     })
     .catch((err) => {
@@ -427,11 +428,13 @@ ORDER BY shared_recipes.id DESC;
     });
 });
 
+//delete route to delete a liked recipe
 router.delete("/delete-like/:id", (req, res) => {
-  console.log("IN DELETE LIKE ROUTER =============>", req.params.id);
-  const queryString = `DELETE FROM "liked_recipes" WHERE id=${req.params.id}`;
+  // console.log("IN DELETE LIKE ROUTER =============>", req.params.id);
+  const queryString = `DELETE FROM "liked_recipes" WHERE id=$1`;
+  values = [req.params.id];
   pool
-    .query(queryString)
+    .query(queryString, values)
     .then(() => {
       res.sendStatus(200);
     })

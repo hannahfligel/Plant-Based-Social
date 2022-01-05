@@ -79,6 +79,7 @@ function RecipePage(props) {
 
       <div className="recipeInfoContainer">
         <Container className="RecipePageContainer">
+          {/* pass the recipe id to the AddLikeButton component */}
           <AddLikeButton recipeId={recipeGeneralInfo.id} />
 
           <Row className="recipePageBasicInfoContainer">

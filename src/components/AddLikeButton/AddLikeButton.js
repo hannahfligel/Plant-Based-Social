@@ -21,7 +21,7 @@ function AddLikeButton(props) {
 
   //onClick of the deleteLike button, dispatch DELETE_LIKE
   const deleteLike = () => {
-    console.log("delete like button clicked========>", likedStatus.id);
+    // console.log("delete like button clicked========>", likedStatus.id);
     dispatch({
       type: "DELETE_LIKE",
       payload: {
@@ -44,6 +44,8 @@ function AddLikeButton(props) {
     });
   };
 
+  //the ternary operator below checked if there is something is the array, and if there is, we only have the option to delete
+  //this ensures that the user can only toggle between liking and unliking and cannot like a recipe multiple times
   return (
     <div>
       {/* if the length of the likedStatus array is greater than 0, display the dislike button */}
