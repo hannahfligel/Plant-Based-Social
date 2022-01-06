@@ -424,7 +424,7 @@ ON
 	shared_recipes.recipe_id="recipes".id
 WHERE 
 	receiver_id=$1
-ORDER BY shared_recipes.id DESC;
+ORDER BY id;
   `;
   values = [req.params.id];
   pool
