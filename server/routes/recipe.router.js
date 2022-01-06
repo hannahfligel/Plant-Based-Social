@@ -35,12 +35,13 @@ router.get("/recipeCardInfo/:id", (req, res) => {
         FROM 
             recipes
         WHERE
-          recipes.recipe_type_id = ${req.params.id}
+          recipes.recipe_type_id = $1
         ORDER BY
         id DESC
         ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       //result.row is an array that hold the recipe card information for every recipe that falls under the selected recipe type
       res.send(result.rows);
