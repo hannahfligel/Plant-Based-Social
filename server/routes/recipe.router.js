@@ -54,17 +54,18 @@ router.get("/recipeCardInfo/:id", (req, res) => {
 
 //GET route to get general information for recipes (will go into recipe cards)
 router.get("/recipePageInfo/:id", (req, res) => {
-  console.log("REQ.PARAMS----->", req.params);
+  // console.log("REQ.PARAMS----->", req.params);
   const query = `
     SELECT
       *
     FROM 
       recipes 
     WHERE
-      recipes.id=${req.params.id}
+      recipes.id=$1
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       res.send(result.rows);
     })
@@ -83,10 +84,11 @@ router.get("/liked-recipes/:id", (req, res) => {
   ON
   liked_recipes.recipes_id=recipes.id
   WHERE
-  liked_recipes.user_id=${req.params.id};
+  liked_recipes.user_id=$1;
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       res.send(result.rows);
     })
@@ -121,10 +123,11 @@ router.get("/ingredients/:id", (req, res) => {
     FROM 
       ingredients
     WHERE
-      ingredients.recipe_id=${req.params.id}
+      ingredients.recipe_id=$1
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       console.log("ing result.row=====>", result.rows);
       res.send(result.rows);
@@ -143,10 +146,11 @@ router.get("/instructions/:id", (req, res) => {
     FROM
       instructions
     WHERE 
-      instructions.recipe_id=${req.params.id}
+      instructions.recipe_id=$1
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       res.send(result.rows);
     })
