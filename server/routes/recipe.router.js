@@ -86,7 +86,7 @@ router.get("/liked-recipes/:id", (req, res) => {
   WHERE
   liked_recipes.user_id=$1
   ORDER BY
-  id DESC
+  liked_recipes.id DESC
     ;`;
   values = [req.params.id];
   pool
@@ -424,7 +424,7 @@ ON
 	shared_recipes.recipe_id="recipes".id
 WHERE 
 	receiver_id=$1
-ORDER BY id;
+ORDER BY shared_recipes.id DESC;
   `;
   values = [req.params.id];
   pool
