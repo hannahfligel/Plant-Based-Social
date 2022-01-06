@@ -12,7 +12,7 @@ function* recipeSaga() {
   yield takeLatest("FETCH_RECIPE_INGREDIENTS", getRecipeIngredients);
   yield takeLatest("FETCH_RECIPE_INSTRUCTIONS", getRecipeInstructions);
   yield takeLatest("FETCH_RECIPE_TYPES", getRecipeTypes);
-  yield takeLatest("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
+  // yield takeLatest("FETCH_SPECIFIC_RECIPE_TYPE", getSpecificRecipeType);
   yield takeLatest("FETCH_LIKED_RECIPES", getLikedRecipes);
   yield takeLatest("ADD_NEW_LIKE", addLike);
   yield takeLatest("FETCH_RECIPES_BY_TYPE", getRecipesByType);
@@ -337,20 +337,20 @@ function* getRecipeTypes(action) {
   }
 }
 
-function* getSpecificRecipeType(action) {
-  console.log("----->in getSpecificRecipeType", action);
-  try {
-    const response = yield axios.get(`/api/recipes/specific-recipe-type`);
-    console.log("back from getSpecificRecipeType get:", response.data);
-    yield put({
-      type: "SET_SPECIFIC_RECIPE_TYPE",
-      payload: response.data,
-    });
-  } catch (err) {
-    alert("no");
-    console.log(err);
-  }
-}
+// function* getSpecificRecipeType(action) {
+//   console.log("----->in getSpecificRecipeType", action);
+//   try {
+//     const response = yield axios.get(`/api/recipes/specific-recipe-type`);
+//     console.log("back from getSpecificRecipeType get:", response.data);
+//     yield put({
+//       type: "SET_SPECIFIC_RECIPE_TYPE",
+//       payload: response.data,
+//     });
+//   } catch (err) {
+//     alert("no");
+//     console.log(err);
+//   }
+// }
 
 function* getLikedRecipes(action) {
   console.log("----->in getLikedRecipes", action);
