@@ -1,8 +1,20 @@
-import { Button, Modal, Alert, Container } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Alert,
+  Container,
+  Form,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareSquare, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShareSquare,
+  faUserCircle,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import "../ShareModal/ShareModal.css";
 import context from "react-bootstrap/esm/AccordionContext";
 
@@ -16,6 +28,8 @@ function ShareModal(props) {
   const userIcon = <FontAwesomeIcon icon={faUserCircle} />;
 
   const shareIcon = <FontAwesomeIcon icon={faShareSquare} />;
+
+  const searchIcon = <FontAwesomeIcon icon={faSearch} />;
 
   const shareButton = () => {
     setShow(true);
@@ -62,7 +76,20 @@ function ShareModal(props) {
         <Container>
           <center>
             <h2 className="shareModalTitleH2">Share on Plant Based Social</h2>
-            <hr />
+
+            <InputGroup className="shareModalSearchInputGroup">
+              <FormControl
+                className="shareModalInput"
+                placeholder="Search by name"
+                aria-label="Search by name"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Text className="shareIcon" id="basic-addon2">
+                {searchIcon}
+              </InputGroup.Text>
+            </InputGroup>
+
+            {/* <FormControl className="seachInput" placeholder="Search by Name"  /> */}
           </center>
         </Container>
 
@@ -89,7 +116,7 @@ function ShareModal(props) {
           </Alert>
         </Modal.Body>
         <Modal.Footer className="shareModalFooter">
-          <Button onClick={handleClose}>Close</Button>
+          {/* <Button onClick={handleClose}>Close</Button> */}
         </Modal.Footer>
       </Modal>
     </>
