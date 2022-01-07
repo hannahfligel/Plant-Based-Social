@@ -25,6 +25,25 @@ router.get("/recipeCardInfo", (req, res) => {
     });
 });
 
+//searchedUser holds what was typed in the search input
+router.get("/searched-user/:searchedUser", (req, res) => {
+  // GET route code here
+  console.log("ROUTER SEARCH======>", req.params.searchedUser);
+  //req.params.searchedUser holds what was typed in the search input
+  const query = `
+  SELECT * FROM "user" WHERE "username" ILIKE '${req.params.searchedUser}%' ORDER BY "user";`;
+  pool
+    .query(query)
+    .then((result) => {
+      // result.rows returns an array of all the matches in the db (which can be an empty array if nothing matches)
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all recipe card info", err);
+      res.sendStatus(500);
+    });
+});
+
 //GET route to get info the the specific recipe type selected
 //the url is recipeCardInfo because onClick of the recipe type button, the recipe cards need to be rendered onto the DOM
 router.get("/recipeCardInfo/:id", (req, res) => {
@@ -131,7 +150,7 @@ router.get("/ingredients/:id", (req, res) => {
   pool
     .query(query, values)
     .then((result) => {
-      console.log("ing result.row=====>", result.rows);
+      // console.log("ing result.row=====>", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {

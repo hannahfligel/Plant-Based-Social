@@ -27,7 +27,7 @@ function* recipeSaga() {
   yield takeLatest("DELETE_LIKE", deleteLike);
   yield takeLatest("POST_SHARE_RECIPE", postShareRecipe);
   yield takeLatest("FETCH_SHARED_RECIPES", getSharedRecipes);
-
+  yield takeLatest("FETCH_SEARCHED_USER", getSearchedUser);
   //   yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
 }
 
@@ -40,6 +40,25 @@ function* getSharedRecipes(action) {
     console.log("Shared recipes in saga back from server---->", response.data);
     yield put({
       type: "SET_SHARED_RECIPES",
+      payload: response.data,
+    });
+  } catch (err) {
+    alert("no");
+    console.log(err);
+  }
+}
+
+function* getSearchedUser(action) {
+  console.log("in getSearchedUser saga=====>", action.payload);
+  try {
+    const response = yield axios.get(
+      //action.payload holds what was typed in the search input and gets sent to the router
+      `/api/recipes/searched-user/${action.payload}`
+    );
+    console.log("BACK FROM SERVER SEARCHED USERS", response.data);
+    //replace all users with the payload of the matches from the db
+    yield put({
+      type: "SET_ALL_USERS",
       payload: response.data,
     });
   } catch (err) {

@@ -1,9 +1,7 @@
 import {
-  Button,
   Modal,
   Alert,
   Container,
-  Form,
   InputGroup,
   FormControl,
 } from "react-bootstrap";
@@ -16,7 +14,6 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import "../ShareModal/ShareModal.css";
-import context from "react-bootstrap/esm/AccordionContext";
 
 function ShareModal(props) {
   const dispatch = useDispatch();
@@ -36,6 +33,24 @@ function ShareModal(props) {
     dispatch({
       type: "FETCH_ALL_USERS",
     });
+  };
+
+  //searchForUser takes in the arg of typedSearch that gets filled out in the search input
+  const searchForUser = (typedSearch) => {
+    console.log(typedSearch);
+    //if the search input is empty, get all users to display
+    if (typedSearch === "") {
+      dispatch({
+        type: "FETCH_ALL_USERS",
+      });
+      //else, display the specific user searched for
+    } else {
+      //dispatch FETCH_SEARCHED_USER with the payload of what the user typed in
+      dispatch({
+        type: "FETCH_SEARCHED_USER",
+        payload: typedSearch,
+      });
+    }
   };
 
   //use.id value is sent to the receiver_id
@@ -79,6 +94,8 @@ function ShareModal(props) {
 
             <InputGroup className="shareModalSearchInputGroup">
               <FormControl
+                //onChange, fire off the searchForUser function and give it the arg of whatever the user types into the input field
+                onChange={() => searchForUser(event.target.value)}
                 className="shareModalInput"
                 placeholder="Search by name"
                 aria-label="Search by name"
