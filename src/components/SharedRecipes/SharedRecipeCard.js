@@ -26,7 +26,8 @@ function SharedRecipeCard(props) {
     dispatch({ type: "FETCH_RECIPE_PAGE_INFO", payload: recipe.id });
     dispatch({ type: "FETCH_RECIPE_INGREDIENTS", payload: recipe.id });
     dispatch({ type: "FETCH_RECIPE_INSTRUCTIONS", payload: recipe.id });
-    dispatch({ type: "FETCH_SPECIFIC_RECIPE_TYPE", payload: recipe.id });
+    // dispatch({ type: "FETCH_SPECIFIC_RECIPE_TYPE", payload: recipe.id });
+
     //dispatch a get req to check if the recipe has been liked by the user
     // dispatch({
     //   type: "RESET_RECIPE_LIKE_STATUS"

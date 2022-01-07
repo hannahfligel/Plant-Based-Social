@@ -25,6 +25,25 @@ router.get("/recipeCardInfo", (req, res) => {
     });
 });
 
+//searchedUser holds what was typed in the search input
+router.get("/searched-user/:searchedUser", (req, res) => {
+  // GET route code here
+  console.log("ROUTER SEARCH======>", req.params.searchedUser);
+  //req.params.searchedUser holds what was typed in the search input
+  const query = `
+  SELECT * FROM "user" WHERE "username" ILIKE '${req.params.searchedUser}%' ORDER BY "user";`;
+  pool
+    .query(query)
+    .then((result) => {
+      // result.rows returns an array of all the matches in the db (which can be an empty array if nothing matches)
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all recipe card info", err);
+      res.sendStatus(500);
+    });
+});
+
 //GET route to get info the the specific recipe type selected
 //the url is recipeCardInfo because onClick of the recipe type button, the recipe cards need to be rendered onto the DOM
 router.get("/recipeCardInfo/:id", (req, res) => {
@@ -35,12 +54,13 @@ router.get("/recipeCardInfo/:id", (req, res) => {
         FROM 
             recipes
         WHERE
-          recipes.recipe_type_id = ${req.params.id}
+          recipes.recipe_type_id = $1
         ORDER BY
         id DESC
         ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       //result.row is an array that hold the recipe card information for every recipe that falls under the selected recipe type
       res.send(result.rows);
@@ -53,17 +73,18 @@ router.get("/recipeCardInfo/:id", (req, res) => {
 
 //GET route to get general information for recipes (will go into recipe cards)
 router.get("/recipePageInfo/:id", (req, res) => {
-  console.log("REQ.PARAMS----->", req.params);
+  // console.log("REQ.PARAMS----->", req.params);
   const query = `
     SELECT
       *
     FROM 
       recipes 
     WHERE
-      recipes.id=${req.params.id}
+      recipes.id=$1
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       res.send(result.rows);
     })
@@ -82,10 +103,13 @@ router.get("/liked-recipes/:id", (req, res) => {
   ON
   liked_recipes.recipes_id=recipes.id
   WHERE
-  liked_recipes.user_id=${req.params.id};
+  liked_recipes.user_id=$1
+  ORDER BY
+  liked_recipes.id DESC
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       res.send(result.rows);
     })
@@ -98,7 +122,7 @@ router.get("/liked-recipes/:id", (req, res) => {
 //GET route to get all users from the db
 router.get("/all-users", (req, res) => {
   const query = `
-  SELECT "user".id, "user".username FROM "user";
+  SELECT "user".id, "user".username FROM "user" ORDER BY username;
   `;
   pool
     .query(query)
@@ -120,12 +144,13 @@ router.get("/ingredients/:id", (req, res) => {
     FROM 
       ingredients
     WHERE
-      ingredients.recipe_id=${req.params.id}
+      ingredients.recipe_id=$1
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
-      console.log("ing result.row=====>", result.rows);
+      // console.log("ing result.row=====>", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -142,10 +167,11 @@ router.get("/instructions/:id", (req, res) => {
     FROM
       instructions
     WHERE 
-      instructions.recipe_id=${req.params.id}
+      instructions.recipe_id=$1
     ;`;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       res.send(result.rows);
     })
@@ -173,25 +199,25 @@ router.get("/recipe-types", (req, res) => {
 });
 
 //GET all recipe types for a specific recipe
-router.get("/specific-recipe-type", (req, res) => {
-  // GET route code here
-  const query = `
-    SELECT
-      *
-    FROM
-      recipe_types
-    WHERE 
-     recipe_types.id = 1;`;
-  pool
-    .query(query)
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.log("ERROR: Get all recipe card info", err);
-      res.sendStatus(500);
-    });
-});
+// router.get("/specific-recipe-type", (req, res) => {
+//   // GET route code here
+//   const query = `
+//     SELECT
+//       *
+//     FROM
+//       recipe_types
+//     WHERE
+//      recipe_types.id = 1;`;
+//   pool
+//     .query(query)
+//     .then((result) => {
+//       res.send(result.rows);
+//     })
+//     .catch((err) => {
+//       console.log("ERROR: Get all recipe card info", err);
+//       res.sendStatus(500);
+//     });
+// });
 
 router.post("/post-share-recipe", (req, res) => {
   console.log("IN post-share-recipe=========>", req.body);
@@ -336,9 +362,10 @@ router.put("/update-recipe/:id", (req, res) => {
 
 router.delete("/delete-instruction/:id", (req, res) => {
   console.log("IN DELETE INSTRUCTION =============>", req.params.id);
-  const queryString = `DELETE FROM "instructions" WHERE id=${req.params.id}`;
+  const queryString = `DELETE FROM "instructions" WHERE id=$1`;
+  values = [req.params.id];
   pool
-    .query(queryString)
+    .query(queryString, values)
     .then(() => {
       res.sendStatus(200);
     })
@@ -350,9 +377,10 @@ router.delete("/delete-instruction/:id", (req, res) => {
 
 router.delete("/delete-ingredient/:id", (req, res) => {
   console.log("IN DELETE INGREDIENT =============>", req.params.id);
-  const queryString = `DELETE FROM "ingredients" WHERE id=${req.params.id}`;
+  const queryString = `DELETE FROM "ingredients" WHERE id=$1`;
+  values = [req.params.id];
   pool
-    .query(queryString)
+    .query(queryString, values)
     .then(() => {
       res.sendStatus(200);
     })
@@ -371,12 +399,13 @@ router.get("/liked-recipe-status/:userId/:recipeId", (req, res) => {
     FROM
     "liked_recipes"
     WHERE
-    user_id=${req.params.userId} 
+    user_id=$1
     AND
-    recipes_id=${req.params.recipeId}
+    recipes_id=$2
     ;`;
+  values = [req.params.userId, req.params.recipeId];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       //result.rows is an array which is either be empty of have item (likedRecipeId)
       res.send(result.rows);
@@ -413,11 +442,12 @@ JOIN
 ON
 	shared_recipes.recipe_id="recipes".id
 WHERE 
-	receiver_id=${req.params.id}
+	receiver_id=$1
 ORDER BY shared_recipes.id DESC;
   `;
+  values = [req.params.id];
   pool
-    .query(query)
+    .query(query, values)
     .then((result) => {
       console.log("BACK FROM GET SHARED RECIPES ROUTER=====>", result.rows);
       res.send(result.rows);
@@ -447,21 +477,26 @@ router.delete("/delete-like/:id", (req, res) => {
 router.delete("/delete-recipe/:recipeId/:userId", (req, res) => {
   console.log("IN DELETE RECIPE =============>", req.params);
   // delete liked recipe
-  const deleteLikeQuery = `DELETE FROM "liked_recipes" WHERE EXISTS (SELECT * FROM liked_recipes WHERE user_id=${req.params.userId} AND recipes_id=${req.params.recipeId})`;
-  pool.query(deleteLikeQuery).then(() => {
+  const deleteLikeQuery = `DELETE FROM "liked_recipes" WHERE EXISTS (SELECT * FROM liked_recipes WHERE user_id=$1 AND recipes_id=$2)`;
+  values = [req.params.userId, req.params.recipeId];
+  pool.query(deleteLikeQuery, values).then(() => {
     // delete shared recipe
-    const deleteLikeQuery = `DELETE FROM "shared_recipes" WHERE EXISTS (SELECT * FROM shared_recipes WHERE recipe_id=${req.params.recipeId})`;
-    pool.query(deleteLikeQuery).then(() => {
+    const deleteLikeQuery = `DELETE FROM "shared_recipes" WHERE EXISTS (SELECT * FROM shared_recipes WHERE recipe_id=$1)`;
+    values = [req.params.recipeId];
+    pool.query(deleteLikeQuery, values).then(() => {
       //delete ingredients
-      const queryString = `DELETE FROM "ingredients" WHERE recipe_id=${req.params.recipeId}`;
-      pool.query(queryString).then(() => {
+      const queryString = `DELETE FROM "ingredients" WHERE recipe_id=$1`;
+      values = [req.params.recipeId];
+      pool.query(queryString, values).then(() => {
         // delete instructions
-        const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=${req.params.recipeId}`;
-        pool.query(deleteInstructionsQuery).then(() => {
+        const deleteInstructionsQuery = `DELETE FROM "instructions" WHERE recipe_id=$1`;
+        values = [req.params.recipeId];
+        pool.query(deleteInstructionsQuery, values).then(() => {
           //delete recipe
-          const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=${req.params.recipeId}`;
+          const deleteRecipeQuery = `DELETE FROM "recipes" WHERE id=$1`;
+          values = [req.params.recipeId];
           pool
-            .query(deleteRecipeQuery)
+            .query(deleteRecipeQuery, values)
             .then(() => {
               res.sendStatus(200);
             })

@@ -1,10 +1,19 @@
-import { Button, Modal, Alert, Container } from "react-bootstrap";
+import {
+  Modal,
+  Alert,
+  Container,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareSquare, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShareSquare,
+  faUserCircle,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import "../ShareModal/ShareModal.css";
-import context from "react-bootstrap/esm/AccordionContext";
 
 function ShareModal(props) {
   const dispatch = useDispatch();
@@ -17,11 +26,31 @@ function ShareModal(props) {
 
   const shareIcon = <FontAwesomeIcon icon={faShareSquare} />;
 
+  const searchIcon = <FontAwesomeIcon icon={faSearch} />;
+
   const shareButton = () => {
     setShow(true);
     dispatch({
       type: "FETCH_ALL_USERS",
     });
+  };
+
+  //searchForUser takes in the arg of typedSearch that gets filled out in the search input
+  const searchForUser = (typedSearch) => {
+    console.log(typedSearch);
+    //if the search input is empty, get all users to display
+    if (typedSearch === "") {
+      dispatch({
+        type: "FETCH_ALL_USERS",
+      });
+      //else, display the specific user searched for
+    } else {
+      //dispatch FETCH_SEARCHED_USER with the payload of what the user typed in
+      dispatch({
+        type: "FETCH_SEARCHED_USER",
+        payload: typedSearch,
+      });
+    }
   };
 
   //use.id value is sent to the receiver_id
@@ -62,7 +91,22 @@ function ShareModal(props) {
         <Container>
           <center>
             <h2 className="shareModalTitleH2">Share on Plant Based Social</h2>
-            <hr />
+
+            <InputGroup className="shareModalSearchInputGroup">
+              <FormControl
+                //onChange, fire off the searchForUser function and give it the arg of whatever the user types into the input field
+                onChange={() => searchForUser(event.target.value)}
+                className="shareModalInput"
+                placeholder="Search by name"
+                aria-label="Search by name"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Text className="shareIcon" id="basic-addon2">
+                {searchIcon}
+              </InputGroup.Text>
+            </InputGroup>
+
+            {/* <FormControl className="seachInput" placeholder="Search by Name"  /> */}
           </center>
         </Container>
 
@@ -89,7 +133,7 @@ function ShareModal(props) {
           </Alert>
         </Modal.Body>
         <Modal.Footer className="shareModalFooter">
-          <Button onClick={handleClose}>Close</Button>
+          {/* <Button onClick={handleClose}>Close</Button> */}
         </Modal.Footer>
       </Modal>
     </>
