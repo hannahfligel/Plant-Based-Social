@@ -122,7 +122,7 @@ router.get("/liked-recipes/:id", (req, res) => {
 //GET route to get all users from the db
 router.get("/all-users", (req, res) => {
   const query = `
-  SELECT "user".id, "user".username FROM "user";
+  SELECT "user".id, "user".username FROM "user" ORDER BY username;
   `;
   pool
     .query(query)
