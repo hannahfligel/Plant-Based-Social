@@ -11,14 +11,25 @@
 }
 
 .modalShareButton {
-  background-color: #97be11;
-  border-color: #97be11;
-  border: #97be11;
-  width: 80px;
-  color: white;
-  border-radius: 23px;
-  height: 32px;
-  font-family: Quicksand-SemiBold;
+  background-color: #97be11 !important;
+  border-color: #97be11 !important;
+  border: #97be11 !important;
+  width: 80px !important;
+  color: white !important;
+  border-radius: 23px !important;
+  height: 32px !important;
+  font-family: Quicksand-SemiBold !important;
+}
+
+.modalShareButton:focus {
+  background-color: #e0e0e0 !important;
+  border-color: #e0e0e0 !important;
+  border: #e0e0e0 !important;
+  width: 80px !important;
+  color: #6f6f6f !important;
+  border-radius: 23px !important;
+  height: 32px !important;
+  font-family: Quicksand-SemiBold !important;
 }
 
 .ShareModalUserContainer {
@@ -49,7 +60,7 @@
 
 .shareModalScroll {
   overflow: scroll;
-  max-height: 50vh;
+  height: 50vh;
 }
 
 .shareModalAlert {
