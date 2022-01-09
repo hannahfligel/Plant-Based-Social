@@ -306,9 +306,9 @@ function AddRecipe(props) {
               value={newRecipe.difficulty}
             >
               <option>Select</option>
-              <option value="Easy">Easy</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Difficult">Difficult</option>
+              <option value="easy">Easy</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="difficult">Difficult</option>
             </Form.Select>
           </Form.Group>
 
