@@ -45,7 +45,11 @@ function SharedRecipeCard(props) {
 
   return (
     <Card className="SharedRecipeCard" onClick={() => recipePage(props.recipe)}>
-      <Card.Img className="cardImg" src={props.recipe.image_url} />
+      <Card.Img
+        alt="recipe image"
+        className="cardImg"
+        src={props.recipe.image_url}
+      />
       <div className="SharedRecipeCardBody">
         <h3 className="SharedRecipeCardName text">
           {props.recipe.recipe_name}

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { Button, Container } from "react-bootstrap";
-import { useHistory } from 'react-router-dom';
-import RegisterForm from '../RegisterForm/RegisterForm';
-import pbsLogo from '../../images/plantbasedsocial-logo.png';
+import { useHistory } from "react-router-dom";
+import RegisterForm from "../RegisterForm/RegisterForm";
+import pbsLogo from "../../images/plantbasedsocial-logo.png";
 import "./RegisterPage.css";
 
 function RegisterPage() {
@@ -10,19 +10,22 @@ function RegisterPage() {
 
   return (
     <Container className="registerPageContainer">
-      <img className="pbs-logo" src={pbsLogo}/>
-      <h1 className='register-h1'>Register</h1>
-      <p className="register-p">Register to become a part of our community and unlock all of our user features</p>
+      <img alt="logo" className="pbs-logo" src={pbsLogo} />
+      <h1 className="register-h1">Register</h1>
+      <p className="register-p">
+        Register to become a part of our community and unlock all of our user
+        features
+      </p>
       <RegisterForm />
 
       <center>
         Already have an account?
-        <br/>
+        <br />
         <a
           type="button"
           className="btn_asLink"
           onClick={() => {
-            history.push('/login');
+            history.push("/login");
           }}
         >
           sign in

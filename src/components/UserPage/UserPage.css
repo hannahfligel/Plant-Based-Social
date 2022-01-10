@@ -24,12 +24,6 @@
   font-family: Quicksand-SemiBold;
 }
 
-h3 {
-  font-size: 24px;
-  font-family: Quicksand-SemiBold;
-  margin-bottom: 30px;
-}
-
 .filterButtons {
   background-color: #97be11;
   border-color: #97be11;
@@ -59,4 +53,10 @@ h3 {
   display: flex !important;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.filterH2 {
+  font-size: 24px;
+  font-family: Quicksand-SemiBold;
+  margin-bottom: 30px;
 }

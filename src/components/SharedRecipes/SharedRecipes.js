@@ -42,7 +42,7 @@ function SharedRecipes(props) {
 
   return (
     <>
-      <img src={Banner} />
+      <img alt="banner" src={Banner} />
       <Container className="sharedRecipesContainer">
         {/* {JSON.stringify(sharedRecipesImage)} */}
 

@@ -135,7 +135,7 @@ function AddRecipe(props) {
       recipe_name: "Chickpea Tacos",
       recipe_description:
         "Al Pastor Chickpea Tacos feature a bright and bold pineapple chili sauce tossed with mushrooms, chickpeas, and onion. The most flavorful vegan tacos, even the most devout carnivores will love this 30 minute recipe.",
-      difficulty: "Easy",
+      difficulty: "easy",
       prep_hours: "0",
       prep_minutes: "30",
       servings: "2",
@@ -218,7 +218,7 @@ function AddRecipe(props) {
 
   return (
     <>
-      <img src={Banner} />
+      <img alt="banner" src={Banner} />
       <Container className="addRecipeContainer">
         <h1 onClick={shhSecretButton}>Recipe Form</h1>
         <Form>
@@ -305,7 +305,7 @@ function AddRecipe(props) {
               }
               value={newRecipe.difficulty}
             >
-              <option>Select</option>
+              <option>select</option>
               <option value="easy">Easy</option>
               <option value="intermediate">Intermediate</option>
               <option value="difficult">Difficult</option>
@@ -457,7 +457,7 @@ function AddRecipe(props) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Confirmation</Modal.Title>
+            <Modal.Title>Success</Modal.Title>
           </Modal.Header>
           <Modal.Body>Recipe was submitted successfully!</Modal.Body>
           <Modal.Footer>

@@ -36,7 +36,7 @@ function EditRecipeButton(props) {
 
   return (
     <div>
-      <a tabindex="1" className="deleteRecipeLink" onClick={handleShow}>
+      <a tabIndex="1" className="deleteRecipeLink" onClick={handleShow}>
         delete recipe
       </a>
 
@@ -47,20 +47,20 @@ function EditRecipeButton(props) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title className="ModalTitle">Confirmation</Modal.Title>
+          <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalBody">
           Are you sure you want to delete this recipe?
         </Modal.Body>
         <Modal.Footer className="deleteModalButtonsContainer">
+          <Button className="deleteModalDeleteButton" onClick={deleteRecipe}>
+            Yes
+          </Button>
           <Button
             className="btn-secondary deleteModalNoButton"
             onClick={handleClose}
           >
-            No, keep recipe
-          </Button>
-          <Button className="deleteModalDeleteButton" onClick={deleteRecipe}>
-            Yes, delete recipe
+            No
           </Button>
         </Modal.Footer>
       </Modal>

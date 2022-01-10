@@ -46,7 +46,11 @@ function RecipeCard(props) {
   return (
     //props.recipe hold the recipe card info that was sent from UserPage and LikedRecipes via props
     <Card className="recipeCard" onClick={() => recipePage(props.recipe)}>
-      <Card.Img className="cardImg" src={props.recipe.image_url} />
+      <Card.Img
+        alt="recipe image"
+        className="cardImg"
+        src={props.recipe.image_url}
+      />
       <div className="recipeCardBody">
         <h3 className="recipeCardName text">{props.recipe.recipe_name}</h3>
         <div className="cardHrsAndMins">

@@ -37,7 +37,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   return (
     <>
-      <img src={Banner} />
+      <img alt="banner" src={Banner} />
       <div className="userPageContainer">
         <Container>
           <h1 className="usePageH1">Hello, {user.username}!</h1>
@@ -46,7 +46,7 @@ function UserPage() {
 
         <div className="filterByMeal">
           <Container>
-            <h3>Filter by Meal</h3>
+            <h2 className="filterH2">Filter by Meal</h2>
 
             <div className="filterButtonsContainer">
               {/* map though recipeTypes. For every individual recipeType, return a button with the name of the recipe type */}

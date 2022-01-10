@@ -140,11 +140,11 @@ a {
 }
 
 textarea:hover,
-input:hover,
+.shareModalInput:hover,
 textarea:active,
-input:active,
+.shareModalInput:active,
 textarea:focus,
-input:focus,
+.shareModalInput:focus,
 button:focus,
 button:active,
 button:hover,

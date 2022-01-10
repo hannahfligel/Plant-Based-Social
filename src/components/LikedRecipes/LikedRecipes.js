@@ -29,7 +29,7 @@ function LikedRecipes(props) {
 
   return (
     <>
-      <img src={Banner} />
+      <img alt="banner" src={Banner} />
       <Container className="favoritesContainer">
         <h1 className="likedRecipesH1">My favorite recipes</h1>
         <div className="recipeCardContainer">

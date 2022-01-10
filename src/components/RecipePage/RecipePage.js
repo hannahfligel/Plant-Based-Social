@@ -75,7 +75,11 @@ function RecipePage(props) {
         </Container>
       </div>
 
-      <img className="recipePageImage" src={recipeGeneralInfo.image_url} />
+      <img
+        alt="recipe-image"
+        className="recipePageImage"
+        src={recipeGeneralInfo.image_url}
+      />
 
       <div className="recipeInfoContainer">
         <Container className="RecipePageContainer">

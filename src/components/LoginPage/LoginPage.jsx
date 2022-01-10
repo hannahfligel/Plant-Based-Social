@@ -11,7 +11,7 @@ function LoginPage() {
 
   return (
     <Container className="logInPageContainer">
-      <img className="pbs-logo" src={pbsLogo} />
+      <img alt="logo" className="pbs-logo" src={pbsLogo} />
       <h1 className="login-h1">Welcome back</h1>
       <p className="login-p">
         Sign in to have full access to our Plant-Based recipes

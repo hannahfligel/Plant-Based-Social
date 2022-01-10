@@ -20,7 +20,7 @@ function LandingPage() {
 
   return (
     <Container className="landingPageContainer">
-      <img className="landingImg" src={handsGraphic} />
+      <img alt="graphic" className="landingImg" src={handsGraphic} />
       <h1 className="landingH1">Welcome to</h1>
       <h2 className="landingH2">Plant Based Social</h2>
 
