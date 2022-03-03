@@ -21,7 +21,11 @@ Plant-Based Social is a social media recipe app where users can view, like, save
 
 ## Screenshots
 
-<img src="" />## Built With
+<img src="pbs-intro.gif" />
+<img src="likesandshares.gif" />
+<img src="pbs-intro.gif" />
+
+## Built With
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" height="40px" width="40px" /></a><a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" height="40px" width="40px" /></a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" height="40px" width="40px" /></a><a href="https://nodejs.org/en/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" height="40px" width="40px" /></a><a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a><a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a><a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
 
@@ -48,41 +52,45 @@ There is a database.sql file to use to set up a database. After that, once you f
 
 ## Usage
 
-##User
+## User
 
-###Home Page
+### Home Page
 
 - Click a recipe type to filter by specific types of recipes
 - To view a specific recipe, click it's recipe card
 
-###Recipe Page
-####Share a recipe
+### Recipe Page
+
+#### Share a recipe
 
 - Click the share button on the top right corner of the recipe page to share the specific recipe you're on.
 - Type in the name of the user you'd like to share the recipe with in the search bar.
 - Click the "share" button next to the specific user you'd like to share the recipe with.
-  ####Favorite a recipe
+
+#### Favorite a recipe
+
 - Click the heart button to add a recipe to your favorites
 
-###Favorite Recipes
+### Favorite Recipes
 
 - Click the heart icon on the nav bar.
 - View the list of all your saved favorite recipes.
 
-###Shared Recipes
+### Shared Recipes
 
 - Click the message icon on the nav bar.
 - View all recipes that were shared with you by other users.
 
-##Admin
-###Add Recipe
+## Admin
+
+### Add Recipe
 
 - Click the plus (+) icon on the nav bar
 - Fill out the recipe form with recipe details including an image url, recipe name, description, etc.
 - When all fields are filled out, click the "Submit Recipe" button
 - Click the "ok" button on the confirmation modal to be redirected back to the home page.
 
-###Edit Recipe
+### Edit Recipe
 
 - Click a recipe card of a recipe you'd like to edit.
 - Click the edit icon on the top right of the page.
@@ -90,7 +98,7 @@ There is a database.sql file to use to set up a database. After that, once you f
 - To submit new changes, click the "Submit Recipe" button.
 - Click the "ok" button on the confirmation modal to be redirected back to the home page.
 
-###Delete Recipe
+### Delete Recipe
 
 - Click a recipe card of a recipe you'd like to delete.
 - Click the edit icon on the top right of the page.
