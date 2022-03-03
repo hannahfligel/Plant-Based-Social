@@ -23,7 +23,7 @@ Plant-Based Social is a social media recipe app where users can view, like, save
 
 <img src="src/images/pbs-intro.gif" />
 <img src="src/images/likesandshares.gif" />
-<img src="src/images/pbs-intro.gif" />
+<img src="src/images/admin.gif" />
 
 ## Built With
 
