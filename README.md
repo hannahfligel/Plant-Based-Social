@@ -67,7 +67,7 @@ There is a database.sql file to use to set up a database. After that, once you f
 - Type in the name of the user you'd like to share the recipe with in the search bar.
 - Click the "share" button next to the specific user you'd like to share the recipe with.
 
-##### Favorite a recipe
+##### Add a recipe to favorites
 
 - Click the heart button to add a recipe to your favorites
 
