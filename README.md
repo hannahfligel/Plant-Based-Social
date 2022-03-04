@@ -106,14 +106,10 @@ There is a database.sql file to use to set up a database. After that, once you f
 - Click the "Delete Recipe" button.
 - Click the "yes" button on the confirmation modal to delete recipe". If you change your mind and you don't want to delete, click the "No" button.
 
-## License
-
-<a href="https://choosealicense.com/licenses/mit/"><img src="https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/mit.svg" height=40 />MIT License</a>
-
 ## Acknowledgements
 
 I want to thank the entire Ionian cohort for being so supportive and helpful throughout working on this project, our instructor Dev and Casie as well as the rest of the Prime staff, my friends, family, and my partner Stav for all the support and encouragement along the way.
 
 ## Contacts
 
-<a href="https://www.linkedin.com/in/Hannah Fligel"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a> <a href="mailto:fligelhannah@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>
+<a href="https://www.linkedin.com/in/hannah-fligel-480a0599/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a> <a href="mailto:fligelhannah@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>
